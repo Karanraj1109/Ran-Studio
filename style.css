@@ -480,7 +480,7 @@ body {
 
 .pricing-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Diubah ke 4 kolom agar pas dengan 4 paket */
+    grid-template-columns: repeat(4, 1fr);
     gap: 30px;
     align-items: center;
     margin-bottom: 80px;
@@ -534,13 +534,13 @@ body {
 }
 
 .pricing-card h3 {
-    font-size: 1.3rem; /* Sedikit dikecilkan agar responsif 4 kolom */
+    font-size: 1.3rem;
     font-weight: 700;
     margin-bottom: 16px;
 }
 
 .pricing-card .price {
-    font-size: 1.8rem; /* Sedikit dikecilkan */
+    font-size: 1.8rem;
     font-weight: 800;
     color: var(--text-main);
     margin-bottom: 30px;
@@ -554,7 +554,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 14px;
-    flex-grow: 1; /* Agar tombol rata di bawah */
+    flex-grow: 1;
 }
 
 .pricing-features li {
@@ -899,6 +899,38 @@ input[type=range]::-webkit-slider-thumb:hover {
     font-size: 0.85rem;
     color: var(--text-muted);
     line-height: 1.5;
+}
+
+/* ==========================================================================
+   SEO ARTICLE SECTION
+   ========================================================================== */
+.seo-article-section {
+    padding: 100px 0;
+    background-color: rgba(10, 11, 16, 0.3);
+}
+
+.seo-content-box {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-glass);
+    padding: 40px;
+    border-radius: 16px;
+    line-height: 1.8;
+    color: var(--text-muted);
+    box-shadow: var(--shadow-premium);
+}
+
+.seo-content-box p {
+    margin-bottom: 20px;
+    font-size: 1.05rem;
+}
+
+.seo-content-box p:last-child {
+    margin-bottom: 0;
+}
+
+.seo-content-box strong {
+    color: var(--text-main);
+    font-weight: 600;
 }
 
 /* ==========================================================================
