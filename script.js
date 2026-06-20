@@ -273,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const grandTotalText = document.getElementById('cart-total-val').innerText;
 
             // Formulate WhatsApp URI compliant parameters template string representation array
-            const waTargetNumber = "62895614003884"; // Updated contact number 
+            const waTargetNumber = "62895614003884"; 
             const baseTextPrompt = `Halo, saya ingin memesan website dari Ran Studio.
 
 Paket: ${cartState.name}
@@ -329,31 +329,24 @@ Deskripsi Website: ${clientDescInput}`;
         directContactForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            // Ambil value dan hapus spasi berlebih
             const contactName = document.getElementById('form-name').value.trim();
             const contactEmail = document.getElementById('form-email').value.trim();
             const contactMessage = document.getElementById('form-message').value.trim();
 
-            // Validasi field kosong
             if (!contactName || !contactEmail || !contactMessage) {
                 alert('Mohon lengkapi Nama, Email, dan Pesan terlebih dahulu.');
                 return;
             }
 
-            // Nomor tujuan WhatsApp (Ganti awalan 0 menjadi 62)
             const waTargetNumber = "62895614003884"; 
             
-            // Template pesan
             const baseTextPrompt = `Halo Ran Studio, saya ingin berkonsultasi mengenai pembuatan website.\n\nNama: ${contactName}\nEmail: ${contactEmail}\nPesan: ${contactMessage}\n\nTerima kasih.`;
 
-            // Encode pesan menjadi format URL yang aman
             const processedEncodedUriString = encodeURIComponent(baseTextPrompt);
             const destinationEndpointUrl = `https://wa.me/${waTargetNumber}?text=${processedEncodedUriString}`;
 
-            // Buka WhatsApp di tab baru
             window.open(destinationEndpointUrl, '_blank', 'noopener,noreferrer');
             
-            // Reset form setelah mengirim
             directContactForm.reset();
         });
     }
