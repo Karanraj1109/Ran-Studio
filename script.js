@@ -16,7 +16,102 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================================================
-       2. STICKY NAVBAR, ACTIVE LINK & FLOATING CTA LOGIC
+       2. SEGMENTED SWITCH & SWIPE LOGIC
+       ========================================================================== */
+    const slider = document.getElementById('app-slider');
+    const segmentBtns = document.querySelectorAll('.segment-btn');
+    const segmentBg = document.getElementById('segment-bg');
+    const panelAgency = document.getElementById('panel-agency');
+    const panelTemplates = document.getElementById('panel-templates');
+    const navLinksContainer = document.getElementById('main-nav-links');
+    
+    let currentMode = 'agency';
+
+    function setMode(mode) {
+        if(currentMode === mode) return;
+        currentMode = mode;
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        segmentBtns.forEach(b => b.classList.remove('active'));
+        const activeBtn = document.querySelector(`.segment-btn[data-target="${mode}"]`);
+        activeBtn.classList.add('active');
+
+        if(mode === 'templates') {
+            segmentBg.style.transform = 'translateX(100%)';
+            slider.style.transform = 'translateX(-100vw)';
+            navLinksContainer.style.opacity = '0';
+            navLinksContainer.style.pointerEvents = 'none';
+
+            setTimeout(() => {
+                panelAgency.style.height = '0';
+                panelAgency.style.overflow = 'hidden';
+                panelAgency.style.visibility = 'hidden';
+                panelAgency.style.opacity = '0';
+
+                panelTemplates.style.height = 'auto';
+                panelTemplates.style.overflow = 'visible';
+                panelTemplates.style.visibility = 'visible';
+                panelTemplates.style.opacity = '1';
+            }, 650);
+
+        } else {
+            segmentBg.style.transform = 'translateX(0)';
+            slider.style.transform = 'translateX(0)';
+            navLinksContainer.style.opacity = '1';
+            navLinksContainer.style.pointerEvents = 'auto';
+
+            panelAgency.style.height = 'auto';
+            panelAgency.style.overflow = 'visible';
+            panelAgency.style.visibility = 'visible';
+            panelAgency.style.opacity = '1';
+
+            setTimeout(() => {
+                panelTemplates.style.height = '0';
+                panelTemplates.style.overflow = 'hidden';
+                panelTemplates.style.visibility = 'hidden';
+                panelTemplates.style.opacity = '0';
+            }, 650);
+        }
+    }
+
+    segmentBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            setMode(btn.getAttribute('data-target'));
+        });
+    });
+
+    // Swipe Logic
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, {passive: true});
+
+    document.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, {passive: true});
+
+    function handleSwipe() {
+        const threshold = 120;
+        if (touchStartX - touchEndX > threshold) {
+            // Swiped left
+            if (currentMode === 'agency') {
+                setMode('templates');
+            }
+        }
+        if (touchEndX - touchStartX > threshold) {
+            // Swiped right
+            if (currentMode === 'templates') {
+                setMode('agency');
+            }
+        }
+    }
+
+    /* ==========================================================================
+       3. STICKY NAVBAR, ACTIVE LINK & FLOATING CTA LOGIC
        ========================================================================== */
     const navbar = document.querySelector('.navbar');
     const sections = document.querySelectorAll('section');
@@ -25,14 +120,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroSection = document.getElementById('home');
 
     window.addEventListener('scroll', () => {
-        // Sticky Navbar logic
         if (window.scrollY > 50) {
             navbar.classList.add('sticky');
         } else {
             navbar.classList.remove('sticky');
         }
 
-        // Floating CTA logic
         if (heroSection && floatingCta) {
             const heroBottom = heroSection.offsetTop + heroSection.clientHeight;
             if (window.scrollY > heroBottom - 200) {
@@ -42,49 +135,50 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Active Link Highlighting logic
-        let currentSectionId = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop - 100;
-            const sectionHeight = section.clientHeight;
-            if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
-                currentSectionId = section.getAttribute('id');
-            }
-        });
+        if(currentMode === 'agency') {
+            let currentSectionId = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    currentSectionId = section.getAttribute('id');
+                }
+            });
 
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${currentSectionId}`) {
-                link.classList.add('active');
-            }
-        });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSectionId}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
     });
 
     /* ==========================================================================
-       3. MOBILE HAMBURGER MENU ACTIONS
+       4. MOBILE HAMBURGER MENU ACTIONS
        ========================================================================== */
     const hamburger = document.querySelector('.hamburger');
-    const navLinksContainer = document.querySelector('.nav-links');
+    const navLinksMobileContainer = document.querySelector('.nav-links');
 
-    if (hamburger && navLinksContainer) {
+    if (hamburger && navLinksMobileContainer) {
         hamburger.addEventListener('click', () => {
+            if(currentMode === 'templates') return; // Disable hamburger in templates mode if links are hidden
             hamburger.classList.toggle('active');
-            navLinksContainer.classList.toggle('active');
+            navLinksMobileContainer.classList.toggle('active');
         });
 
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
-                navLinksContainer.classList.remove('active');
+                navLinksMobileContainer.classList.remove('active');
             });
         });
     }
 
     /* ==========================================================================
-       4. ANIMATED STATISTICS SCROLL COUNTER & SCROLL REVEAL
+       5. ANIMATED STATISTICS SCROLL COUNTER & SCROLL REVEAL
        ========================================================================== */
     
-    // Scroll Reveal Elements
     const revealElements = document.querySelectorAll('.reveal');
     const revealFunc = () => {
         const windowHeight = window.innerHeight;
@@ -96,9 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
     window.addEventListener('scroll', revealFunc);
-    revealFunc(); // Trigger on load
+    revealFunc();
 
-    // Stats Counter
     const statNumbers = document.querySelectorAll('.stat-number');
     let countersStarted = false;
 
@@ -135,12 +228,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }, observerOptions);
             statsObserver.observe(statsSection);
         } else {
-            startCounters(); // fallback
+            startCounters();
         }
     }
 
     /* ==========================================================================
-       5. INTERACTIVE SHOPPING CART MECHANICS
+       6. INTERACTIVE SHOPPING CART MECHANICS
        ========================================================================== */
     let cartState = null;
 
@@ -218,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* ==========================================================================
-       6. REAL-TIME ESTIMATION COST CALCULATOR MATRIX
+       7. REAL-TIME ESTIMATION COST CALCULATOR MATRIX
        ========================================================================== */
     const calcTypeSelect = document.getElementById('calc-type');
     const calcPagesRange = document.getElementById('calc-pages');
@@ -247,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================================================
-       7. AUTOMATED INTEGRATED WHATSAPP PACKAGES CHECKOUT DISPATCHER
+       8. AUTOMATED INTEGRATED WHATSAPP PACKAGES CHECKOUT DISPATCHER
        ========================================================================== */
     const whatsappCheckoutBtn = document.getElementById('whatsapp-checkout-btn');
     
@@ -295,7 +388,7 @@ Deskripsi Website: ${clientDescInput}`;
     }
 
     /* ==========================================================================
-       8. INTERACTIVE ACCORDION FAQ LOGIC COMPONENT
+       9. INTERACTIVE ACCORDION FAQ LOGIC COMPONENT
        ========================================================================== */
     const faqQuestions = document.querySelectorAll('.faq-question');
 
@@ -322,7 +415,7 @@ Deskripsi Website: ${clientDescInput}`;
     });
 
     /* ==========================================================================
-       9. GENERAL CONTACT FORM SUBMISSION HOOK (WHATSAPP REDIRECT)
+       10. GENERAL CONTACT FORM SUBMISSION HOOK (WHATSAPP REDIRECT)
        ========================================================================== */
     const directContactForm = document.getElementById('direct-contact-form');
     if (directContactForm) {
@@ -350,7 +443,7 @@ Deskripsi Website: ${clientDescInput}`;
     }
 
     /* ==========================================================================
-       10. PREVENT DEFAULT ON PLACEHOLDER LINKS
+       11. PREVENT DEFAULT ON PLACEHOLDER LINKS
        ========================================================================== */
     const preventLinks = document.querySelectorAll('.prevent-default');
     preventLinks.forEach(link => {
@@ -360,13 +453,12 @@ Deskripsi Website: ${clientDescInput}`;
     });
 
     /* ==========================================================================
-       11. CASE STUDY MODAL LOGIC
+       12. CASE STUDY MODAL LOGIC
        ========================================================================== */
     const modalOverlay = document.getElementById('case-study-modal');
     const closeBtns = document.querySelectorAll('.close-modal, .close-modal-btn');
     const openCaseBtns = document.querySelectorAll('.open-case-study');
     
-    // Modal dynamic elements
     const csTitle = document.getElementById('cs-title');
     const csType = document.getElementById('cs-type');
     const csTech = document.getElementById('cs-tech');
@@ -376,12 +468,10 @@ Deskripsi Website: ${clientDescInput}`;
         openCaseBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                // Populate data
                 csTitle.innerText = btn.getAttribute('data-title') || 'Project Title';
                 csType.innerText = btn.getAttribute('data-type') || 'Website';
                 csTech.innerText = btn.getAttribute('data-tech') || 'HTML, CSS, JS';
                 
-                // Get sibling link URL
                 const demoLinkBtn = btn.parentElement.querySelector('a.btn-secondary');
                 if(demoLinkBtn && demoLinkBtn.getAttribute('href') !== '#') {
                     csDemoLink.href = demoLinkBtn.getAttribute('href');
@@ -391,7 +481,7 @@ Deskripsi Website: ${clientDescInput}`;
                 }
 
                 modalOverlay.classList.remove('hidden');
-                document.body.style.overflow = 'hidden'; // prevent bg scroll
+                document.body.style.overflow = 'hidden'; 
             });
         });
 
@@ -402,7 +492,6 @@ Deskripsi Website: ${clientDescInput}`;
             });
         });
 
-        // Close on outside click
         modalOverlay.addEventListener('click', (e) => {
             if (e.target === modalOverlay) {
                 modalOverlay.classList.add('hidden');
