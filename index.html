@@ -89,7 +89,14 @@
         <nav class="navbar" aria-label="Main Navigation">
             <div class="nav-container">
                 <a href="#home" class="logo" aria-label="Ran Studio Home">Ran<span>Studio</span></a>
-                <ul class="nav-links">
+                
+                <div class="segmented-control" id="segmented-mode">
+                    <div class="segment-bg" id="segment-bg"></div>
+                    <button class="segment-btn active" data-target="agency">Agency</button>
+                    <button class="segment-btn" data-target="templates">Templates</button>
+                </div>
+
+                <ul class="nav-links" id="main-nav-links">
                     <li><a href="#home" class="nav-link active">Home</a></li>
                     <li><a href="#services" class="nav-link">Services</a></li>
                     <li><a href="#pricing" class="nav-link">Pricing</a></li>
@@ -106,856 +113,958 @@
         </nav>
     </header>
 
-    <main>
-        <section id="home" class="hero-section">
-            <div class="hero-bg-glow"></div>
-            <div class="container hero-content">
-                <div class="hero-badges animate-text">
-                    <span class="badge-pill">🚀 Fast Loading</span>
-                    <span class="badge-pill">📱 Responsive</span>
-                    <span class="badge-pill">🔍 SEO Ready</span>
-                    <span class="badge-pill">✨ Modern UI</span>
-                </div>
-                
-                <h1 class="animate-text">Website Profesional<br>untuk <span>Bisnis Anda</span></h1>
-                <p class="animate-desc">Bantu usaha Anda tampil lebih profesional dengan website modern, cepat, dan responsif dari digital agency terpercaya.</p>
-                <div class="hero-buttons">
-                    <a href="#pricing" class="btn btn-primary" aria-label="Lihat Paket Website">Lihat Paket</a>
-                    <a href="https://wa.me/62895614003884?text=Halo%20Ran%20Studio,%20saya%20ingin%20berkonsultasi%20mengenai%20pembuatan%20website." class="btn btn-secondary" target="_blank" rel="noopener noreferrer" aria-label="Konsultasi Gratis via WhatsApp">Konsultasi WhatsApp</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="stats-section" aria-label="Statistik Ran Studio">
-            <div class="container stats-grid">
-                <div class="stat-card">
-                    <h2 class="stat-number" data-target="100">0</h2>
-                    <p class="stat-label">Website Dibuat</p>
-                </div>
-                <div class="stat-card">
-                    <h2 class="stat-number" data-target="50">0</h2>
-                    <p class="stat-label">Klien Puas</p>
-                </div>
-                <div class="stat-card">
-                    <h2 class="stat-number-text">Fast</h2>
-                    <p class="stat-label">Support</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="why-us" class="why-us-section reveal">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Mengapa Memilih <span>Ran Studio?</span></h2>
-                    <p>Kelebihan utama yang menjadikan kami mitra digital premium untuk pertumbuhan bisnis Anda.</p>
-                </div>
-                <div class="why-grid">
-                    <div class="why-card">
-                        <div class="why-icon" aria-hidden="true">✨</div>
-                        <h3>Desain Modern</h3>
-                        <p>UI/UX kekinian setara agency global yang memikat pelanggan.</p>
-                    </div>
-                    <div class="why-card">
-                        <div class="why-icon" aria-hidden="true">📱</div>
-                        <h3>Responsive</h3>
-                        <p>Tampil sempurna di semua ukuran layar mobile, tablet, desktop.</p>
-                    </div>
-                    <div class="why-card">
-                        <div class="why-icon" aria-hidden="true">🔍</div>
-                        <h3>SEO Friendly</h3>
-                        <p>Struktur kode yang disukai Google agar mudah ditemukan pelanggan.</p>
-                    </div>
-                    <div class="why-card">
-                        <div class="why-icon" aria-hidden="true">⚡</div>
-                        <h3>Fast Loading</h3>
-                        <p>Optimasi performa tinggi untuk retensi pengunjung yang lebih baik.</p>
-                    </div>
-                    <div class="why-card">
-                        <div class="why-icon" aria-hidden="true">💻</div>
-                        <h3>Clean Code</h3>
-                        <p>Struktur pengembangan rapi tanpa bloated framework yang berat.</p>
-                    </div>
-                    <div class="why-card">
-                        <div class="why-icon" aria-hidden="true">⚙️</div>
-                        <h3>Custom Sesuai Kebutuhan</h3>
-                        <p>Sistem dibuat spesifik menyesuaikan alur model bisnis Anda.</p>
-                    </div>
-                    <div class="why-card">
-                        <div class="why-icon" aria-hidden="true">💬</div>
-                        <h3>Gratis Konsultasi</h3>
-                        <p>Diskusi transparan tanpa biaya komitmen di awal project.</p>
-                    </div>
-                    <div class="why-card">
-                        <div class="why-icon" aria-hidden="true">🛡️</div>
-                        <h3>Support Setelah Website Selesai</h3>
-                        <p>Kami memastikan sistem Anda tetap berjalan prima pasca rilis.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="tech-stack-section reveal" aria-label="Teknologi yang Digunakan">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Teknologi <span>Terbaik</span></h2>
-                    <p>Kami mengembangkan website menggunakan stack teknologi modern untuk performa maksimal.</p>
-                </div>
-                <div class="tech-badges">
-                    <span class="tech-badge">HTML5</span>
-                    <span class="tech-badge">CSS3</span>
-                    <span class="tech-badge">JavaScript (ES6+)</span>
-                    <span class="tech-badge">PHP</span>
-                    <span class="tech-badge">MySQL</span>
-                    <span class="tech-badge">Firebase</span>
-                    <span class="tech-badge">Git</span>
-                    <span class="tech-badge">Responsive Design</span>
-                    <span class="tech-badge">SEO Optimization</span>
-                </div>
-            </div>
-        </section>
-
-        <section id="workflow" class="how-it-works-section reveal">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Bagaimana Proses <span>Pengerjaan?</span></h2>
-                    <p>Alur kerja profesional yang terstruktur untuk hasil yang efisien dan memuaskan.</p>
-                </div>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-dot">1</div>
-                        <div class="timeline-content">
-                            <h3>Diskusi</h3>
-                            <p>Konsultasi gratis mengenai visi, fitur, dan kebutuhan bisnis Anda.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-dot">2</div>
-                        <div class="timeline-content">
-                            <h3>Perencanaan</h3>
-                            <p>Pemilihan paket, penyusunan struktur website, dan pengumpulan materi.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-dot">3</div>
-                        <div class="timeline-content">
-                            <h3>Desain</h3>
-                            <p>Merancang UI/UX wireframe modern yang selaras dengan identitas brand.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-dot">4</div>
-                        <div class="timeline-content">
-                            <h3>Development</h3>
-                            <p>Proses coding website menggunakan standar clean code dan responsif.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-dot">5</div>
-                        <div class="timeline-content">
-                            <h3>Testing</h3>
-                            <p>Uji coba fungsionalitas, kecepatan (fast loading), dan SEO di semua device.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-dot">6</div>
-                        <div class="timeline-content">
-                            <h3>Launch</h3>
-                            <p>Website dipublikasikan secara live ke domain utama Anda.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-dot">7</div>
-                        <div class="timeline-content">
-                            <h3>Support</h3>
-                            <p>Garansi perbaikan dan dukungan teknis setelah website selesai.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="services" class="services-section reveal">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Layanan <span>Kami</span></h2>
-                    <p>Solusi digital terbaik untuk mendongkrak performa bisnis dan brand Anda secara global.</p>
-                </div>
-                <div class="services-grid">
-                    <div class="service-card">
-                        <div class="service-icon" aria-hidden="true">🌐</div>
-                        <h3>Website UMKM</h3>
-                        <p>Website khusus usaha mikro untuk meningkatkan visibilitas dan kredibilitas produk lokal di pasar online.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon" aria-hidden="true">💼</div>
-                        <h3>Company Profile</h3>
-                        <p>Representasi digital profesional perusahaan untuk membangun kepercayaan mitra bisnis dan investor.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon" aria-hidden="true">🚀</div>
-                        <h3>Landing Page</h3>
-                        <p>Halaman promosi berkonversi tinggi yang dirancang khusus untuk memaksimalkan penjualan kampanye iklan.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon" aria-hidden="true">🛒</div>
-                        <h3>Toko Online</h3>
-                        <p>Platform e-commerce modern dengan sistem manajemen produk, keranjang, dan integrasi pembayaran.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon" aria-hidden="true">🎨</div>
-                        <h3>Portofolio</h3>
-                        <p>Showcase karya kreatif personal maupun agensi untuk menarik perhatian klien impian Anda secara visual.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon" aria-hidden="true">📊</div>
-                        <h3>Dashboard Admin</h3>
-                        <p>Sistem panel manajemen data internal yang responsif untuk mengontrol operasional bisnis dengan efisien.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon" aria-hidden="true">💌</div>
-                        <h3>Undangan Digital</h3>
-                        <p>Undangan pernikahan atau acara spesial berbasis web yang elegan, interaktif, dan mudah dibagikan.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon" aria-hidden="true">⚙️</div>
-                        <h3>Custom Web App</h3>
-                        <p>Pengembangan aplikasi web berbasis kebutuhan fungsional spesifik dengan skalabilitas dan performa tinggi.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="pricing" class="pricing-section reveal">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Paket <span>Harga</span></h2>
-                    <p>Pilih paket pengembangan website yang paling sesuai dengan target dan anggaran operasional Anda.</p>
-                </div>
-                <div class="pricing-grid">
-                    
-                    <div class="pricing-card">
-                        <div class="badge" style="background-color: var(--secondary);">Starter</div>
-                        <h3>Paket Landing Page</h3>
-                        <div class="price">Rp50.000</div>
-                        <ul class="pricing-features">
-                            <li>1 Landing Page</li>
-                            <li>Responsive Mobile</li>
-                            <li>Desain Modern</li>
-                            <li>Revisi Ringan</li>
-                            <li><b>Estimasi: 2-3 Hari</b></li>
-                        </ul>
-                        <button class="btn btn-primary add-to-cart-btn" data-id="starter" data-name="Paket Starter Landing Page" data-price="50000" aria-label="Tambah Paket Landing Page ke Keranjang">Tambah ke Keranjang</button>
-                    </div>
-
-                    <div class="pricing-card">
-                        <div class="badge">UMKM</div>
-                        <h3>Paket Basic</h3>
-                        <div class="price">Rp150.000</div>
-                        <ul class="pricing-features">
-                            <li>1 Halaman Utama</li>
-                            <li>Desain Responsive</li>
-                            <li>Revisi Ringan</li>
-                            <li>Integrasi WhatsApp</li>
-                            <li><b>Estimasi: 3-5 Hari</b></li>
-                        </ul>
-                        <button class="btn btn-primary add-to-cart-btn" data-id="basic" data-name="Paket Basic" data-price="150000" aria-label="Tambah Paket Basic ke Keranjang">Tambah ke Keranjang</button>
-                    </div>
-
-                    <div class="pricing-card standard">
-                        <div class="badge" style="background-color: var(--secondary);">Best Choice</div>
-                        <h3>Paket Standard</h3>
-                        <div class="price">Rp300.000</div>
-                        <ul class="pricing-features">
-                            <li>Hingga 5 Halaman</li>
-                            <li>Form Kontak Interaktif</li>
-                            <li>Desain Responsive</li>
-                            <li>Revisi Ringan</li>
-                            <li><b>Estimasi: 5-7 Hari</b></li>
-                        </ul>
-                        <button class="btn btn-gradient add-to-cart-btn" data-id="standard" data-name="Paket Standard" data-price="300000" aria-label="Tambah Paket Standard ke Keranjang">Tambah ke Keranjang</button>
-                    </div>
-
-                    <div class="pricing-card">
-                        <div class="badge">Enterprise</div>
-                        <h3>Paket Premium</h3>
-                        <div class="price">Rp600.000</div>
-                        <ul class="pricing-features">
-                            <li>Unlimited Halaman</li>
-                            <li>Fitur Komponen Custom</li>
-                            <li>Dashboard Admin Sistem</li>
-                            <li>Desain Premium Eksklusif</li>
-                            <li><b>Estimasi: 1-3 Minggu</b></li>
-                        </ul>
-                        <button class="btn btn-primary add-to-cart-btn" data-id="premium" data-name="Paket Premium" data-price="600000" aria-label="Tambah Paket Premium ke Keranjang">Tambah ke Keranjang</button>
-                    </div>
-                </div>
-
-                <div class="comparison-section reveal">
-                    <div class="section-header" style="margin-top: 60px; margin-bottom: 30px;">
-                        <h2>Perbandingan <span>Detail Paket</span></h2>
-                    </div>
-                    <div class="comparison-table-wrapper">
-                        <table class="comparison-table">
-                            <caption class="sr-only">Tabel perbandingan fitur paket pembuatan website</caption>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Fitur / Layanan</th>
-                                    <th scope="col">Landing Page</th>
-                                    <th scope="col">Basic</th>
-                                    <th scope="col" class="highlight-col">Standard</th>
-                                    <th scope="col">Premium</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">Jumlah Halaman</th>
-                                    <td>1 Halaman</td>
-                                    <td>1 Halaman Utama</td>
-                                    <td class="highlight-col">Hingga 5 Halaman</td>
-                                    <td>Unlimited</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Desain UI/UX</th>
-                                    <td>Modern Base</td>
-                                    <td>Custom Base</td>
-                                    <td class="highlight-col">Custom Premium</td>
-                                    <td>Eksklusif Premium</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Responsive Mobile</th>
-                                    <td>✓</td>
-                                    <td>✓</td>
-                                    <td class="highlight-col">✓</td>
-                                    <td>✓</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Integrasi WhatsApp</th>
-                                    <td>✓</td>
-                                    <td>✓</td>
-                                    <td class="highlight-col">✓</td>
-                                    <td>✓</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Form Kontak Dinamis</th>
-                                    <td>❌</td>
-                                    <td>❌</td>
-                                    <td class="highlight-col">✓</td>
-                                    <td>✓</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Dashboard Admin</th>
-                                    <td>❌</td>
-                                    <td>❌</td>
-                                    <td class="highlight-col">❌</td>
-                                    <td>✓</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Estimasi Waktu</th>
-                                    <td>2-3 Hari</td>
-                                    <td>3-5 Hari</td>
-                                    <td class="highlight-col">5-7 Hari</td>
-                                    <td>1-3 Minggu</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div id="cart" class="cart-container reveal" style="margin-top: 60px;">
-                    <h3 class="cart-title">🛒 Keranjang Belanja</h3>
-                    <div id="cart-empty-msg" class="cart-empty">Keranjang belanja Anda masih kosong. Silakan pilih paket di atas.</div>
-                    
-                    <div id="cart-content" class="cart-content hidden">
-                        <table class="cart-table">
-                            <caption class="sr-only">Daftar item di keranjang belanja</caption>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Paket</th>
-                                    <th scope="col">Harga</th>
-                                    <th scope="col">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody id="cart-items">
-                            </tbody>
-                        </table>
-
-                        <div class="addons-section">
-                            <h4>Tambahan Layanan Ekstra:</h4>
-                            <div class="addon-item">
-                                <label class="checkbox-container">
-                                    <input type="checkbox" id="addon-domain" class="addon-checkbox" data-price="150000" data-name="Domain .com" aria-label="Tambah Domain .com">
-                                    <span class="checkmark"></span>
-                                    Domain .com (+Rp150.000)
-                                </label>
-                            </div>
-                            <div class="addon-item">
-                                <label class="checkbox-container">
-                                    <input type="checkbox" id="addon-seo" class="addon-checkbox" data-price="100000" data-name="SEO Dasar" aria-label="Tambah SEO Dasar">
-                                    <span class="checkmark"></span>
-                                    SEO Dasar (+Rp100.000)
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="cart-total-display">
-                            Total Harga: <span id="cart-total-val">Rp0</span>
-                        </div>
-
-                        <div class="checkout-form">
-                            <h4>Detail Informasi Pemesanan</h4>
-                            <div class="form-group-row">
-                                <input type="text" id="checkout-name" placeholder="Nama Lengkap Anda" aria-label="Nama Lengkap" required>
-                                <input type="text" id="checkout-business" placeholder="Nama Usaha / Bisnis" aria-label="Nama Usaha" required>
-                            </div>
-                            <textarea id="checkout-desc" rows="3" placeholder="Deskripsi Singkat Mengenai Kebutuhan Website Anda..." aria-label="Deskripsi Website" required></textarea>
-                            <button id="whatsapp-checkout-btn" class="btn btn-whatsapp-checkout" aria-label="Checkout pesanan via WhatsApp">Checkout ke WhatsApp ➔</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="calculator-section reveal">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Kalkulator <span>Estimasi Harga</span></h2>
-                    <p>Hitung perkiraan biaya pembuatan website impian Anda secara real-time dan transparan.</p>
-                </div>
-                <div class="calc-wrapper">
-                    <div class="calc-form">
-                        <div class="form-group">
-                            <label for="calc-type">Jenis Website</label>
-                            <select id="calc-type" aria-label="Pilih Jenis Website">
-                                <option value="50000">Landing Page (Base: Rp50.000)</option>
-                                <option value="150000">Website UMKM (Base: Rp150.000)</option>
-                                <option value="300000">Company Profile (Base: Rp300.000)</option>
-                                <option value="400000">Toko Online (Base: Rp400.000)</option>
-                                <option value="600000">Dashboard Admin / Custom App (Base: Rp600.000)</option>
-                                <option value="120000">Undangan Digital (Base: Rp120.000)</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="calc-pages">Jumlah Halaman (<span id="pages-val">1</span> halaman)</label>
-                            <input type="range" id="calc-pages" min="1" max="20" value="1" aria-label="Jumlah Halaman">
-                            <span class="calc-note">* Tambahan Rp30.000 per halaman ke-2 dan seterusnya.</span>
-                        </div>
-                        <div class="form-group options-group">
-                            <label>Infrastruktur Tambahan</label>
-                            <div class="toggle-item">
-                                <label class="checkbox-container">
-                                    <input type="checkbox" id="calc-domain" value="150000" aria-label="Pilih Domain .com">
-                                    <span class="checkmark"></span>
-                                    Domain .com (+Rp150.000)
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="calc-result-box">
-                        <h3>Estimasi Total Biaya</h3>
-                        <div class="calc-price-display" id="calc-total-result">Rp50.000</div>
-                        <p>Biaya di atas merupakan perkiraan awal. Hubungi kami untuk penawaran harga final yang disesuaikan.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="about-seo" class="seo-article-section reveal">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Jasa Pembuatan <span>Website Profesional</span></h2>
-                    <p>Membantu transformasi digital bisnis Anda dengan solusi website berkualitas tinggi yang terintegrasi secara optimal.</p>
-                </div>
-                <div class="seo-content-box">
-                    <p>Ran Studio hadir sebagai mitra terpercaya penyedia <strong>jasa pembuatan website</strong> terbaik yang berfokus pada performa dan estetika. Di era digital saat ini, memiliki eksistensi online yang kuat adalah sebuah keharusan. Oleh karena itu, kami menyediakan <strong>jasa website profesional</strong> untuk berbagai skala industri, mulai dari startup, korporat, hingga bisnis lokal yang membutuhkan <strong>website UMKM</strong> yang efektif dan dapat menjangkau target pasar secara luas.</p>
-                    
-                    <p>Kami memahami bahwa setiap bisnis memiliki keunikan dan model yang berbeda. Kami menawarkan solusi menyeluruh mulai dari <strong>website company profile</strong> untuk membangun branding dan kredibilitas perusahaan, hingga <strong>jasa pembuatan landing page</strong> berkonversi tinggi untuk mengoptimalkan hasil kampanye iklan digital Anda. Jika Anda ingin melakukan ekspansi penjualan secara online, kami siap membangun <strong>website toko online</strong> yang aman, mudah dikelola, dan memiliki fitur checkout yang efisien.</p>
-                    
-                    <p>Bagi para desainer, fotografer, maupun agensi kreatif, kami merancang <strong>website portofolio</strong> yang elegan untuk menampilkan karya-karya terbaik Anda kepada dunia. Setiap <strong>website bisnis</strong> yang kami kerjakan dipastikan merupakan <strong>website responsif</strong> yang dapat diakses dengan sempurna dari berbagai perangkat, baik desktop, tablet, maupun smartphone. Kami mengedepankan teknologi terkini agar Anda mendapatkan <strong>website modern</strong> yang loading-nya cepat dan sangat ramah mesin pencari (SEO friendly).</p>
-                    
-                    <p>Sebagai penyedia <strong>jasa web developer</strong> berpengalaman, kami tidak hanya menggunakan template dasar, tetapi mampu melayani perancangan <strong>website custom</strong> dengan sistem fungsional spesifik sesuai alur kerja usaha Anda. Ran Studio bangga dapat menjadi salah satu pelopor penyedia <strong>jasa pembuatan website Indonesia</strong> yang senantiasa mengutamakan kepuasan klien. Bersama kami, Anda akan membuktikan bahwa <strong>pembuatan website murah</strong> tidak berarti mengurangi standar kualitas—Anda tetap akan mendapatkan hasil enterprise yang premium dan profesional.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="portfolio" class="portfolio-section reveal">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Portofolio <span>Terbaru</span></h2>
-                    <p>Eksplorasi projek-projek website modern yang telah sukses kami kembangkan untuk berbagai sektor klien.</p>
-                </div>
-                
-                <div class="portfolio-grid">
-                    <div class="portfolio-card" data-category="UMKM">
-                        <div class="portfolio-img-box">
-                            <div class="placeholder-img bg-p1" role="img" aria-label="Screenshot Website Kopi Lokal Nusantara">
-                                <span class="concept-label">Concept Project</span>
-                                <span class="p-icon" aria-hidden="true">🏬</span>
-                                <span class="p-title">Kopi Lokal</span>
-                            </div>
-                            <div class="portfolio-overlay">
-                                <div class="overlay-text">
-                                    <span class="p-tag">Kategori: UMKM</span>
-                                    <h4>Website E-Commerce Kopi</h4>
-                                    <div class="port-badges">
-                                        <span class="badge-mini">HTML</span><span class="badge-mini">CSS</span><span class="badge-mini">Responsive</span>
-                                    </div>
-                                    <div class="port-action">
-                                        <a href="https://karanraj1109.github.io/demo-cafe/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" aria-label="Lihat Live Demo Kopi Lokal">Live Demo</a>
-                                        <button class="btn btn-outline btn-sm open-case-study" data-title="Website E-Commerce Kopi" data-type="UMKM" data-tech="HTML, CSS, JavaScript" aria-label="Lihat Case Study">Case Study</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="portfolio-card" data-category="Landing Page">
-                        <div class="portfolio-img-box">
-                            <div class="placeholder-img bg-p2" role="img" aria-label="Screenshot Landing Page SaaS">
-                                <span class="concept-label">Concept Project</span>
-                                <span class="p-icon" aria-hidden="true">🚀</span>
-                                <span class="p-title">SaaS Launch</span>
-                            </div>
-                            <div class="portfolio-overlay">
-                                <div class="overlay-text">
-                                    <span class="p-tag">Kategori: Landing Page</span>
-                                    <h4>Landing Page FinTech</h4>
-                                    <div class="port-badges">
-                                        <span class="badge-mini">Modern UI</span><span class="badge-mini">SEO Ready</span>
-                                    </div>
-                                    <div class="port-action">
-                                        <a href="https://karanraj1109.github.io/demo-saas-company-/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" aria-label="Lihat Live Demo SaaS">Live Demo</a>
-                                        <button class="btn btn-outline btn-sm open-case-study" data-title="Landing Page FinTech" data-type="Landing Page" data-tech="HTML, CSS, GSAP" aria-label="Lihat Case Study">Case Study</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="portfolio-card" data-category="Dashboard">
-                        <div class="portfolio-img-box">
-                            <div class="placeholder-img bg-p3" role="img" aria-label="Screenshot Dashboard Admin">
-                                <span class="concept-label">Concept Project</span>
-                                <span class="p-icon" aria-hidden="true">📊</span>
-                                <span class="p-title">Admin Panel</span>
-                            </div>
-                            <div class="portfolio-overlay">
-                                <div class="overlay-text">
-                                    <span class="p-tag">Kategori: Dashboard</span>
-                                    <h4>Sistem Inventaris</h4>
-                                    <div class="port-badges">
-                                        <span class="badge-mini">Custom Design</span><span class="badge-mini">JS</span>
-                                    </div>
-                                    <div class="port-action">
-                                        <a href="https://karanraj1109.github.io/admin-panel/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" aria-label="Lihat Live Demo Admin">Live Demo</a>
-                                        <button class="btn btn-outline btn-sm open-case-study" data-title="Sistem Inventaris Admin" data-type="Dashboard" data-tech="HTML, CSS, JS, Chart.js" aria-label="Lihat Case Study">Case Study</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="portfolio-card" data-category="Toko Online">
-                        <div class="portfolio-img-box">
-                            <div class="placeholder-img bg-p4" role="img" aria-label="Screenshot Fashion Hub">
-                                <span class="concept-label">Concept Project</span>
-                                <span class="p-icon" aria-hidden="true">🛒</span>
-                                <span class="p-title">Fashion Hub</span>
-                            </div>
-                            <div class="portfolio-overlay">
-                                <div class="overlay-text">
-                                    <span class="p-tag">Kategori: Toko Online</span>
-                                    <h4>Toko Online Busana</h4>
-                                    <div class="port-badges">
-                                        <span class="badge-mini">E-Commerce</span><span class="badge-mini">Responsive</span>
-                                    </div>
-                                    <div class="port-action">
-                                        <a href="https://karanraj1109.github.io/fashion-/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" aria-label="Lihat Live Demo Fashion Hub">Live Demo</a>
-                                        <button class="btn btn-outline btn-sm open-case-study" data-title="Toko Online Busana" data-type="Toko Online" data-tech="HTML, CSS, JS, API" aria-label="Lihat Case Study">Case Study</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="portfolio-card" data-category="Company Profile">
-                        <div class="portfolio-img-box">
-                            <div class="placeholder-img bg-p5" role="img" aria-label="Screenshot Artha Konstruksi">
-                                <span class="concept-label">Concept Project</span>
-                                <span class="p-icon" aria-hidden="true">🏢</span>
-                                <span class="p-title">Artha Konstruksi</span>
-                            </div>
-                            <div class="portfolio-overlay">
-                                <div class="overlay-text">
-                                    <span class="p-tag">Kategori: Company Profile</span>
-                                    <h4>Company Profile Kontraktor</h4>
-                                    <div class="port-badges">
-                                        <span class="badge-mini">Corporate UI</span><span class="badge-mini">SEO Ready</span>
-                                    </div>
-                                    <div class="port-action">
-                                        <a href="https://karanraj1109.github.io/perusahaan-/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" aria-label="Lihat Live Demo Artha Konstruksi">Live Demo</a>
-                                        <button class="btn btn-outline btn-sm open-case-study" data-title="Company Profile Kontraktor" data-type="Corporate" data-tech="HTML, CSS, JS" aria-label="Lihat Case Study">Case Study</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="portfolio-card" data-category="Undangan Digital">
-                        <div class="portfolio-img-box">
-                            <div class="placeholder-img bg-p6" role="img" aria-label="Screenshot Undangan Budi & Ani">
-                                <span class="concept-label">Concept Project</span>
-                                <span class="p-icon" aria-hidden="true">💌</span>
-                                <span class="p-title">Budi & Ani</span>
-                            </div>
-                            <div class="portfolio-overlay">
-                                <div class="overlay-text">
-                                    <span class="p-tag">Kategori: Undangan Digital</span>
-                                    <h4>Undangan Pernikahan Mewah</h4>
-                                    <div class="port-badges">
-                                        <span class="badge-mini">Mobile First</span><span class="badge-mini">Audio Setup</span>
-                                    </div>
-                                    <div class="port-action">
-                                        <a href="https://karanraj1109.github.io/undangan-digital-/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" aria-label="Lihat Live Demo Undangan">Live Demo</a>
-                                        <button class="btn btn-outline btn-sm open-case-study" data-title="Undangan Pernikahan Mewah" data-type="Undangan Web" data-tech="HTML, CSS, JS, Audio API" aria-label="Lihat Case Study">Case Study</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="bottom-cta-section reveal">
-            <div class="container">
-                <div class="cta-box">
-                    <h2>Suka dengan hasil project di atas?</h2>
-                    <p>Mari diskusikan website impian Anda bersama ahlinya. Wujudkan eksistensi online bisnis Anda hari ini.</p>
-                    <a href="https://wa.me/62895614003884" class="btn btn-primary" target="_blank" rel="noopener noreferrer" aria-label="Konsultasi Gratis via WhatsApp">Konsultasi Gratis</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="testi-section reveal">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Testimoni <span>Klien</span></h2>
-                    <p>Apa kata mereka yang telah mempercayakan transformasi digital bisnisnya kepada Ran Studio?</p>
-                </div>
-                <div class="testi-placeholder">
-                    <div class="testi-placeholder-card">
-                        <div class="testi-icon" aria-hidden="true">⭐</div>
-                        <p class="testi-text">"Testimoni dari client akan ditampilkan setelah project selesai."</p>
-                        <div class="testi-user">
-                            <div class="avatar-placeholder" aria-hidden="true">?</div>
-                            <div>
-                                <h4>Client Name</h4>
-                                <span>Business Owner</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="blog-preview-section reveal">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Artikel <span>Terbaru</span></h2>
-                    <p>Insight dan panduan seputar pengembangan website dan bisnis digital.</p>
-                </div>
-                <div class="blog-grid">
-                    <div class="blog-card">
-                        <div class="blog-img placeholder-img bg-dark-glass" role="img" aria-label="Thumbnail Blog 1"></div>
-                        <div class="blog-content">
-                            <span class="blog-date">Jan 12, 2026</span>
-                            <h4>Mengapa Bisnis Membutuhkan Website?</h4>
-                            <a href="#" class="blog-link prevent-default" aria-label="Baca selengkapnya">Baca Artikel ➔</a>
-                        </div>
-                    </div>
-                    <div class="blog-card">
-                        <div class="blog-img placeholder-img bg-dark-glass" role="img" aria-label="Thumbnail Blog 2"></div>
-                        <div class="blog-content">
-                            <span class="blog-date">Feb 05, 2026</span>
-                            <h4>Landing Page vs Website, Apa Bedanya?</h4>
-                            <a href="#" class="blog-link prevent-default" aria-label="Baca selengkapnya">Baca Artikel ➔</a>
-                        </div>
-                    </div>
-                    <div class="blog-card">
-                        <div class="blog-img placeholder-img bg-dark-glass" role="img" aria-label="Thumbnail Blog 3"></div>
-                        <div class="blog-content">
-                            <span class="blog-date">Mar 22, 2026</span>
-                            <h4>Tips Memilih Jasa Pembuatan Website</h4>
-                            <a href="#" class="blog-link prevent-default" aria-label="Baca selengkapnya">Baca Artikel ➔</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="faq" class="faq-section reveal">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Frequently Asked <span>Questions</span></h2>
-                    <p>Temukan jawaban cepat atas pertanyaan-pertanyaan umum yang sering diajukan mengenai layanan kami.</p>
-                </div>
-                <div class="faq-accordion-container">
-                    <div class="faq-item">
-                        <div class="faq-question"><h3>1. Berapa lama proses pengerjaan satu buah website?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
-                        <div class="faq-answer"><p>Durasi pengerjaan sangat bervariasi. Untuk Paket Dasar atau Landing Page biasanya selesai dalam waktu 2-4 hari kerja, sementara aplikasi custom berkisar antara 1-3 minggu.</p></div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question"><h3>2. Apakah harga yang tertera sudah termasuk domain?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
-                        <div class="faq-answer"><p>Harga paket dasar belum termasuk domain. Anda bisa menambahkannya di menu tambahan keranjang belanja saat checkout.</p></div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question"><h3>3. Apakah website buatan Ran Studio ramah SEO dan responsif?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
-                        <div class="faq-answer"><p>Tentu saja. Semua website kami dioptimasi untuk kecepatan akses penuh, ramah SEO dasar, dan otomatis menyesuaikan tampilan di semua layar (Responsive).</p></div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question"><h3>4. Bagaimana sistem pembayaran pemesanan di Ran Studio?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
-                        <div class="faq-answer"><p>Sistem pembayaran melalui Down Payment (DP) 50% di awal sebagai komitmen, dan pelunasan 50% setelah projek divalidasi oleh Anda.</p></div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question"><h3>5. Apakah saya mendapatkan akses ke panel admin/dashboard?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
-                        <div class="faq-answer"><p>Ya, khusus untuk Paket Premium atau jenis Toko Online dan Dashboard Admin, kami menyediakan akses penuh sistem manajemen konten.</p></div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question"><h3>6. Apakah ada garansi jika website mengalami error?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
-                        <div class="faq-answer"><p>Kami menyediakan garansi perbaikan bug dan dukungan teknis selama 1 bulan setelah website dirilis (online).</p></div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question"><h3>7. Apakah bisa upgrade paket di kemudian hari?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
-                        <div class="faq-answer"><p>Sangat bisa! Anda dapat memulai dari paket Starter/Basic dan meng-upgrade fitur atau halaman ke tingkat Standard/Premium seiring pertumbuhan bisnis Anda.</p></div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question"><h3>8. Saya tidak punya desain, apakah dibantu?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
-                        <div class="faq-answer"><p>Tentu. Tim desainer kami akan merancangkan layout UI/UX terbaik berdasarkan identitas brand (logo/warna) yang Anda miliki.</p></div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question"><h3>9. Bagaimana dengan biaya perpanjangan tahunan?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
-                        <div class="faq-answer"><p>Biaya tahunan hanya berlaku jika Anda menggunakan layanan tambahan Domain atau langganan server pihak ketiga dari kami. Biaya transparan akan diinfokan di awal.</p></div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question"><h3>10. Apakah saya perlu menyiapkan hosting sendiri?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
-                        <div class="faq-answer"><p>Tergantung kebutuhan. Jika Anda sudah memilikinya, kami bisa deploy ke hosting Anda. Jika belum, sistem base kami menggunakan infrastruktur cloud efisien tanpa biaya hosting bulanan untuk paket statis.</p></div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question"><h3>11. Berapa lama revisi dikerjakan?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
-                        <div class="faq-answer"><p>Revisi ringan (teks, gambar, warna) biasanya diselesaikan dalam waktu 1x24 jam kerja.</p></div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question"><h3>12. Apakah bisa menambahkan fitur khusus seperti payment gateway?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
-                        <div class="faq-answer"><p>Bisa. Integrasi payment gateway otomatis dapat kami tambahkan melalui paket Custom/Premium sesuai kesepakatan.</p></div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question"><h3>13. Apakah foto dan artikel disediakan oleh Ran Studio?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
-                        <div class="faq-answer"><p>Materi teks dan foto dasar idealnya disediakan oleh Anda. Namun, kami akan membantu menyediakan foto stok (royalty-free) berkualitas tinggi jika Anda membutuhkannya.</p></div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question"><h3>14. Apakah saya mendapatkan source code website?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
-                        <div class="faq-answer"><p>Hak milik sepenuhnya ada di tangan Anda. Kami akan memberikan file source code lengkap saat serah terima project jika diminta.</p></div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question"><h3>15. Apa syarat untuk memulai pengerjaan?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
-                        <div class="faq-answer"><p>Anda hanya perlu memilih paket, mengirimkan detail brief usaha, melakukan pembayaran DP 50%, dan kami akan langsung mulai bekerja!</p></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="contact-section reveal">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Hubungi <span>Kami</span></h2>
-                    <p>Konsultasikan kebutuhan digital Anda sekarang juga. Tim spesialis kami siap membantu merealisasikannya.</p>
-                </div>
-                <div class="contact-wrapper">
-                    <div class="contact-info-cards">
-                        <div class="info-item-card">
-                            <div class="info-icon" aria-hidden="true">💬</div>
-                            <h3>WhatsApp Chat</h3>
-                            <p>0895614003884</p>
-                            <a href="https://wa.me/62895614003884" target="_blank" rel="noopener noreferrer" aria-label="Kirim pesan WhatsApp">Kirim Pesan Express ➔</a>
-                        </div>
-                        <div class="info-item-card">
-                            <div class="info-icon" aria-hidden="true">📸</div>
-                            <h3>Instagram Feed</h3>
-                            <p>@karancreative.id</p>
-                            <a href="https://instagram.com/karancreative.id" target="_blank" rel="noopener noreferrer" aria-label="Lihat Instagram kami">Ikuti Portfolio IG ➔</a>
-                        </div>
-                        <div class="info-item-card">
-                            <div class="info-icon" aria-hidden="true">✉️</div>
-                            <h3>Official Email</h3>
-                            <p>karanraj23052021@gmail.com</p>
-                            <a href="mailto:karanraj23052021@gmail.com" aria-label="Kirim Email">Kirim Surel Bisnis ➔</a>
-                        </div>
-                    </div>
-
-                    <div class="contact-form-box">
-                        <form id="direct-contact-form">
-                            <div class="form-group">
-                                <label for="form-name">Nama Lengkap</label>
-                                <input type="text" id="form-name" placeholder="Masukkan nama Anda..." aria-label="Nama Lengkap" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="form-email">Alamat Email</label>
-                                <input type="email" id="form-email" placeholder="nama@email.com" aria-label="Alamat Email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="form-message">Pesan / Detail Pertanyaan</label>
-                                <textarea id="form-message" rows="5" placeholder="Tuliskan detail pertanyaan atau kebutuhan fitur website Anda di sini..." aria-label="Isi Pesan" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block" aria-label="Kirim Pesan via WhatsApp">Kirim Pesan Kontak via WhatsApp</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="footer-section">
-        <div class="container footer-grid">
-            <div class="footer-brand">
-                <h3>Ran<span>Studio</span></h3>
-                <p>Agensi pengembangan digital murni penyedia jasa pembuatan website premium, responsif, modern, dan berkinerja tinggi demi menyukseskan bisnis Anda di ranah global.</p>
-            </div>
+    <div class="app-wrapper">
+        <div class="app-slider" id="app-slider">
             
-            <div class="footer-links">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                </ul>
-            </div>
+            <div class="panel" id="panel-agency">
+                <main>
+                    <section id="home" class="hero-section">
+                        <div class="hero-bg-glow"></div>
+                        <div class="container hero-content">
+                            <div class="hero-badges animate-text">
+                                <span class="badge-pill">🚀 Fast Loading</span>
+                                <span class="badge-pill">📱 Responsive</span>
+                                <span class="badge-pill">🔍 SEO Ready</span>
+                                <span class="badge-pill">✨ Modern UI</span>
+                            </div>
+                            
+                            <h1 class="animate-text">Website Profesional<br>untuk <span>Bisnis Anda</span></h1>
+                            <p class="animate-desc">Bantu usaha Anda tampil lebih profesional dengan website modern, cepat, dan responsif dari digital agency terpercaya.</p>
+                            <div class="hero-buttons">
+                                <a href="#pricing" class="btn btn-primary" aria-label="Lihat Paket Website">Lihat Paket</a>
+                                <a href="https://wa.me/62895614003884?text=Halo%20Ran%20Studio,%20saya%20ingin%20berkonsultasi%20mengenai%20pembuatan%20website." class="btn btn-secondary" target="_blank" rel="noopener noreferrer" aria-label="Konsultasi Gratis via WhatsApp">Konsultasi WhatsApp</a>
+                            </div>
+                        </div>
+                    </section>
 
-            <div class="footer-links">
-                <h4>Explore</h4>
-                <ul>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#workflow">Cara Kerja</a></li>
-                    <li><a href="#faq">FAQ</a></li>
-                </ul>
-            </div>
+                    <section class="stats-section" aria-label="Statistik Ran Studio">
+                        <div class="container stats-grid">
+                            <div class="stat-card">
+                                <h2 class="stat-number" data-target="100">0</h2>
+                                <p class="stat-label">Website Dibuat</p>
+                            </div>
+                            <div class="stat-card">
+                                <h2 class="stat-number" data-target="50">0</h2>
+                                <p class="stat-label">Klien Puas</p>
+                            </div>
+                            <div class="stat-card">
+                                <h2 class="stat-number-text">Fast</h2>
+                                <p class="stat-label">Support</p>
+                            </div>
+                        </div>
+                    </section>
 
-            <div class="footer-contact-info">
-                <h4>Kontak & Sosial</h4>
-                <p>📍 Medan, Sumatera Utara, ID</p>
-                <p>📞 0895614003884</p>
-                <p>✉️ karanraj23052021@gmail.com</p>
-                <div class="social-icons-row" style="margin-top: 15px;">
-                    <a href="https://instagram.com/karancreative.id" target="_blank" rel="noopener noreferrer" class="social-icon-circle" aria-label="Instagram">IG</a>
-                    <a href="https://wa.me/62895614003884" target="_blank" rel="noopener noreferrer" class="social-icon-circle" aria-label="WhatsApp">WA</a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Ran Studio. All Rights Reserved. Premium Native Web Development.</p>
-        </div>
-    </footer>
+                    <section id="why-us" class="why-us-section reveal">
+                        <div class="container">
+                            <div class="section-header">
+                                <h2>Mengapa Memilih <span>Ran Studio?</span></h2>
+                                <p>Kelebihan utama yang menjadikan kami mitra digital premium untuk pertumbuhan bisnis Anda.</p>
+                            </div>
+                            <div class="why-grid">
+                                <div class="why-card">
+                                    <div class="why-icon" aria-hidden="true">✨</div>
+                                    <h3>Desain Modern</h3>
+                                    <p>UI/UX kekinian setara agency global yang memikat pelanggan.</p>
+                                </div>
+                                <div class="why-card">
+                                    <div class="why-icon" aria-hidden="true">📱</div>
+                                    <h3>Responsive</h3>
+                                    <p>Tampil sempurna di semua ukuran layar mobile, tablet, desktop.</p>
+                                </div>
+                                <div class="why-card">
+                                    <div class="why-icon" aria-hidden="true">🔍</div>
+                                    <h3>SEO Friendly</h3>
+                                    <p>Struktur kode yang disukai Google agar mudah ditemukan pelanggan.</p>
+                                </div>
+                                <div class="why-card">
+                                    <div class="why-icon" aria-hidden="true">⚡</div>
+                                    <h3>Fast Loading</h3>
+                                    <p>Optimasi performa tinggi untuk retensi pengunjung yang lebih baik.</p>
+                                </div>
+                                <div class="why-card">
+                                    <div class="why-icon" aria-hidden="true">💻</div>
+                                    <h3>Clean Code</h3>
+                                    <p>Struktur pengembangan rapi tanpa bloated framework yang berat.</p>
+                                </div>
+                                <div class="why-card">
+                                    <div class="why-icon" aria-hidden="true">⚙️</div>
+                                    <h3>Custom Sesuai Kebutuhan</h3>
+                                    <p>Sistem dibuat spesifik menyesuaikan alur model bisnis Anda.</p>
+                                </div>
+                                <div class="why-card">
+                                    <div class="why-icon" aria-hidden="true">💬</div>
+                                    <h3>Gratis Konsultasi</h3>
+                                    <p>Diskusi transparan tanpa biaya komitmen di awal project.</p>
+                                </div>
+                                <div class="why-card">
+                                    <div class="why-icon" aria-hidden="true">🛡️</div>
+                                    <h3>Support Setelah Rilis</h3>
+                                    <p>Kami memastikan sistem Anda tetap berjalan prima pasca rilis.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
 
-    <div id="case-study-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="cs-title">
+                    <section class="tech-stack-section reveal" aria-label="Teknologi yang Digunakan">
+                        <div class="container">
+                            <div class="section-header">
+                                <h2>Teknologi <span>Terbaik</span></h2>
+                                <p>Kami mengembangkan website menggunakan stack teknologi modern untuk performa maksimal.</p>
+                            </div>
+                            <div class="tech-badges">
+                                <span class="tech-badge">HTML5</span>
+                                <span class="tech-badge">CSS3</span>
+                                <span class="tech-badge">JavaScript (ES6+)</span>
+                                <span class="tech-badge">PHP</span>
+                                <span class="tech-badge">MySQL</span>
+                                <span class="tech-badge">Firebase</span>
+                                <span class="tech-badge">Git</span>
+                                <span class="tech-badge">Responsive Design</span>
+                                <span class="tech-badge">SEO Optimization</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="workflow" class="how-it-works-section reveal">
+                        <div class="container">
+                            <div class="section-header">
+                                <h2>Bagaimana Proses <span>Pengerjaan?</span></h2>
+                                <p>Alur kerja profesional yang terstruktur untuk hasil yang efisien dan memuaskan.</p>
+                            </div>
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <div class="timeline-dot">1</div>
+                                    <div class="timeline-content">
+                                        <h3>Diskusi</h3>
+                                        <p>Konsultasi gratis mengenai visi, fitur, dan kebutuhan bisnis Anda.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot">2</div>
+                                    <div class="timeline-content">
+                                        <h3>Perencanaan</h3>
+                                        <p>Pemilihan paket, penyusunan struktur website, dan pengumpulan materi.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot">3</div>
+                                    <div class="timeline-content">
+                                        <h3>Desain</h3>
+                                        <p>Merancang UI/UX wireframe modern yang selaras dengan identitas brand.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot">4</div>
+                                    <div class="timeline-content">
+                                        <h3>Development</h3>
+                                        <p>Proses coding website menggunakan standar clean code dan responsif.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot">5</div>
+                                    <div class="timeline-content">
+                                        <h3>Testing</h3>
+                                        <p>Uji coba fungsionalitas, kecepatan (fast loading), dan SEO di semua device.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot">6</div>
+                                    <div class="timeline-content">
+                                        <h3>Launch</h3>
+                                        <p>Website dipublikasikan secara live ke domain utama Anda.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot">7</div>
+                                    <div class="timeline-content">
+                                        <h3>Support</h3>
+                                        <p>Garansi perbaikan dan dukungan teknis setelah website selesai.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="services" class="services-section reveal">
+                        <div class="container">
+                            <div class="section-header">
+                                <h2>Layanan <span>Kami</span></h2>
+                                <p>Solusi digital terbaik untuk mendongkrak performa bisnis dan brand Anda secara global.</p>
+                            </div>
+                            <div class="services-grid">
+                                <div class="service-card">
+                                    <div class="service-icon" aria-hidden="true">🌐</div>
+                                    <h3>Website UMKM</h3>
+                                    <p>Website khusus usaha mikro untuk meningkatkan visibilitas dan kredibilitas produk lokal di pasar online.</p>
+                                </div>
+                                <div class="service-card">
+                                    <div class="service-icon" aria-hidden="true">💼</div>
+                                    <h3>Company Profile</h3>
+                                    <p>Representasi digital profesional perusahaan untuk membangun kepercayaan mitra bisnis dan investor.</p>
+                                </div>
+                                <div class="service-card">
+                                    <div class="service-icon" aria-hidden="true">🚀</div>
+                                    <h3>Landing Page</h3>
+                                    <p>Halaman promosi berkonversi tinggi yang dirancang khusus untuk memaksimalkan penjualan kampanye iklan.</p>
+                                </div>
+                                <div class="service-card">
+                                    <div class="service-icon" aria-hidden="true">🛒</div>
+                                    <h3>Toko Online</h3>
+                                    <p>Platform e-commerce modern dengan sistem manajemen produk, keranjang, dan integrasi pembayaran.</p>
+                                </div>
+                                <div class="service-card">
+                                    <div class="service-icon" aria-hidden="true">🎨</div>
+                                    <h3>Portofolio</h3>
+                                    <p>Showcase karya kreatif personal maupun agensi untuk menarik perhatian klien impian Anda secara visual.</p>
+                                </div>
+                                <div class="service-card">
+                                    <div class="service-icon" aria-hidden="true">📊</div>
+                                    <h3>Dashboard Admin</h3>
+                                    <p>Sistem panel manajemen data internal yang responsif untuk mengontrol operasional bisnis dengan efisien.</p>
+                                </div>
+                                <div class="service-card">
+                                    <div class="service-icon" aria-hidden="true">💌</div>
+                                    <h3>Undangan Digital</h3>
+                                    <p>Undangan pernikahan atau acara spesial berbasis web yang elegan, interaktif, dan mudah dibagikan.</p>
+                                </div>
+                                <div class="service-card">
+                                    <div class="service-icon" aria-hidden="true">⚙️</div>
+                                    <h3>Custom Web App</h3>
+                                    <p>Pengembangan aplikasi web berbasis kebutuhan fungsional spesifik dengan skalabilitas dan performa tinggi.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="pricing" class="pricing-section reveal">
+                        <div class="container">
+                            <div class="section-header">
+                                <h2>Paket <span>Harga</span></h2>
+                                <p>Pilih paket pengembangan website yang paling sesuai dengan target dan anggaran operasional Anda.</p>
+                            </div>
+                            <div class="pricing-grid">
+                                
+                                <div class="pricing-card">
+                                    <div class="badge" style="background-color: var(--secondary);">Starter</div>
+                                    <h3>Paket Landing Page</h3>
+                                    <div class="price">Rp50.000</div>
+                                    <ul class="pricing-features">
+                                        <li>1 Landing Page</li>
+                                        <li>Responsive Mobile</li>
+                                        <li>Desain Modern</li>
+                                        <li>Revisi Ringan</li>
+                                        <li><b>Estimasi: 2-3 Hari</b></li>
+                                    </ul>
+                                    <button class="btn btn-primary add-to-cart-btn" data-id="starter" data-name="Paket Starter Landing Page" data-price="50000" aria-label="Tambah Paket Landing Page ke Keranjang">Tambah ke Keranjang</button>
+                                </div>
+
+                                <div class="pricing-card">
+                                    <div class="badge">UMKM</div>
+                                    <h3>Paket Basic</h3>
+                                    <div class="price">Rp150.000</div>
+                                    <ul class="pricing-features">
+                                        <li>1 Halaman Utama</li>
+                                        <li>Desain Responsive</li>
+                                        <li>Revisi Ringan</li>
+                                        <li>Integrasi WhatsApp</li>
+                                        <li><b>Estimasi: 3-5 Hari</b></li>
+                                    </ul>
+                                    <button class="btn btn-primary add-to-cart-btn" data-id="basic" data-name="Paket Basic" data-price="150000" aria-label="Tambah Paket Basic ke Keranjang">Tambah ke Keranjang</button>
+                                </div>
+
+                                <div class="pricing-card standard">
+                                    <div class="badge" style="background-color: var(--secondary);">Best Choice</div>
+                                    <h3>Paket Standard</h3>
+                                    <div class="price">Rp300.000</div>
+                                    <ul class="pricing-features">
+                                        <li>Hingga 5 Halaman</li>
+                                        <li>Form Kontak Interaktif</li>
+                                        <li>Desain Responsive</li>
+                                        <li>Revisi Ringan</li>
+                                        <li><b>Estimasi: 5-7 Hari</b></li>
+                                    </ul>
+                                    <button class="btn btn-gradient add-to-cart-btn" data-id="standard" data-name="Paket Standard" data-price="300000" aria-label="Tambah Paket Standard ke Keranjang">Tambah ke Keranjang</button>
+                                </div>
+
+                                <div class="pricing-card">
+                                    <div class="badge">Enterprise</div>
+                                    <h3>Paket Premium</h3>
+                                    <div class="price">Rp600.000</div>
+                                    <ul class="pricing-features">
+                                        <li>Unlimited Halaman</li>
+                                        <li>Fitur Komponen Custom</li>
+                                        <li>Dashboard Admin Sistem</li>
+                                        <li>Desain Premium Eksklusif</li>
+                                        <li><b>Estimasi: 1-3 Minggu</b></li>
+                                    </ul>
+                                    <button class="btn btn-primary add-to-cart-btn" data-id="premium" data-name="Paket Premium" data-price="600000" aria-label="Tambah Paket Premium ke Keranjang">Tambah ke Keranjang</button>
+                                </div>
+                            </div>
+
+                            <div class="comparison-section reveal">
+                                <div class="section-header" style="margin-top: 60px; margin-bottom: 30px;">
+                                    <h2>Perbandingan <span>Detail Paket</span></h2>
+                                </div>
+                                <div class="comparison-table-wrapper">
+                                    <table class="comparison-table">
+                                        <caption class="sr-only">Tabel perbandingan fitur paket pembuatan website</caption>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Fitur / Layanan</th>
+                                                <th scope="col">Landing Page</th>
+                                                <th scope="col">Basic</th>
+                                                <th scope="col" class="highlight-col">Standard</th>
+                                                <th scope="col">Premium</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">Jumlah Halaman</th>
+                                                <td>1 Halaman</td>
+                                                <td>1 Halaman Utama</td>
+                                                <td class="highlight-col">Hingga 5 Halaman</td>
+                                                <td>Unlimited</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Desain UI/UX</th>
+                                                <td>Modern Base</td>
+                                                <td>Custom Base</td>
+                                                <td class="highlight-col">Custom Premium</td>
+                                                <td>Eksklusif Premium</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Responsive Mobile</th>
+                                                <td>✓</td>
+                                                <td>✓</td>
+                                                <td class="highlight-col">✓</td>
+                                                <td>✓</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Integrasi WhatsApp</th>
+                                                <td>✓</td>
+                                                <td>✓</td>
+                                                <td class="highlight-col">✓</td>
+                                                <td>✓</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Form Kontak Dinamis</th>
+                                                <td>❌</td>
+                                                <td>❌</td>
+                                                <td class="highlight-col">✓</td>
+                                                <td>✓</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Dashboard Admin</th>
+                                                <td>❌</td>
+                                                <td>❌</td>
+                                                <td class="highlight-col">❌</td>
+                                                <td>✓</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Estimasi Waktu</th>
+                                                <td>2-3 Hari</td>
+                                                <td>3-5 Hari</td>
+                                                <td class="highlight-col">5-7 Hari</td>
+                                                <td>1-3 Minggu</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div id="cart" class="cart-container reveal" style="margin-top: 60px;">
+                                <h3 class="cart-title">🛒 Keranjang Belanja</h3>
+                                <div id="cart-empty-msg" class="cart-empty">Keranjang belanja Anda masih kosong. Silakan pilih paket di atas.</div>
+                                
+                                <div id="cart-content" class="cart-content hidden">
+                                    <table class="cart-table">
+                                        <caption class="sr-only">Daftar item di keranjang belanja</caption>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Paket</th>
+                                                <th scope="col">Harga</th>
+                                                <th scope="col">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="cart-items">
+                                        </tbody>
+                                    </table>
+
+                                    <div class="addons-section">
+                                        <h4>Tambahan Layanan Ekstra:</h4>
+                                        <div class="addon-item">
+                                            <label class="checkbox-container">
+                                                <input type="checkbox" id="addon-domain" class="addon-checkbox" data-price="150000" data-name="Domain .com" aria-label="Tambah Domain .com">
+                                                <span class="checkmark"></span>
+                                                Domain .com (+Rp150.000)
+                                            </label>
+                                        </div>
+                                        <div class="addon-item">
+                                            <label class="checkbox-container">
+                                                <input type="checkbox" id="addon-seo" class="addon-checkbox" data-price="100000" data-name="SEO Dasar" aria-label="Tambah SEO Dasar">
+                                                <span class="checkmark"></span>
+                                                SEO Dasar (+Rp100.000)
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="cart-total-display">
+                                        Total Harga: <span id="cart-total-val">Rp0</span>
+                                    </div>
+
+                                    <div class="checkout-form">
+                                        <h4>Detail Informasi Pemesanan</h4>
+                                        <div class="form-group-row">
+                                            <input type="text" id="checkout-name" placeholder="Nama Lengkap Anda" aria-label="Nama Lengkap" required>
+                                            <input type="text" id="checkout-business" placeholder="Nama Usaha / Bisnis" aria-label="Nama Usaha" required>
+                                        </div>
+                                        <textarea id="checkout-desc" rows="3" placeholder="Deskripsi Singkat Mengenai Kebutuhan Website Anda..." aria-label="Deskripsi Website" required></textarea>
+                                        <button id="whatsapp-checkout-btn" class="btn btn-whatsapp-checkout" aria-label="Checkout pesanan via WhatsApp">Checkout ke WhatsApp ➔</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="calculator-section reveal">
+                        <div class="container">
+                            <div class="section-header">
+                                <h2>Kalkulator <span>Estimasi Harga</span></h2>
+                                <p>Hitung perkiraan biaya pembuatan website impian Anda secara real-time dan transparan.</p>
+                            </div>
+                            <div class="calc-wrapper">
+                                <div class="calc-form">
+                                    <div class="form-group">
+                                        <label for="calc-type">Jenis Website</label>
+                                        <select id="calc-type" aria-label="Pilih Jenis Website">
+                                            <option value="50000">Landing Page (Base: Rp50.000)</option>
+                                            <option value="150000">Website UMKM (Base: Rp150.000)</option>
+                                            <option value="300000">Company Profile (Base: Rp300.000)</option>
+                                            <option value="400000">Toko Online (Base: Rp400.000)</option>
+                                            <option value="600000">Dashboard Admin / Custom App (Base: Rp600.000)</option>
+                                            <option value="120000">Undangan Digital (Base: Rp120.000)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="calc-pages">Jumlah Halaman (<span id="pages-val">1</span> halaman)</label>
+                                        <input type="range" id="calc-pages" min="1" max="20" value="1" aria-label="Jumlah Halaman">
+                                        <span class="calc-note">* Tambahan Rp30.000 per halaman ke-2 dan seterusnya.</span>
+                                    </div>
+                                    <div class="form-group options-group">
+                                        <label>Infrastruktur Tambahan</label>
+                                        <div class="toggle-item">
+                                            <label class="checkbox-container">
+                                                <input type="checkbox" id="calc-domain" value="150000" aria-label="Pilih Domain .com">
+                                                <span class="checkmark"></span>
+                                                Domain .com (+Rp150.000)
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="calc-result-box">
+                                    <h3>Estimasi Total Biaya</h3>
+                                    <div class="calc-price-display" id="calc-total-result">Rp50.000</div>
+                                    <p>Biaya di atas merupakan perkiraan awal. Hubungi kami untuk penawaran harga final yang disesuaikan.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="about-seo" class="seo-article-section reveal">
+                        <div class="container">
+                            <div class="section-header">
+                                <h2>Jasa Pembuatan <span>Website Profesional</span></h2>
+                                <p>Membantu transformasi digital bisnis Anda dengan solusi website berkualitas tinggi yang terintegrasi secara optimal.</p>
+                            </div>
+                            <div class="seo-content-box">
+                                <p>Ran Studio hadir sebagai mitra terpercaya penyedia <strong>jasa pembuatan website</strong> terbaik yang berfokus pada performa dan estetika. Di era digital saat ini, memiliki eksistensi online yang kuat adalah sebuah keharusan. Oleh karena itu, kami menyediakan <strong>jasa website profesional</strong> untuk berbagai skala industri, mulai dari startup, korporat, hingga bisnis lokal yang membutuhkan <strong>website UMKM</strong> yang efektif dan dapat menjangkau target pasar secara luas.</p>
+                                
+                                <p>Kami memahami bahwa setiap bisnis memiliki keunikan dan model yang berbeda. Kami menawarkan solusi menyeluruh mulai dari <strong>website company profile</strong> untuk membangun branding dan kredibilitas perusahaan, hingga <strong>jasa pembuatan landing page</strong> berkonversi tinggi untuk mengoptimalkan hasil kampanye iklan digital Anda. Jika Anda ingin melakukan ekspansi penjualan secara online, kami siap membangun <strong>website toko online</strong> yang aman, mudah dikelola, dan memiliki fitur checkout yang efisien.</p>
+                                
+                                <p>Bagi para desainer, fotografer, maupun agensi kreatif, kami merancang <strong>website portofolio</strong> yang elegan untuk menampilkan karya-karya terbaik Anda kepada dunia. Setiap <strong>website bisnis</strong> yang kami kerjakan dipastikan merupakan <strong>website responsif</strong> yang dapat diakses dengan sempurna dari berbagai perangkat, baik desktop, tablet, maupun smartphone. Kami mengedepankan teknologi terkini agar Anda mendapatkan <strong>website modern</strong> yang loading-nya cepat dan sangat ramah mesin pencari (SEO friendly).</p>
+                                
+                                <p>Sebagai penyedia <strong>jasa web developer</strong> berpengalaman, kami tidak hanya menggunakan template dasar, tetapi mampu melayani perancangan <strong>website custom</strong> dengan sistem fungsional spesifik sesuai alur kerja usaha Anda. Ran Studio bangga dapat menjadi salah satu pelopor penyedia <strong>jasa pembuatan website Indonesia</strong> yang senantiasa mengutamakan kepuasan klien. Bersama kami, Anda akan membuktikan bahwa <strong>pembuatan website murah</strong> tidak berarti mengurangi standar kualitas—Anda tetap akan mendapatkan hasil enterprise yang premium dan profesional.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="portfolio" class="portfolio-section reveal">
+                        <div class="container">
+                            <div class="section-header">
+                                <h2>Portofolio <span>Terbaru</span></h2>
+                                <p>Eksplorasi projek-projek website modern yang telah sukses kami kembangkan untuk berbagai sektor klien.</p>
+                            </div>
+                            
+                            <div class="portfolio-grid">
+                                <div class="portfolio-card" data-category="UMKM">
+                                    <div class="portfolio-img-box">
+                                        <div class="placeholder-img bg-p1" role="img" aria-label="Screenshot Website Kopi Lokal Nusantara">
+                                            <span class="concept-label">Concept Project</span>
+                                            <span class="p-icon" aria-hidden="true">🏬</span>
+                                            <span class="p-title">Kopi Lokal</span>
+                                        </div>
+                                        <div class="portfolio-overlay">
+                                            <div class="overlay-text">
+                                                <span class="p-tag">Kategori: UMKM</span>
+                                                <h4>Website E-Commerce Kopi</h4>
+                                                <div class="port-badges">
+                                                    <span class="badge-mini">HTML</span><span class="badge-mini">CSS</span><span class="badge-mini">Responsive</span>
+                                                </div>
+                                                <div class="port-action">
+                                                    <a href="https://karanraj1109.github.io/demo-cafe/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" aria-label="Lihat Live Demo Kopi Lokal">Live Demo</a>
+                                                    <button class="btn btn-outline btn-sm open-case-study" data-title="Website E-Commerce Kopi" data-type="UMKM" data-tech="HTML, CSS, JavaScript" aria-label="Lihat Case Study">Case Study</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="portfolio-card" data-category="Landing Page">
+                                    <div class="portfolio-img-box">
+                                        <div class="placeholder-img bg-p2" role="img" aria-label="Screenshot Landing Page SaaS">
+                                            <span class="concept-label">Concept Project</span>
+                                            <span class="p-icon" aria-hidden="true">🚀</span>
+                                            <span class="p-title">SaaS Launch</span>
+                                        </div>
+                                        <div class="portfolio-overlay">
+                                            <div class="overlay-text">
+                                                <span class="p-tag">Kategori: Landing Page</span>
+                                                <h4>Landing Page FinTech</h4>
+                                                <div class="port-badges">
+                                                    <span class="badge-mini">Modern UI</span><span class="badge-mini">SEO Ready</span>
+                                                </div>
+                                                <div class="port-action">
+                                                    <a href="https://karanraj1109.github.io/demo-saas-company-/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" aria-label="Lihat Live Demo SaaS">Live Demo</a>
+                                                    <button class="btn btn-outline btn-sm open-case-study" data-title="Landing Page FinTech" data-type="Landing Page" data-tech="HTML, CSS, GSAP" aria-label="Lihat Case Study">Case Study</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="portfolio-card" data-category="Dashboard">
+                                    <div class="portfolio-img-box">
+                                        <div class="placeholder-img bg-p3" role="img" aria-label="Screenshot Dashboard Admin">
+                                            <span class="concept-label">Concept Project</span>
+                                            <span class="p-icon" aria-hidden="true">📊</span>
+                                            <span class="p-title">Admin Panel</span>
+                                        </div>
+                                        <div class="portfolio-overlay">
+                                            <div class="overlay-text">
+                                                <span class="p-tag">Kategori: Dashboard</span>
+                                                <h4>Sistem Inventaris</h4>
+                                                <div class="port-badges">
+                                                    <span class="badge-mini">Custom Design</span><span class="badge-mini">JS</span>
+                                                </div>
+                                                <div class="port-action">
+                                                    <a href="https://karanraj1109.github.io/admin-panel/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" aria-label="Lihat Live Demo Admin">Live Demo</a>
+                                                    <button class="btn btn-outline btn-sm open-case-study" data-title="Sistem Inventaris Admin" data-type="Dashboard" data-tech="HTML, CSS, JS, Chart.js" aria-label="Lihat Case Study">Case Study</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="portfolio-card" data-category="Toko Online">
+                                    <div class="portfolio-img-box">
+                                        <div class="placeholder-img bg-p4" role="img" aria-label="Screenshot Fashion Hub">
+                                            <span class="concept-label">Concept Project</span>
+                                            <span class="p-icon" aria-hidden="true">🛒</span>
+                                            <span class="p-title">Fashion Hub</span>
+                                        </div>
+                                        <div class="portfolio-overlay">
+                                            <div class="overlay-text">
+                                                <span class="p-tag">Kategori: Toko Online</span>
+                                                <h4>Toko Online Busana</h4>
+                                                <div class="port-badges">
+                                                    <span class="badge-mini">E-Commerce</span><span class="badge-mini">Responsive</span>
+                                                </div>
+                                                <div class="port-action">
+                                                    <a href="https://karanraj1109.github.io/fashion-/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" aria-label="Lihat Live Demo Fashion Hub">Live Demo</a>
+                                                    <button class="btn btn-outline btn-sm open-case-study" data-title="Toko Online Busana" data-type="Toko Online" data-tech="HTML, CSS, JS, API" aria-label="Lihat Case Study">Case Study</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="portfolio-card" data-category="Company Profile">
+                                    <div class="portfolio-img-box">
+                                        <div class="placeholder-img bg-p5" role="img" aria-label="Screenshot Artha Konstruksi">
+                                            <span class="concept-label">Concept Project</span>
+                                            <span class="p-icon" aria-hidden="true">🏢</span>
+                                            <span class="p-title">Artha Konstruksi</span>
+                                        </div>
+                                        <div class="portfolio-overlay">
+                                            <div class="overlay-text">
+                                                <span class="p-tag">Kategori: Company Profile</span>
+                                                <h4>Company Profile Kontraktor</h4>
+                                                <div class="port-badges">
+                                                    <span class="badge-mini">Corporate UI</span><span class="badge-mini">SEO Ready</span>
+                                                </div>
+                                                <div class="port-action">
+                                                    <a href="https://karanraj1109.github.io/perusahaan-/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" aria-label="Lihat Live Demo Artha Konstruksi">Live Demo</a>
+                                                    <button class="btn btn-outline btn-sm open-case-study" data-title="Company Profile Kontraktor" data-type="Corporate" data-tech="HTML, CSS, JS" aria-label="Lihat Case Study">Case Study</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="portfolio-card" data-category="Undangan Digital">
+                                    <div class="portfolio-img-box">
+                                        <div class="placeholder-img bg-p6" role="img" aria-label="Screenshot Undangan Budi & Ani">
+                                            <span class="concept-label">Concept Project</span>
+                                            <span class="p-icon" aria-hidden="true">💌</span>
+                                            <span class="p-title">Budi & Ani</span>
+                                        </div>
+                                        <div class="portfolio-overlay">
+                                            <div class="overlay-text">
+                                                <span class="p-tag">Kategori: Undangan Digital</span>
+                                                <h4>Undangan Pernikahan Mewah</h4>
+                                                <div class="port-badges">
+                                                    <span class="badge-mini">Mobile First</span><span class="badge-mini">Audio Setup</span>
+                                                </div>
+                                                <div class="port-action">
+                                                    <a href="https://karanraj1109.github.io/undangan-digital-/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" aria-label="Lihat Live Demo Undangan">Live Demo</a>
+                                                    <button class="btn btn-outline btn-sm open-case-study" data-title="Undangan Pernikahan Mewah" data-type="Undangan Web" data-tech="HTML, CSS, JS, Audio API" aria-label="Lihat Case Study">Case Study</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="bottom-cta-section reveal">
+                        <div class="container">
+                            <div class="cta-box">
+                                <h2>Suka dengan hasil project di atas?</h2>
+                                <p>Mari diskusikan website impian Anda bersama ahlinya. Wujudkan eksistensi online bisnis Anda hari ini.</p>
+                                <a href="https://wa.me/62895614003884" class="btn btn-primary" target="_blank" rel="noopener noreferrer" aria-label="Konsultasi Gratis via WhatsApp">Konsultasi Gratis</a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="testi-section reveal">
+                        <div class="container">
+                            <div class="section-header">
+                                <h2>Testimoni <span>Klien</span></h2>
+                                <p>Apa kata mereka yang telah mempercayakan transformasi digital bisnisnya kepada Ran Studio?</p>
+                            </div>
+                            <div class="testi-placeholder">
+                                <div class="testi-placeholder-card">
+                                    <div class="testi-icon" aria-hidden="true">⭐</div>
+                                    <p class="testi-text">"Testimoni dari client akan ditampilkan setelah project selesai."</p>
+                                    <div class="testi-user">
+                                        <div class="avatar-placeholder" aria-hidden="true">?</div>
+                                        <div>
+                                            <h4>Client Name</h4>
+                                            <span>Business Owner</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="blog-preview-section reveal">
+                        <div class="container">
+                            <div class="section-header">
+                                <h2>Artikel <span>Terbaru</span></h2>
+                                <p>Insight dan panduan seputar pengembangan website dan bisnis digital.</p>
+                            </div>
+                            <div class="blog-grid">
+                                <div class="blog-card">
+                                    <div class="blog-img placeholder-img bg-dark-glass" role="img" aria-label="Thumbnail Blog 1"></div>
+                                    <div class="blog-content">
+                                        <span class="blog-date">Jan 12, 2026</span>
+                                        <h4>Mengapa Bisnis Membutuhkan Website?</h4>
+                                        <a href="#" class="blog-link prevent-default" aria-label="Baca selengkapnya">Baca Artikel ➔</a>
+                                    </div>
+                                </div>
+                                <div class="blog-card">
+                                    <div class="blog-img placeholder-img bg-dark-glass" role="img" aria-label="Thumbnail Blog 2"></div>
+                                    <div class="blog-content">
+                                        <span class="blog-date">Feb 05, 2026</span>
+                                        <h4>Landing Page vs Website, Apa Bedanya?</h4>
+                                        <a href="#" class="blog-link prevent-default" aria-label="Baca selengkapnya">Baca Artikel ➔</a>
+                                    </div>
+                                </div>
+                                <div class="blog-card">
+                                    <div class="blog-img placeholder-img bg-dark-glass" role="img" aria-label="Thumbnail Blog 3"></div>
+                                    <div class="blog-content">
+                                        <span class="blog-date">Mar 22, 2026</span>
+                                        <h4>Tips Memilih Jasa Pembuatan Website</h4>
+                                        <a href="#" class="blog-link prevent-default" aria-label="Baca selengkapnya">Baca Artikel ➔</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="faq" class="faq-section reveal">
+                        <div class="container">
+                            <div class="section-header">
+                                <h2>Frequently Asked <span>Questions</span></h2>
+                                <p>Temukan jawaban cepat atas pertanyaan-pertanyaan umum yang sering diajukan mengenai layanan kami.</p>
+                            </div>
+                            <div class="faq-accordion-container">
+                                <div class="faq-item">
+                                    <div class="faq-question"><h3>1. Berapa lama proses pengerjaan satu buah website?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
+                                    <div class="faq-answer"><p>Durasi pengerjaan sangat bervariasi. Untuk Paket Dasar atau Landing Page biasanya selesai dalam waktu 2-4 hari kerja, sementara aplikasi custom berkisar antara 1-3 minggu.</p></div>
+                                </div>
+                                <div class="faq-item">
+                                    <div class="faq-question"><h3>2. Apakah harga yang tertera sudah termasuk domain?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
+                                    <div class="faq-answer"><p>Harga paket dasar belum termasuk domain. Anda bisa menambahkannya di menu tambahan keranjang belanja saat checkout.</p></div>
+                                </div>
+                                <div class="faq-item">
+                                    <div class="faq-question"><h3>3. Apakah website buatan Ran Studio ramah SEO dan responsif?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
+                                    <div class="faq-answer"><p>Tentu saja. Semua website kami dioptimasi untuk kecepatan akses penuh, ramah SEO dasar, dan otomatis menyesuaikan tampilan di semua layar (Responsive).</p></div>
+                                </div>
+                                <div class="faq-item">
+                                    <div class="faq-question"><h3>4. Bagaimana sistem pembayaran pemesanan di Ran Studio?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
+                                    <div class="faq-answer"><p>Sistem pembayaran melalui Down Payment (DP) 50% di awal sebagai komitmen, dan pelunasan 50% setelah projek divalidasi oleh Anda.</p></div>
+                                </div>
+                                <div class="faq-item">
+                                    <div class="faq-question"><h3>5. Apakah saya mendapatkan akses ke panel admin/dashboard?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
+                                    <div class="faq-answer"><p>Ya, khusus untuk Paket Premium atau jenis Toko Online dan Dashboard Admin, kami menyediakan akses penuh sistem manajemen konten.</p></div>
+                                </div>
+                                <div class="faq-item">
+                                    <div class="faq-question"><h3>6. Apakah ada garansi jika website mengalami error?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
+                                    <div class="faq-answer"><p>Kami menyediakan garansi perbaikan bug dan dukungan teknis selama 1 bulan setelah website dirilis (online).</p></div>
+                                </div>
+                                <div class="faq-item">
+                                    <div class="faq-question"><h3>7. Apakah bisa upgrade paket di kemudian hari?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
+                                    <div class="faq-answer"><p>Sangat bisa! Anda dapat memulai dari paket Starter/Basic dan meng-upgrade fitur atau halaman ke tingkat Standard/Premium seiring pertumbuhan bisnis Anda.</p></div>
+                                </div>
+                                <div class="faq-item">
+                                    <div class="faq-question"><h3>8. Saya tidak punya desain, apakah dibantu?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
+                                    <div class="faq-answer"><p>Tentu. Tim desainer kami akan merancangkan layout UI/UX terbaik berdasarkan identitas brand (logo/warna) yang Anda miliki.</p></div>
+                                </div>
+                                <div class="faq-item">
+                                    <div class="faq-question"><h3>9. Bagaimana dengan biaya perpanjangan tahunan?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
+                                    <div class="faq-answer"><p>Biaya tahunan hanya berlaku jika Anda menggunakan layanan tambahan Domain atau langganan server pihak ketiga dari kami. Biaya transparan akan diinfokan di awal.</p></div>
+                                </div>
+                                <div class="faq-item">
+                                    <div class="faq-question"><h3>10. Apakah saya perlu menyiapkan hosting sendiri?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
+                                    <div class="faq-answer"><p>Tergantung kebutuhan. Jika Anda sudah memilikinya, kami bisa deploy ke hosting Anda. Jika belum, sistem base kami menggunakan infrastruktur cloud efisien tanpa biaya hosting bulanan untuk paket statis.</p></div>
+                                </div>
+                                <div class="faq-item">
+                                    <div class="faq-question"><h3>11. Berapa lama revisi dikerjakan?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
+                                    <div class="faq-answer"><p>Revisi ringan (teks, gambar, warna) biasanya diselesaikan dalam waktu 1x24 jam kerja.</p></div>
+                                </div>
+                                <div class="faq-item">
+                                    <div class="faq-question"><h3>12. Apakah bisa menambahkan fitur khusus seperti payment gateway?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
+                                    <div class="faq-answer"><p>Bisa. Integrasi payment gateway otomatis dapat kami tambahkan melalui paket Custom/Premium sesuai kesepakatan.</p></div>
+                                </div>
+                                <div class="faq-item">
+                                    <div class="faq-question"><h3>13. Apakah foto dan artikel disediakan oleh Ran Studio?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
+                                    <div class="faq-answer"><p>Materi teks dan foto dasar idealnya disediakan oleh Anda. Namun, kami akan membantu menyediakan foto stok (royalty-free) berkualitas tinggi jika Anda membutuhkannya.</p></div>
+                                </div>
+                                <div class="faq-item">
+                                    <div class="faq-question"><h3>14. Apakah saya mendapatkan source code website?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
+                                    <div class="faq-answer"><p>Hak milik sepenuhnya ada di tangan Anda. Kami akan memberikan file source code lengkap saat serah terima project jika diminta.</p></div>
+                                </div>
+                                <div class="faq-item">
+                                    <div class="faq-question"><h3>15. Apa syarat untuk memulai pengerjaan?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
+                                    <div class="faq-answer"><p>Anda hanya perlu memilih paket, mengirimkan detail brief usaha, melakukan pembayaran DP 50%, dan kami akan langsung mulai bekerja!</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="contact" class="contact-section reveal">
+                        <div class="container">
+                            <div class="section-header">
+                                <h2>Hubungi <span>Kami</span></h2>
+                                <p>Konsultasikan kebutuhan digital Anda sekarang juga. Tim spesialis kami siap membantu merealisasikannya.</p>
+                            </div>
+                            <div class="contact-wrapper">
+                                <div class="contact-info-cards">
+                                    <div class="info-item-card">
+                                        <div class="info-icon" aria-hidden="true">💬</div>
+                                        <h3>WhatsApp Chat</h3>
+                                        <p>0895614003884</p>
+                                        <a href="https://wa.me/62895614003884" target="_blank" rel="noopener noreferrer" aria-label="Kirim pesan WhatsApp">Kirim Pesan Express ➔</a>
+                                    </div>
+                                    <div class="info-item-card">
+                                        <div class="info-icon" aria-hidden="true">📸</div>
+                                        <h3>Instagram Feed</h3>
+                                        <p>@karancreative.id</p>
+                                        <a href="https://instagram.com/karancreative.id" target="_blank" rel="noopener noreferrer" aria-label="Lihat Instagram kami">Ikuti Portfolio IG ➔</a>
+                                    </div>
+                                    <div class="info-item-card">
+                                        <div class="info-icon" aria-hidden="true">✉️</div>
+                                        <h3>Official Email</h3>
+                                        <p>karanraj23052021@gmail.com</p>
+                                        <a href="mailto:karanraj23052021@gmail.com" aria-label="Kirim Email">Kirim Surel Bisnis ➔</a>
+                                    </div>
+                                </div>
+
+                                <div class="contact-form-box">
+                                    <form id="direct-contact-form">
+                                        <div class="form-group">
+                                            <label for="form-name">Nama Lengkap</label>
+                                            <input type="text" id="form-name" placeholder="Masukkan nama Anda..." aria-label="Nama Lengkap" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="form-email">Alamat Email</label>
+                                            <input type="email" id="form-email" placeholder="nama@email.com" aria-label="Alamat Email" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="form-message">Pesan / Detail Pertanyaan</label>
+                                            <textarea id="form-message" rows="5" placeholder="Tuliskan detail pertanyaan atau kebutuhan fitur website Anda di sini..." aria-label="Isi Pesan" required></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-block" aria-label="Kirim Pesan via WhatsApp">Kirim Pesan Kontak via WhatsApp</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </main>
+                
+                <footer class="footer-section">
+                    <div class="container footer-grid">
+                        <div class="footer-brand">
+                            <h3>Ran<span>Studio</span></h3>
+                            <p>Agensi pengembangan digital murni penyedia jasa pembuatan website premium, responsif, modern, dan berkinerja tinggi demi menyukseskan bisnis Anda di ranah global.</p>
+                        </div>
+                        
+                        <div class="footer-links">
+                            <h4>Quick Links</h4>
+                            <ul>
+                                <li><a href="#home">Home</a></li>
+                                <li><a href="#services">Services</a></li>
+                                <li><a href="#pricing">Pricing</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="footer-links">
+                            <h4>Explore</h4>
+                            <ul>
+                                <li><a href="#portfolio">Portfolio</a></li>
+                                <li><a href="#workflow">Cara Kerja</a></li>
+                                <li><a href="#faq">FAQ</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="footer-contact-info">
+                            <h4>Kontak & Sosial</h4>
+                            <p>📍 Medan, Sumatera Utara, ID</p>
+                            <p>📞 0895614003884</p>
+                            <p>✉️ karanraj23052021@gmail.com</p>
+                            <div class="social-icons-row" style="margin-top: 15px;">
+                                <a href="https://instagram.com/karancreative.id" target="_blank" rel="noopener noreferrer" class="social-icon-circle" aria-label="Instagram">IG</a>
+                                <a href="https://wa.me/62895614003884" target="_blank" rel="noopener noreferrer" class="social-icon-circle" aria-label="WhatsApp">WA</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>&copy; 2026 Ran Studio. All Rights Reserved. Premium Native Web Development.</p>
+                    </div>
+                </footer>
+            </div> <div class="panel" id="panel-templates" style="height: 0; overflow: hidden; opacity: 0; visibility: hidden;">
+                <main>
+                    <section class="templates-hero">
+                        <div class="container">
+                            <div class="section-header" style="margin-top: 40px;">
+                                <h2>Premium Website <span>Templates</span></h2>
+                                <p>Pilih template website premium yang siap digunakan atau dikustomisasi sesuai kebutuhan bisnis Anda. Menghemat waktu dengan desain berkualitas top-tier.</p>
+                            </div>
+
+                            <div class="portfolio-grid">
+                                <div class="portfolio-card">
+                                    <div class="portfolio-img-box">
+                                        <div class="placeholder-img bg-p2" role="img" aria-label="SaaS Modern Kit">
+                                            <span class="p-icon" aria-hidden="true">🚀</span>
+                                            <span class="p-title">SaaS Modern Kit</span>
+                                        </div>
+                                    </div>
+                                    <div class="template-content">
+                                        <div class="template-meta">
+                                            <span class="p-tag">Landing Page</span>
+                                            <span class="template-price">Rp 250.000</span>
+                                        </div>
+                                        <h4>SaaS Modern Kit</h4>
+                                        <div class="port-badges">
+                                            <span class="badge-mini">HTML</span><span class="badge-mini">CSS</span><span class="badge-mini">Responsive</span>
+                                        </div>
+                                        <div class="template-actions">
+                                            <a href="#" class="btn btn-secondary btn-sm prevent-default" aria-label="Live Demo SaaS Kit">Live Demo</a>
+                                            <a href="https://wa.me/62895614003884?text=Halo%20Ran%20Studio,%20saya%20ingin%20membeli%20Template%20SaaS%20Modern%20Kit." class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer" aria-label="Beli Template SaaS Kit">Buy Template</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="portfolio-card">
+                                    <div class="portfolio-img-box">
+                                        <div class="placeholder-img bg-p4" role="img" aria-label="E-Commerce Lite">
+                                            <span class="p-icon" aria-hidden="true">🛒</span>
+                                            <span class="p-title">E-Commerce Lite</span>
+                                        </div>
+                                    </div>
+                                    <div class="template-content">
+                                        <div class="template-meta">
+                                            <span class="p-tag">Toko Online</span>
+                                            <span class="template-price">Rp 350.000</span>
+                                        </div>
+                                        <h4>E-Commerce Lite</h4>
+                                        <div class="port-badges">
+                                            <span class="badge-mini">JavaScript</span><span class="badge-mini">SEO Ready</span><span class="badge-mini">HTML</span>
+                                        </div>
+                                        <div class="template-actions">
+                                            <a href="#" class="btn btn-secondary btn-sm prevent-default" aria-label="Live Demo E-Commerce Lite">Live Demo</a>
+                                            <a href="https://wa.me/62895614003884?text=Halo%20Ran%20Studio,%20saya%20ingin%20membeli%20Template%20E-Commerce%20Lite." class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer" aria-label="Beli Template E-Commerce Lite">Buy Template</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="portfolio-card">
+                                    <div class="portfolio-img-box">
+                                        <div class="placeholder-img bg-p5" role="img" aria-label="Corporate Pro">
+                                            <span class="p-icon" aria-hidden="true">🏢</span>
+                                            <span class="p-title">Corporate Pro</span>
+                                        </div>
+                                    </div>
+                                    <div class="template-content">
+                                        <div class="template-meta">
+                                            <span class="p-tag">Company Profile</span>
+                                            <span class="template-price">Rp 300.000</span>
+                                        </div>
+                                        <h4>Corporate Pro</h4>
+                                        <div class="port-badges">
+                                            <span class="badge-mini">Responsive</span><span class="badge-mini">HTML</span><span class="badge-mini">CSS</span>
+                                        </div>
+                                        <div class="template-actions">
+                                            <a href="#" class="btn btn-secondary btn-sm prevent-default" aria-label="Live Demo Corporate Pro">Live Demo</a>
+                                            <a href="https://wa.me/62895614003884?text=Halo%20Ran%20Studio,%20saya%20ingin%20membeli%20Template%20Corporate%20Pro." class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer" aria-label="Beli Template Corporate Pro">Buy Template</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </main>
+                
+                <footer class="footer-section" style="margin-top: 100px;">
+                    <div class="container footer-grid">
+                        <div class="footer-brand">
+                            <h3>Ran<span>Studio</span></h3>
+                            <p>Agensi pengembangan digital murni penyedia jasa pembuatan website premium, responsif, modern, dan berkinerja tinggi demi menyukseskan bisnis Anda di ranah global.</p>
+                        </div>
+                        <div class="footer-contact-info" style="grid-column: span 3; text-align: right;">
+                            <h4>Kontak & Sosial</h4>
+                            <p>📍 Medan, Sumatera Utara, ID &nbsp; | &nbsp; 📞 0895614003884 &nbsp; | &nbsp; ✉️ karanraj23052021@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>&copy; 2026 Ran Studio. All Rights Reserved. Premium Native Web Development.</p>
+                    </div>
+                </footer>
+            </div> </div>
+    </div> <div id="case-study-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="cs-title">
         <div class="modal-content">
             <button class="close-modal" aria-label="Tutup Modal">&times;</button>
             <div class="modal-body">
