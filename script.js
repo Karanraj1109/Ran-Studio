@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================================================
-       2. SEGMENTED SWITCH & SWIPE LOGIC
+       2. SEGMENTED SWITCH & SWIPE LOGIC (STABLE LAYOUT METHOD)
        ========================================================================== */
     const slider = document.getElementById('app-slider');
     const segmentBtns = document.querySelectorAll('.segment-btn');
@@ -37,23 +37,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const activeBtn = document.querySelector(`.segment-btn[data-target="${mode}"]`);
         activeBtn.classList.add('active');
 
+        // Remove hidden classes to render full height for sliding
+        panelAgency.classList.remove('hidden-panel');
+        panelTemplates.classList.remove('hidden-panel');
+        panelAgency.style.opacity = '1';
+        panelTemplates.style.opacity = '1';
+
         if(mode === 'templates') {
             segmentBg.style.transform = 'translateX(100%)';
-            slider.style.transform = 'translateX(-100vw)';
+            slider.style.transform = 'translateX(-50%)'; 
             navLinksContainer.style.opacity = '0';
             navLinksContainer.style.pointerEvents = 'none';
 
+            // Hide inactive panel after animation
             setTimeout(() => {
-                panelAgency.style.height = '0';
-                panelAgency.style.overflow = 'hidden';
-                panelAgency.style.visibility = 'hidden';
-                panelAgency.style.opacity = '0';
-
-                panelTemplates.style.height = 'auto';
-                panelTemplates.style.overflow = 'visible';
-                panelTemplates.style.visibility = 'visible';
-                panelTemplates.style.opacity = '1';
-            }, 650);
+                panelAgency.classList.add('hidden-panel');
+            }, 500);
 
         } else {
             segmentBg.style.transform = 'translateX(0)';
@@ -61,17 +60,10 @@ document.addEventListener('DOMContentLoaded', () => {
             navLinksContainer.style.opacity = '1';
             navLinksContainer.style.pointerEvents = 'auto';
 
-            panelAgency.style.height = 'auto';
-            panelAgency.style.overflow = 'visible';
-            panelAgency.style.visibility = 'visible';
-            panelAgency.style.opacity = '1';
-
+            // Hide inactive panel after animation
             setTimeout(() => {
-                panelTemplates.style.height = '0';
-                panelTemplates.style.overflow = 'hidden';
-                panelTemplates.style.visibility = 'hidden';
-                panelTemplates.style.opacity = '0';
-            }, 650);
+                panelTemplates.classList.add('hidden-panel');
+            }, 500);
         }
     }
 
@@ -162,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (hamburger && navLinksMobileContainer) {
         hamburger.addEventListener('click', () => {
-            if(currentMode === 'templates') return; // Disable hamburger in templates mode if links are hidden
+            if(currentMode === 'templates') return; 
             hamburger.classList.toggle('active');
             navLinksMobileContainer.classList.toggle('active');
         });
