@@ -8,11 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('load', () => {
             setTimeout(() => {
                 loader.classList.add('fade-out');
-            }, 400); 
+            }, 800); 
         });
         setTimeout(() => {
             loader.classList.add('fade-out');
-        }, 2500);
+        }, 2000);
     }
 
     /* ==========================================================================
@@ -123,16 +123,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const statsSection = document.querySelector('.stats-section');
     if (statsSection) {
         const observerOptions = { root: null, threshold: 0.3 };
-        const statsObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !countersStarted) {
-                    countersStarted = true;
-                    startCounters();
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-        statsObserver.observe(statsSection);
+        if (window.IntersectionObserver) {
+            const statsObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !countersStarted) {
+                        countersStarted = true;
+                        startCounters();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            statsObserver.observe(statsSection);
+        } else {
+            startCounters(); // fallback
+        }
     }
 
     /* ==========================================================================
@@ -161,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <tr>
                 <td><strong>${cartState.name}</strong></td>
                 <td>Rp${cartState.basePrice.toLocaleString('id-ID')}</td>
-                <td><button class="delete-btn" data-action="clear-cart">Hapus</button></td>
+                <td><button class="delete-btn" data-action="clear-cart" aria-label="Hapus paket dari keranjang">Hapus</button></td>
             </tr>
         `;
 
@@ -223,6 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const calcTotalResultDisplay = document.getElementById('calc-total-result');
 
     const recalculateCalculatorEstimate = () => {
+        if(!calcTypeSelect || !calcPagesRange) return;
         const baseTypeCost = parseInt(calcTypeSelect.value, 10);
         const inputPagesCount = parseInt(calcPagesRange.value, 10);
         
@@ -341,6 +346,68 @@ Deskripsi Website: ${clientDescInput}`;
 
             window.open(destinationEndpointUrl, '_blank', 'noopener,noreferrer');
             directContactForm.reset();
+        });
+    }
+
+    /* ==========================================================================
+       10. PREVENT DEFAULT ON PLACEHOLDER LINKS
+       ========================================================================== */
+    const preventLinks = document.querySelectorAll('.prevent-default');
+    preventLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+        });
+    });
+
+    /* ==========================================================================
+       11. CASE STUDY MODAL LOGIC
+       ========================================================================== */
+    const modalOverlay = document.getElementById('case-study-modal');
+    const closeBtns = document.querySelectorAll('.close-modal, .close-modal-btn');
+    const openCaseBtns = document.querySelectorAll('.open-case-study');
+    
+    // Modal dynamic elements
+    const csTitle = document.getElementById('cs-title');
+    const csType = document.getElementById('cs-type');
+    const csTech = document.getElementById('cs-tech');
+    const csDemoLink = document.getElementById('cs-demo-link');
+
+    if(modalOverlay) {
+        openCaseBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Populate data
+                csTitle.innerText = btn.getAttribute('data-title') || 'Project Title';
+                csType.innerText = btn.getAttribute('data-type') || 'Website';
+                csTech.innerText = btn.getAttribute('data-tech') || 'HTML, CSS, JS';
+                
+                // Get sibling link URL
+                const demoLinkBtn = btn.parentElement.querySelector('a.btn-secondary');
+                if(demoLinkBtn && demoLinkBtn.getAttribute('href') !== '#') {
+                    csDemoLink.href = demoLinkBtn.getAttribute('href');
+                    csDemoLink.style.display = 'inline-block';
+                } else {
+                    csDemoLink.style.display = 'none';
+                }
+
+                modalOverlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // prevent bg scroll
+            });
+        });
+
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                modalOverlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Close on outside click
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
         });
     }
 });
