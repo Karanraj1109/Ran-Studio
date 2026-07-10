@@ -8,27 +8,38 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('load', () => {
             setTimeout(() => {
                 loader.classList.add('fade-out');
-            }, 400); // Elegant delay
+            }, 400); 
         });
-        // Fallback safety trigger
         setTimeout(() => {
             loader.classList.add('fade-out');
         }, 2500);
     }
 
     /* ==========================================================================
-       2. STICKY NAVBAR & ACTIVE NAVIGATION LINK TRACKING
+       2. STICKY NAVBAR, ACTIVE LINK & FLOATING CTA LOGIC
        ========================================================================== */
     const navbar = document.querySelector('.navbar');
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-link');
+    const floatingCta = document.getElementById('floating-cta');
+    const heroSection = document.getElementById('home');
 
     window.addEventListener('scroll', () => {
-        // Sticky logic
+        // Sticky Navbar logic
         if (window.scrollY > 50) {
             navbar.classList.add('sticky');
         } else {
             navbar.classList.remove('sticky');
+        }
+
+        // Floating CTA logic (muncul setelah melewati Hero Section)
+        if (heroSection) {
+            const heroBottom = heroSection.offsetTop + heroSection.clientHeight;
+            if (window.scrollY > heroBottom - 200) {
+                floatingCta.classList.add('visible');
+            } else {
+                floatingCta.classList.remove('visible');
+            }
         }
 
         // Active Link Highlighting logic
@@ -61,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
             navLinksContainer.classList.toggle('active');
         });
 
-        // Close navbar layout when specific navigation node link is clicked
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
@@ -71,8 +81,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================================================
-       4. ANIMATED STATISTICS SCROLL COUNTER
+       4. ANIMATED STATISTICS SCROLL COUNTER & SCROLL REVEAL
        ========================================================================== */
+    
+    // Scroll Reveal Elements
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealFunc = () => {
+        const windowHeight = window.innerHeight;
+        revealElements.forEach(el => {
+            const elementTop = el.getBoundingClientRect().top;
+            if (elementTop < windowHeight - 50) {
+                el.classList.add('active');
+            }
+        });
+    };
+    window.addEventListener('scroll', revealFunc);
+    revealFunc(); // Trigger on load
+
+    // Stats Counter
     const statNumbers = document.querySelectorAll('.stat-number');
     let countersStarted = false;
 
@@ -81,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const updateCount = () => {
                 const target = parseInt(counter.getAttribute('data-target'), 10);
                 const current = parseInt(counter.innerText, 10);
-                const increment = Math.ceil(target / 40); // Synchronization step speed
+                const increment = Math.ceil(target / 40);
 
                 if (current < target) {
                     counter.innerText = current + increment > target ? target : current + increment;
@@ -94,14 +120,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Intersection Observer API configuration for scroll metrics
     const statsSection = document.querySelector('.stats-section');
     if (statsSection) {
-        const observerOptions = {
-            root: null,
-            threshold: 0.3
-        };
-
+        const observerOptions = { root: null, threshold: 0.3 };
         const statsObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && !countersStarted) {
@@ -111,21 +132,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }, observerOptions);
-
         statsObserver.observe(statsSection);
     }
 
     /* ==========================================================================
        5. INTERACTIVE SHOPPING CART MECHANICS
        ========================================================================== */
-    let cartState = null; // Single product design limit context rule constraint
+    let cartState = null;
 
     const cartEmptyMsg = document.getElementById('cart-empty-msg');
     const cartContent = document.getElementById('cart-content');
     const cartItemsTableBody = document.getElementById('cart-items');
     const cartTotalValDisplay = document.getElementById('cart-total-val');
     
-    // Addon Checkbox Elements
     const allAddonCheckboxes = document.querySelectorAll('.addon-checkbox');
 
     const updateCartDOM = () => {
@@ -138,7 +157,6 @@ document.addEventListener('DOMContentLoaded', () => {
         cartEmptyMsg.classList.add('hidden');
         cartContent.classList.remove('hidden');
 
-        // Render package element row inside table body structure
         cartItemsTableBody.innerHTML = `
             <tr>
                 <td><strong>${cartState.name}</strong></td>
@@ -147,10 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
             </tr>
         `;
 
-        // Calculate continuous global total calculation matrix
         calculateCartTotal();
 
-        // Bind internal item removal callback action node
         const deleteBtn = cartItemsTableBody.querySelector('.delete-btn');
         deleteBtn.addEventListener('click', () => {
             clearCart();
@@ -161,8 +177,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!cartState) return;
 
         let totalAccumulator = cartState.basePrice;
-
-        // Verify active additional addon options
         allAddonCheckboxes.forEach(cb => {
             if (cb.checked) {
                 totalAccumulator += parseInt(cb.getAttribute('data-price'), 10);
@@ -174,12 +188,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const clearCart = () => {
         cartState = null;
-        // Uncheck configurations systematically
         allAddonCheckboxes.forEach(cb => cb.checked = false);
         updateCartDOM();
     };
 
-    // Bind event delegation mapping onto pricing trigger selection layouts
     const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
     addToCartButtons.forEach(button => {
         button.addEventListener('click', (e) => {
@@ -188,21 +200,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = btnNode.getAttribute('data-name');
             const price = parseInt(btnNode.getAttribute('data-price'), 10);
 
-            // Populate system active state context model configuration
-            cartState = {
-                id: id,
-                name: name,
-                basePrice: price
-            };
-
+            cartState = { id: id, name: name, basePrice: price };
             updateCartDOM();
 
-            // Smooth contextual navigation snap-to effect targeting shopping cart container frame
             document.getElementById('cart').scrollIntoView({ behavior: 'smooth', block: 'center' });
         });
     });
 
-    // Append instant state modification hooks to supplementary components
     allAddonCheckboxes.forEach(checkbox => {
         checkbox.addEventListener('change', () => {
             calculateCartTotal();
@@ -222,13 +226,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const baseTypeCost = parseInt(calcTypeSelect.value, 10);
         const inputPagesCount = parseInt(calcPagesRange.value, 10);
         
-        // Update range interface numerical element text tracking label
         pagesValLabel.innerText = inputPagesCount;
 
-        // Calculate dynamic pages factor: first index included in base price pricing, subsequent index weights extra
         const additionalPagesCost = inputPagesCount > 1 ? (inputPagesCount - 1) * 30000 : 0;
-        
-        // Infrastructure nodes verification evaluation
         const domainCost = calcDomainCB.checked ? parseInt(calcDomainCB.value, 10) : 0;
 
         const calculatedFinalSum = baseTypeCost + additionalPagesCost + domainCost;
@@ -262,7 +262,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Consolidate string content formatting components
             let selectedAddonsList = [];
             allAddonCheckboxes.forEach(cb => {
                 if (cb.checked) {
@@ -272,7 +271,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const addonsTextRepresentation = selectedAddonsList.length > 0 ? selectedAddonsList.join(', ') : 'Tidak ada tambahan';
             const grandTotalText = document.getElementById('cart-total-val').innerText;
 
-            // Formulate WhatsApp URI compliant parameters template string representation array
             const waTargetNumber = "62895614003884"; 
             const baseTextPrompt = `Halo, saya ingin memesan website dari Ran Studio.
 
@@ -287,7 +285,6 @@ Deskripsi Website: ${clientDescInput}`;
             const processedEncodedUriString = encodeURIComponent(baseTextPrompt);
             const destinationEndpointUrl = `https://wa.me/${waTargetNumber}?text=${processedEncodedUriString}`;
 
-            // Trigger structural window redirection layer to open target WhatsApp instance
             window.open(destinationEndpointUrl, '_blank', 'noopener,noreferrer');
         });
     }
@@ -302,7 +299,6 @@ Deskripsi Website: ${clientDescInput}`;
             const parentItemNode = questionNode.parentElement;
             const answerNode = questionNode.nextElementSibling;
 
-            // Handle switching sequence for elements that do not match currently active identifier
             document.querySelectorAll('.faq-item').forEach(item => {
                 if (item !== parentItemNode && item.classList.contains('active')) {
                     item.classList.remove('active');
@@ -310,7 +306,6 @@ Deskripsi Website: ${clientDescInput}`;
                 }
             });
 
-            // Toggle active tracking properties state classes onto components
             parentItemNode.classList.toggle('active');
 
             if (parentItemNode.classList.contains('active')) {
@@ -339,14 +334,12 @@ Deskripsi Website: ${clientDescInput}`;
             }
 
             const waTargetNumber = "62895614003884"; 
-            
             const baseTextPrompt = `Halo Ran Studio, saya ingin berkonsultasi mengenai pembuatan website.\n\nNama: ${contactName}\nEmail: ${contactEmail}\nPesan: ${contactMessage}\n\nTerima kasih.`;
 
             const processedEncodedUriString = encodeURIComponent(baseTextPrompt);
             const destinationEndpointUrl = `https://wa.me/${waTargetNumber}?text=${processedEncodedUriString}`;
 
             window.open(destinationEndpointUrl, '_blank', 'noopener,noreferrer');
-            
             directContactForm.reset();
         });
     }
