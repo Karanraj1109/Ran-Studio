@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
             navbar.classList.remove('sticky');
         }
 
-        // Floating CTA logic (muncul setelah melewati Hero Section)
-        if (heroSection) {
+        // Floating CTA logic
+        if (heroSection && floatingCta) {
             const heroBottom = heroSection.offsetTop + heroSection.clientHeight;
             if (window.scrollY > heroBottom - 200) {
                 floatingCta.classList.add('visible');
