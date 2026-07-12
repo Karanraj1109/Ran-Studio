@@ -1,22 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     /* ==========================================================================
-       1. LOADING SCREEN DISMISS
+       1. PRELOADER (OPTIMIZED TIMING)
        ========================================================================== */
     const loader = document.getElementById('loader');
     if (loader) {
         window.addEventListener('load', () => {
-            setTimeout(() => {
-                loader.classList.add('fade-out');
-            }, 800); 
+            setTimeout(() => { loader.classList.add('fade-out'); }, 700); 
         });
-        setTimeout(() => {
-            loader.classList.add('fade-out');
-        }, 2000);
+        // Fallback
+        setTimeout(() => { loader.classList.add('fade-out'); }, 2000);
     }
 
     /* ==========================================================================
-       2. SEGMENTED SWITCH & SWIPE LOGIC (STABLE LAYOUT METHOD)
+       2. SEGMENTED SWITCH & SWIPE (SMOOTH 60FPS)
        ========================================================================== */
     const slider = document.getElementById('app-slider');
     const segmentBtns = document.querySelectorAll('.segment-btn');
@@ -37,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const activeBtn = document.querySelector(`.segment-btn[data-target="${mode}"]`);
         if(activeBtn) activeBtn.classList.add('active');
 
+        // Reveal both panels for the sliding transition
         panelAgency.classList.remove('hidden-panel');
         panelTemplates.classList.remove('hidden-panel');
         panelAgency.style.opacity = '1';
@@ -49,11 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 navLinksContainer.style.opacity = '0';
                 navLinksContainer.style.pointerEvents = 'none';
             }
-
-            setTimeout(() => {
-                panelAgency.classList.add('hidden-panel');
-            }, 500);
-
+            setTimeout(() => { panelAgency.classList.add('hidden-panel'); }, 600);
         } else {
             if(segmentBg) segmentBg.style.transform = 'translateX(0)';
             if(slider) slider.style.transform = 'translateX(0)';
@@ -61,47 +55,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 navLinksContainer.style.opacity = '1';
                 navLinksContainer.style.pointerEvents = 'auto';
             }
-
-            setTimeout(() => {
-                panelTemplates.classList.add('hidden-panel');
-            }, 500);
+            setTimeout(() => { panelTemplates.classList.add('hidden-panel'); }, 600);
         }
     }
 
     segmentBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            setMode(btn.getAttribute('data-target'));
-        });
+        btn.addEventListener('click', () => { setMode(btn.getAttribute('data-target')); });
     });
 
     let touchStartX = 0;
     let touchEndX = 0;
-
-    document.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-    }, {passive: true});
-
+    document.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
     document.addEventListener('touchend', e => {
         touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
+        const threshold = 100;
+        if (touchStartX - touchEndX > threshold && currentMode === 'agency') setMode('templates');
+        if (touchEndX - touchStartX > threshold && currentMode === 'templates') setMode('agency');
     }, {passive: true});
 
-    function handleSwipe() {
-        const threshold = 120;
-        if (touchStartX - touchEndX > threshold) {
-            if (currentMode === 'agency') {
-                setMode('templates');
-            }
-        }
-        if (touchEndX - touchStartX > threshold) {
-            if (currentMode === 'templates') {
-                setMode('agency');
-            }
-        }
-    }
-
     /* ==========================================================================
-       3. STICKY NAVBAR, ACTIVE LINK & FLOATING CTA LOGIC
+       3. NAVIGATION & SCROLL LOGIC
        ========================================================================== */
     const navbar = document.querySelector('.navbar');
     const sections = document.querySelectorAll('section');
@@ -111,389 +84,255 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', () => {
         if (navbar) {
-            if (window.scrollY > 50) {
-                navbar.classList.add('sticky');
-            } else {
-                navbar.classList.remove('sticky');
-            }
+            if (window.scrollY > 50) navbar.classList.add('sticky');
+            else navbar.classList.remove('sticky');
         }
 
         if (heroSection && floatingCta) {
             const heroBottom = heroSection.offsetTop + heroSection.clientHeight;
-            if (window.scrollY > heroBottom - 200) {
-                floatingCta.classList.add('visible');
-            } else {
-                floatingCta.classList.remove('visible');
-            }
+            if (window.scrollY > heroBottom - 100) floatingCta.classList.add('visible');
+            else floatingCta.classList.remove('visible');
         }
 
         if(currentMode === 'agency') {
-            let currentSectionId = '';
+            let currentId = '';
             sections.forEach(section => {
-                const sectionTop = section.offsetTop - 100;
-                const sectionHeight = section.clientHeight;
-                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
-                    currentSectionId = section.getAttribute('id');
-                }
+                if (window.scrollY >= section.offsetTop - 150) currentId = section.getAttribute('id');
             });
-
             navLinks.forEach(link => {
                 link.classList.remove('active');
-                if (link.getAttribute('href') === `#${currentSectionId}`) {
-                    link.classList.add('active');
-                }
+                if (link.getAttribute('href') === `#${currentId}`) link.classList.add('active');
             });
         }
-    });
+    }, {passive: true});
 
     /* ==========================================================================
-       4. MOBILE HAMBURGER MENU ACTIONS
+       4. MOBILE MENU
        ========================================================================== */
     const hamburger = document.querySelector('.hamburger');
-    const navLinksMobileContainer = document.querySelector('.nav-links');
+    const navLinksMobile = document.querySelector('.nav-links');
 
-    if (hamburger && navLinksMobileContainer) {
+    if (hamburger && navLinksMobile) {
         hamburger.addEventListener('click', () => {
             if(currentMode === 'templates') return; 
             hamburger.classList.toggle('active');
-            navLinksMobileContainer.classList.toggle('active');
+            navLinksMobile.classList.toggle('active');
         });
-
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
-                navLinksMobileContainer.classList.remove('active');
+                navLinksMobile.classList.remove('active');
             });
         });
     }
 
     /* ==========================================================================
-       5. ANIMATED STATISTICS SCROLL COUNTER & SCROLL REVEAL
+       5. SCROLL REVEAL & COUNTERS
        ========================================================================== */
-    
     const revealElements = document.querySelectorAll('.reveal');
     const revealFunc = () => {
-        const windowHeight = window.innerHeight;
+        const wh = window.innerHeight;
         revealElements.forEach(el => {
-            const elementTop = el.getBoundingClientRect().top;
-            if (elementTop < windowHeight - 50) {
-                el.classList.add('active');
-            }
+            if (el.getBoundingClientRect().top < wh - 50) el.classList.add('active');
         });
     };
-    window.addEventListener('scroll', revealFunc);
+    window.addEventListener('scroll', revealFunc, {passive: true});
     revealFunc();
 
     const statNumbers = document.querySelectorAll('.stat-number');
     let countersStarted = false;
-
     const startCounters = () => {
         statNumbers.forEach(counter => {
+            const target = +counter.getAttribute('data-target');
             const updateCount = () => {
-                const target = parseInt(counter.getAttribute('data-target'), 10);
-                const current = parseInt(counter.innerText, 10);
-                const increment = Math.ceil(target / 40);
-
+                const current = +counter.innerText;
+                const inc = Math.ceil(target / 40);
                 if (current < target) {
-                    counter.innerText = current + increment > target ? target : current + increment;
+                    counter.innerText = current + inc > target ? target : current + inc;
                     setTimeout(updateCount, 30);
-                } else {
-                    counter.innerText = target;
-                }
+                } else { counter.innerText = target; }
             };
             updateCount();
         });
     };
 
     const statsSection = document.querySelector('.stats-section');
-    if (statsSection) {
-        const observerOptions = { root: null, threshold: 0.3 };
-        if (window.IntersectionObserver) {
-            const statsObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && !countersStarted) {
-                        countersStarted = true;
-                        startCounters();
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-            statsObserver.observe(statsSection);
-        } else {
-            startCounters();
-        }
+    if (statsSection && window.IntersectionObserver) {
+        const obs = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && !countersStarted) {
+                countersStarted = true;
+                startCounters();
+                obs.disconnect();
+            }
+        }, { threshold: 0.3 });
+        obs.observe(statsSection);
+    } else if(statsSection) {
+        startCounters();
     }
 
     /* ==========================================================================
-       6. INTERACTIVE SHOPPING CART MECHANICS
+       6. PREMIUM CART SYSTEM
        ========================================================================== */
     let cartState = null;
+    const formatRp = num => 'Rp' + num.toLocaleString('id-ID');
 
-    const cartEmptyMsg = document.getElementById('cart-empty-msg');
+    const cartEmpty = document.getElementById('cart-empty-msg');
     const cartContent = document.getElementById('cart-content');
-    const cartItemsTableBody = document.getElementById('cart-items');
-    const cartTotalValDisplay = document.getElementById('cart-total-val');
-    
-    const allAddonCheckboxes = document.querySelectorAll('.addon-checkbox');
+    const cartItemsBody = document.getElementById('cart-items');
+    const cartTotalVal = document.getElementById('cart-total-val');
+    const addonCBs = document.querySelectorAll('.addon-checkbox');
 
     const updateCartDOM = () => {
         if (!cartState) {
-            if(cartEmptyMsg) cartEmptyMsg.classList.remove('hidden');
+            if(cartEmpty) cartEmpty.classList.remove('hidden');
             if(cartContent) cartContent.classList.add('hidden');
             return;
         }
-
-        if(cartEmptyMsg) cartEmptyMsg.classList.add('hidden');
+        if(cartEmpty) cartEmpty.classList.add('hidden');
         if(cartContent) cartContent.classList.remove('hidden');
 
-        if(cartItemsTableBody) {
-            cartItemsTableBody.innerHTML = `
+        if(cartItemsBody) {
+            cartItemsBody.innerHTML = `
                 <tr>
                     <td><strong>${cartState.name}</strong></td>
-                    <td>Rp${cartState.basePrice.toLocaleString('id-ID')}</td>
-                    <td><button class="delete-btn" data-action="clear-cart" aria-label="Hapus paket dari keranjang">Hapus</button></td>
-                </tr>
-            `;
-
-            const deleteBtn = cartItemsTableBody.querySelector('.delete-btn');
-            if(deleteBtn) {
-                deleteBtn.addEventListener('click', () => {
-                    clearCart();
-                });
-            }
+                    <td>${formatRp(cartState.basePrice)}</td>
+                    <td><button class="delete-btn" aria-label="Hapus">Hapus</button></td>
+                </tr>`;
+            cartItemsBody.querySelector('.delete-btn').addEventListener('click', () => {
+                cartState = null;
+                addonCBs.forEach(cb => cb.checked = false);
+                updateCartDOM();
+            });
         }
-
-        calculateCartTotal();
+        calcTotal();
     };
 
-    const calculateCartTotal = () => {
+    const calcTotal = () => {
         if (!cartState) return;
-
-        let totalAccumulator = cartState.basePrice;
-        allAddonCheckboxes.forEach(cb => {
-            if (cb.checked) {
-                totalAccumulator += parseInt(cb.getAttribute('data-price'), 10);
-            }
-        });
-
-        if(cartTotalValDisplay) {
-            cartTotalValDisplay.innerText = `Rp${totalAccumulator.toLocaleString('id-ID')}`;
-        }
+        let total = cartState.basePrice;
+        addonCBs.forEach(cb => { if (cb.checked) total += +cb.getAttribute('data-price'); });
+        if(cartTotalVal) cartTotalVal.innerText = formatRp(total);
     };
 
-    const clearCart = () => {
-        cartState = null;
-        allAddonCheckboxes.forEach(cb => cb.checked = false);
-        updateCartDOM();
-    };
-
-    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            const btnNode = e.target;
-            const id = btnNode.getAttribute('data-id');
-            const name = btnNode.getAttribute('data-name');
-            const price = parseInt(btnNode.getAttribute('data-price'), 10);
-
-            cartState = { id: id, name: name, basePrice: price };
+    document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            cartState = {
+                name: e.target.getAttribute('data-name'),
+                basePrice: +e.target.getAttribute('data-price')
+            };
             updateCartDOM();
-
-            const cartSection = document.getElementById('cart');
-            if(cartSection) {
-                cartSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
+            const cSec = document.getElementById('cart');
+            if(cSec) cSec.scrollIntoView({ behavior: 'smooth', block: 'center' });
         });
     });
 
-    allAddonCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', () => {
-            calculateCartTotal();
-        });
-    });
+    addonCBs.forEach(cb => cb.addEventListener('change', calcTotal));
 
     /* ==========================================================================
-       7. REAL-TIME ESTIMATION COST CALCULATOR MATRIX
+       7. CALCULATOR
        ========================================================================== */
-    const calcTypeSelect = document.getElementById('calc-type');
-    const calcPagesRange = document.getElementById('calc-pages');
-    const pagesValLabel = document.getElementById('pages-val');
-    const calcDomainCB = document.getElementById('calc-domain');
-    const calcTotalResultDisplay = document.getElementById('calc-total-result');
+    const calcType = document.getElementById('calc-type');
+    const calcPages = document.getElementById('calc-pages');
+    const pValLabel = document.getElementById('pages-val');
+    const calcDomain = document.getElementById('calc-domain');
+    const calcResult = document.getElementById('calc-total-result');
 
-    const recalculateCalculatorEstimate = () => {
-        if(!calcTypeSelect || !calcPagesRange) return;
-        const baseTypeCost = parseInt(calcTypeSelect.value, 10);
-        const inputPagesCount = parseInt(calcPagesRange.value, 10);
-        
-        if(pagesValLabel) pagesValLabel.innerText = inputPagesCount;
-
-        const additionalPagesCost = inputPagesCount > 1 ? (inputPagesCount - 1) * 30000 : 0;
-        const domainCost = (calcDomainCB && calcDomainCB.checked) ? parseInt(calcDomainCB.value, 10) : 0;
-
-        const calculatedFinalSum = baseTypeCost + additionalPagesCost + domainCost;
-        if(calcTotalResultDisplay) {
-            calcTotalResultDisplay.innerText = `Rp${calculatedFinalSum.toLocaleString('id-ID')}`;
-        }
+    const runCalc = () => {
+        if(!calcType || !calcPages) return;
+        const base = +calcType.value;
+        const p = +calcPages.value;
+        if(pValLabel) pValLabel.innerText = p;
+        const ext = p > 1 ? (p - 1) * 30000 : 0;
+        const dom = (calcDomain && calcDomain.checked) ? +calcDomain.value : 0;
+        if(calcResult) calcResult.innerText = formatRp(base + ext + dom);
     };
 
-    if (calcTypeSelect && calcPagesRange) {
-        calcTypeSelect.addEventListener('change', recalculateCalculatorEstimate);
-        calcPagesRange.addEventListener('input', recalculateCalculatorEstimate);
-        if(calcDomainCB) calcDomainCB.addEventListener('change', recalculateCalculatorEstimate);
+    if (calcType && calcPages) {
+        calcType.addEventListener('change', runCalc);
+        calcPages.addEventListener('input', runCalc);
+        if(calcDomain) calcDomain.addEventListener('change', runCalc);
     }
 
     /* ==========================================================================
-       8. AUTOMATED INTEGRATED WHATSAPP PACKAGES CHECKOUT DISPATCHER
+       8. WHATSAPP DISPATCHER (CART & CONTACT)
        ========================================================================== */
-    const whatsappCheckoutBtn = document.getElementById('whatsapp-checkout-btn');
-    
-    if (whatsappCheckoutBtn) {
-        whatsappCheckoutBtn.addEventListener('click', () => {
-            if (!cartState) {
-                alert('Keranjang belanja Anda kosong!');
-                return;
-            }
+    const waNum = "62895614003884"; 
 
-            const clientNameInput = document.getElementById('checkout-name').value.trim();
-            const clientBusinessInput = document.getElementById('checkout-business').value.trim();
-            const clientDescInput = document.getElementById('checkout-desc').value.trim();
+    const waBtn = document.getElementById('whatsapp-checkout-btn');
+    if (waBtn) {
+        waBtn.addEventListener('click', () => {
+            if (!cartState) return alert('Keranjang kosong!');
+            const name = document.getElementById('checkout-name').value.trim();
+            const biz = document.getElementById('checkout-business').value.trim();
+            const desc = document.getElementById('checkout-desc').value.trim();
 
-            if (!clientNameInput || !clientBusinessInput || !clientDescInput) {
-                alert('Mohon lengkapi semua baris detail informasi pemesanan terlebih dahulu.');
-                return;
-            }
+            if (!name || !biz || !desc) return alert('Lengkapi form pemesanan.');
 
-            let selectedAddonsList = [];
-            allAddonCheckboxes.forEach(cb => {
-                if (cb.checked) {
-                    selectedAddonsList.push(cb.getAttribute('data-name'));
-                }
-            });
-            const addonsTextRepresentation = selectedAddonsList.length > 0 ? selectedAddonsList.join(', ') : 'Tidak ada tambahan';
-            const grandTotalText = cartTotalValDisplay ? cartTotalValDisplay.innerText : '';
+            let addons = Array.from(addonCBs).filter(c=>c.checked).map(c=>c.getAttribute('data-name')).join(', ') || '-';
+            const msg = `Halo, saya ingin memesan website dari Ran Studio.\n\nPaket: ${cartState.name}\nTambahan: ${addons}\nTotal: ${cartTotalVal.innerText}\n\nNama: ${name}\nUsaha: ${biz}\nDeskripsi: ${desc}`;
+            window.open(`https://wa.me/${waNum}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
+        });
+    }
 
-            const waTargetNumber = "62895614003884"; 
-            const baseTextPrompt = `Halo, saya ingin memesan website dari Ran Studio.\n\nPaket: ${cartState.name}\nTambahan: ${addonsTextRepresentation}\nTotal: ${grandTotalText}\n\nNama: ${clientNameInput}\nNama Usaha: ${clientBusinessInput}\nDeskripsi Website: ${clientDescInput}`;
+    const contactForm = document.getElementById('direct-contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nm = document.getElementById('form-name').value.trim();
+            const em = document.getElementById('form-email').value.trim();
+            const ps = document.getElementById('form-message').value.trim();
 
-            const processedEncodedUriString = encodeURIComponent(baseTextPrompt);
-            const destinationEndpointUrl = `https://wa.me/${waTargetNumber}?text=${processedEncodedUriString}`;
-
-            window.open(destinationEndpointUrl, '_blank', 'noopener,noreferrer');
+            if (!nm || !em || !ps) return alert('Lengkapi form kontak.');
+            const msg = `Halo Ran Studio, saya ingin berkonsultasi mengenai pembuatan website.\n\nNama: ${nm}\nEmail: ${em}\nPesan: ${ps}\n\nTerima kasih.`;
+            window.open(`https://wa.me/${waNum}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
+            contactForm.reset();
         });
     }
 
     /* ==========================================================================
-       9. INTERACTIVE ACCORDION FAQ LOGIC COMPONENT
+       9. FAQ & MODAL
        ========================================================================== */
-    const faqQuestions = document.querySelectorAll('.faq-question');
-
-    faqQuestions.forEach(questionNode => {
-        questionNode.addEventListener('click', () => {
-            const parentItemNode = questionNode.parentElement;
-            const answerNode = questionNode.nextElementSibling;
-
-            document.querySelectorAll('.faq-item').forEach(item => {
-                if (item !== parentItemNode && item.classList.contains('active')) {
-                    item.classList.remove('active');
-                    item.querySelector('.faq-answer').style.maxHeight = null;
+    document.querySelectorAll('.faq-question').forEach(q => {
+        q.addEventListener('click', () => {
+            const p = q.parentElement;
+            document.querySelectorAll('.faq-item').forEach(i => {
+                if (i !== p && i.classList.contains('active')) {
+                    i.classList.remove('active');
+                    i.querySelector('.faq-answer').style.maxHeight = null;
                 }
             });
-
-            parentItemNode.classList.toggle('active');
-
-            if (parentItemNode.classList.contains('active')) {
-                answerNode.style.maxHeight = answerNode.scrollHeight + "px";
-            } else {
-                answerNode.style.maxHeight = null;
-            }
+            p.classList.toggle('active');
+            const ans = p.querySelector('.faq-answer');
+            ans.style.maxHeight = p.classList.contains('active') ? ans.scrollHeight + "px" : null;
         });
     });
 
-    /* ==========================================================================
-       10. GENERAL CONTACT FORM SUBMISSION HOOK (WHATSAPP REDIRECT)
-       ========================================================================== */
-    const directContactForm = document.getElementById('direct-contact-form');
-    if (directContactForm) {
-        directContactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const contactName = document.getElementById('form-name').value.trim();
-            const contactEmail = document.getElementById('form-email').value.trim();
-            const contactMessage = document.getElementById('form-message').value.trim();
+    document.querySelectorAll('.prevent-default').forEach(l => l.addEventListener('click', e => e.preventDefault()));
 
-            if (!contactName || !contactEmail || !contactMessage) {
-                alert('Mohon lengkapi Nama, Email, dan Pesan terlebih dahulu.');
-                return;
-            }
-
-            const waTargetNumber = "62895614003884"; 
-            const baseTextPrompt = `Halo Ran Studio, saya ingin berkonsultasi mengenai pembuatan website.\n\nNama: ${contactName}\nEmail: ${contactEmail}\nPesan: ${contactMessage}\n\nTerima kasih.`;
-
-            const processedEncodedUriString = encodeURIComponent(baseTextPrompt);
-            const destinationEndpointUrl = `https://wa.me/${waTargetNumber}?text=${processedEncodedUriString}`;
-
-            window.open(destinationEndpointUrl, '_blank', 'noopener,noreferrer');
-            directContactForm.reset();
-        });
-    }
-
-    /* ==========================================================================
-       11. PREVENT DEFAULT ON PLACEHOLDER LINKS
-       ========================================================================== */
-    const preventLinks = document.querySelectorAll('.prevent-default');
-    preventLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-        });
-    });
-
-    /* ==========================================================================
-       12. CASE STUDY MODAL LOGIC
-       ========================================================================== */
-    const modalOverlay = document.getElementById('case-study-modal');
-    const closeBtns = document.querySelectorAll('.close-modal, .close-modal-btn');
-    const openCaseBtns = document.querySelectorAll('.open-case-study');
-    
-    const csTitle = document.getElementById('cs-title');
-    const csType = document.getElementById('cs-type');
-    const csTech = document.getElementById('cs-tech');
-    const csDemoLink = document.getElementById('cs-demo-link');
-
-    if(modalOverlay) {
-        openCaseBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
+    const modal = document.getElementById('case-study-modal');
+    if(modal) {
+        document.querySelectorAll('.open-case-study').forEach(b => {
+            b.addEventListener('click', (e) => {
                 e.preventDefault();
-                if(csTitle) csTitle.innerText = btn.getAttribute('data-title') || 'Project Title';
-                if(csType) csType.innerText = btn.getAttribute('data-type') || 'Website';
-                if(csTech) csTech.innerText = btn.getAttribute('data-tech') || 'HTML, CSS, JS';
+                document.getElementById('cs-title').innerText = b.getAttribute('data-title');
+                document.getElementById('cs-type').innerText = b.getAttribute('data-type');
+                document.getElementById('cs-tech').innerText = b.getAttribute('data-tech');
                 
-                const demoLinkBtn = btn.parentElement.querySelector('a.btn-secondary');
-                if(demoLinkBtn && demoLinkBtn.getAttribute('href') !== '#') {
-                    if(csDemoLink) {
-                        csDemoLink.href = demoLinkBtn.getAttribute('href');
-                        csDemoLink.style.display = 'inline-block';
-                    }
+                const demoLink = b.parentElement.querySelector('a.btn-secondary');
+                const mdLink = document.getElementById('cs-demo-link');
+                if(demoLink && demoLink.getAttribute('href') !== '#') {
+                    mdLink.href = demoLink.getAttribute('href');
+                    mdLink.style.display = 'inline-flex';
                 } else {
-                    if(csDemoLink) csDemoLink.style.display = 'none';
+                    mdLink.style.display = 'none';
                 }
-
-                modalOverlay.classList.remove('hidden');
+                modal.classList.remove('hidden');
                 document.body.style.overflow = 'hidden'; 
             });
         });
 
-        closeBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                modalOverlay.classList.add('hidden');
-                document.body.style.overflow = '';
-            });
-        });
-
-        modalOverlay.addEventListener('click', (e) => {
-            if (e.target === modalOverlay) {
-                modalOverlay.classList.add('hidden');
-                document.body.style.overflow = '';
-            }
-        });
+        const closeModal = () => { modal.classList.add('hidden'); document.body.style.overflow = ''; };
+        document.querySelectorAll('.close-modal, .close-modal-btn').forEach(b => b.addEventListener('click', closeModal));
+        modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
     }
 });
