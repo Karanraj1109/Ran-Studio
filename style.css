@@ -8,18 +8,18 @@
 }
 
 :root {
-    --bg-dark: #0a0b10;
-    --bg-card: rgba(18, 20, 29, 0.65);
+    --bg-dark: #07090e;
+    --bg-card: rgba(255, 255, 255, 0.02);
     --bg-accent-glow: rgba(99, 102, 241, 0.08);
     --primary: #6366f1;
     --primary-light: #818cf8;
     --secondary: #10b981;
-    --text-main: #f3f4f6;
-    --text-muted: #9ca3af;
-    --border-glass: rgba(255, 255, 255, 0.07);
-    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-    --shadow-premium: 0 20px 40px rgba(0, 0, 0, 0.35);
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border-glass: rgba(255, 255, 255, 0.05);
+    --font-family: 'Plus Jakarta Sans', sans-serif;
+    --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    --shadow-premium: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 html {
@@ -72,24 +72,23 @@ body {
 .app-wrapper {
     position: relative;
     width: 100%;
-    overflow: hidden; /* Hide horizontal scroll strictly here */
+    overflow: hidden;
 }
 
 .app-slider {
     display: flex;
-    width: 200%; /* 2x 100% of wrapper */
+    width: 200%;
     transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     will-change: transform;
     align-items: flex-start;
 }
 
 .panel {
-    width: 50%; /* 50% of 200% = 100% of wrapper */
+    width: 50%;
     flex-shrink: 0;
     transition: opacity 0.5s ease;
 }
 
-/* Class untuk menyembunyikan panel yang tidak aktif dari flow layout */
 .hidden-panel {
     height: 0 !important;
     overflow: hidden !important;
@@ -595,11 +594,12 @@ body {
     border-radius: 12px;
     text-align: center;
     transition: var(--transition-smooth);
+    box-shadow: var(--shadow-premium);
 }
 
 .why-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(99, 102, 241, 0.3);
+    border-color: rgba(99, 102, 241, 0.5);
+    box-shadow: 0 10px 40px rgba(99, 102, 241, 0.1);
 }
 
 .why-icon {
@@ -698,11 +698,12 @@ body {
     padding: 24px;
     border-radius: 12px;
     transition: var(--transition-smooth);
+    box-shadow: var(--shadow-premium);
 }
 
 .timeline-content:hover {
     border-color: rgba(99, 102, 241, 0.4);
-    box-shadow: var(--shadow-premium);
+    box-shadow: 0 10px 40px rgba(99, 102, 241, 0.1);
 }
 
 .timeline-content h3 {
@@ -738,6 +739,7 @@ body {
     transition: var(--transition-smooth);
     position: relative;
     overflow: hidden;
+    box-shadow: var(--shadow-premium);
 }
 
 .service-card::before {
@@ -753,9 +755,8 @@ body {
 }
 
 .service-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(99, 102, 241, 0.3);
-    box-shadow: var(--shadow-premium);
+    border-color: rgba(99, 102, 241, 0.5);
+    box-shadow: 0 10px 40px rgba(99, 102, 241, 0.1);
 }
 
 .service-card:hover::before {
@@ -806,6 +807,7 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
+    box-shadow: var(--shadow-premium);
 }
 
 .pricing-card.standard {
@@ -816,12 +818,12 @@ body {
 }
 
 .pricing-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-premium);
+    border-color: rgba(99, 102, 241, 0.5);
+    box-shadow: 0 10px 40px rgba(99, 102, 241, 0.1);
 }
 
 .pricing-card.standard:hover {
-    transform: scale(1.03) translateY(-5px);
+    transform: scale(1.03);
 }
 
 .badge {
@@ -1116,7 +1118,7 @@ body {
     border: 1px solid var(--border-glass);
     border-radius: 8px;
     color: var(--text-main);
-    font-family: var(--font-family);
+    font-family: inherit;
     font-size: 0.95rem;
     transition: var(--transition-smooth);
 }
@@ -1317,12 +1319,12 @@ input[type=range]::-webkit-slider-thumb:hover {
     transition: var(--transition-smooth);
     display: flex;
     flex-direction: column;
+    box-shadow: var(--shadow-premium);
 }
 
 .portfolio-card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(99, 102, 241, 0.3);
-    box-shadow: var(--shadow-premium);
+    border-color: rgba(99, 102, 241, 0.5);
+    box-shadow: 0 10px 40px rgba(99, 102, 241, 0.1);
 }
 
 .portfolio-img-box {
@@ -1600,11 +1602,12 @@ input[type=range]::-webkit-slider-thumb:hover {
     border-radius: 12px;
     overflow: hidden;
     transition: var(--transition-smooth);
+    box-shadow: var(--shadow-premium);
 }
 
 .blog-card:hover {
     transform: translateY(-8px);
-    border-color: rgba(99, 102, 241, 0.3);
+    border-color: rgba(99, 102, 241, 0.5);
 }
 
 .blog-img {
