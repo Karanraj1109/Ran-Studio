@@ -35,33 +35,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
         segmentBtns.forEach(b => b.classList.remove('active'));
         const activeBtn = document.querySelector(`.segment-btn[data-target="${mode}"]`);
-        if(activeBtn) activeBtn.classList.add('active');
+        activeBtn.classList.add('active');
 
+        // Remove hidden classes to render full height for sliding
         panelAgency.classList.remove('hidden-panel');
         panelTemplates.classList.remove('hidden-panel');
         panelAgency.style.opacity = '1';
         panelTemplates.style.opacity = '1';
 
         if(mode === 'templates') {
-            if(segmentBg) segmentBg.style.transform = 'translateX(100%)';
-            if(slider) slider.style.transform = 'translateX(-50%)'; 
-            if(navLinksContainer) {
-                navLinksContainer.style.opacity = '0';
-                navLinksContainer.style.pointerEvents = 'none';
-            }
+            segmentBg.style.transform = 'translateX(100%)';
+            slider.style.transform = 'translateX(-50%)'; 
+            navLinksContainer.style.opacity = '0';
+            navLinksContainer.style.pointerEvents = 'none';
 
+            // Hide inactive panel after animation
             setTimeout(() => {
                 panelAgency.classList.add('hidden-panel');
             }, 500);
 
         } else {
-            if(segmentBg) segmentBg.style.transform = 'translateX(0)';
-            if(slider) slider.style.transform = 'translateX(0)';
-            if(navLinksContainer) {
-                navLinksContainer.style.opacity = '1';
-                navLinksContainer.style.pointerEvents = 'auto';
-            }
+            segmentBg.style.transform = 'translateX(0)';
+            slider.style.transform = 'translateX(0)';
+            navLinksContainer.style.opacity = '1';
+            navLinksContainer.style.pointerEvents = 'auto';
 
+            // Hide inactive panel after animation
             setTimeout(() => {
                 panelTemplates.classList.add('hidden-panel');
             }, 500);
@@ -74,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Swipe Logic
     let touchStartX = 0;
     let touchEndX = 0;
 
@@ -89,11 +89,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleSwipe() {
         const threshold = 120;
         if (touchStartX - touchEndX > threshold) {
+            // Swiped left
             if (currentMode === 'agency') {
                 setMode('templates');
             }
         }
         if (touchEndX - touchStartX > threshold) {
+            // Swiped right
             if (currentMode === 'templates') {
                 setMode('agency');
             }
@@ -110,12 +112,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroSection = document.getElementById('home');
 
     window.addEventListener('scroll', () => {
-        if (navbar) {
-            if (window.scrollY > 50) {
-                navbar.classList.add('sticky');
-            } else {
-                navbar.classList.remove('sticky');
-            }
+        if (window.scrollY > 50) {
+            navbar.classList.add('sticky');
+        } else {
+            navbar.classList.remove('sticky');
         }
 
         if (heroSection && floatingCta) {
@@ -238,32 +238,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const updateCartDOM = () => {
         if (!cartState) {
-            if(cartEmptyMsg) cartEmptyMsg.classList.remove('hidden');
-            if(cartContent) cartContent.classList.add('hidden');
+            cartEmptyMsg.classList.remove('hidden');
+            cartContent.classList.add('hidden');
             return;
         }
 
-        if(cartEmptyMsg) cartEmptyMsg.classList.add('hidden');
-        if(cartContent) cartContent.classList.remove('hidden');
+        cartEmptyMsg.classList.add('hidden');
+        cartContent.classList.remove('hidden');
 
-        if(cartItemsTableBody) {
-            cartItemsTableBody.innerHTML = `
-                <tr>
-                    <td><strong>${cartState.name}</strong></td>
-                    <td>Rp${cartState.basePrice.toLocaleString('id-ID')}</td>
-                    <td><button class="delete-btn" data-action="clear-cart" aria-label="Hapus paket dari keranjang">Hapus</button></td>
-                </tr>
-            `;
-
-            const deleteBtn = cartItemsTableBody.querySelector('.delete-btn');
-            if(deleteBtn) {
-                deleteBtn.addEventListener('click', () => {
-                    clearCart();
-                });
-            }
-        }
+        cartItemsTableBody.innerHTML = `
+            <tr>
+                <td><strong>${cartState.name}</strong></td>
+                <td>Rp${cartState.basePrice.toLocaleString('id-ID')}</td>
+                <td><button class="delete-btn" data-action="clear-cart" aria-label="Hapus paket dari keranjang">Hapus</button></td>
+            </tr>
+        `;
 
         calculateCartTotal();
+
+        const deleteBtn = cartItemsTableBody.querySelector('.delete-btn');
+        deleteBtn.addEventListener('click', () => {
+            clearCart();
+        });
     };
 
     const calculateCartTotal = () => {
@@ -276,9 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        if(cartTotalValDisplay) {
-            cartTotalValDisplay.innerText = `Rp${totalAccumulator.toLocaleString('id-ID')}`;
-        }
+        cartTotalValDisplay.innerText = `Rp${totalAccumulator.toLocaleString('id-ID')}`;
     };
 
     const clearCart = () => {
@@ -298,10 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cartState = { id: id, name: name, basePrice: price };
             updateCartDOM();
 
-            const cartSection = document.getElementById('cart');
-            if(cartSection) {
-                cartSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
+            document.getElementById('cart').scrollIntoView({ behavior: 'smooth', block: 'center' });
         });
     });
 
@@ -325,21 +316,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const baseTypeCost = parseInt(calcTypeSelect.value, 10);
         const inputPagesCount = parseInt(calcPagesRange.value, 10);
         
-        if(pagesValLabel) pagesValLabel.innerText = inputPagesCount;
+        pagesValLabel.innerText = inputPagesCount;
 
         const additionalPagesCost = inputPagesCount > 1 ? (inputPagesCount - 1) * 30000 : 0;
-        const domainCost = (calcDomainCB && calcDomainCB.checked) ? parseInt(calcDomainCB.value, 10) : 0;
+        const domainCost = calcDomainCB.checked ? parseInt(calcDomainCB.value, 10) : 0;
 
         const calculatedFinalSum = baseTypeCost + additionalPagesCost + domainCost;
-        if(calcTotalResultDisplay) {
-            calcTotalResultDisplay.innerText = `Rp${calculatedFinalSum.toLocaleString('id-ID')}`;
-        }
+        calcTotalResultDisplay.innerText = `Rp${calculatedFinalSum.toLocaleString('id-ID')}`;
     };
 
     if (calcTypeSelect && calcPagesRange) {
         calcTypeSelect.addEventListener('change', recalculateCalculatorEstimate);
         calcPagesRange.addEventListener('input', recalculateCalculatorEstimate);
-        if(calcDomainCB) calcDomainCB.addEventListener('change', recalculateCalculatorEstimate);
+        calcDomainCB.addEventListener('change', recalculateCalculatorEstimate);
+        
+        // Memastikan update saat halaman di load
+        recalculateCalculatorEstimate();
     }
 
     /* ==========================================================================
@@ -370,10 +362,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
             const addonsTextRepresentation = selectedAddonsList.length > 0 ? selectedAddonsList.join(', ') : 'Tidak ada tambahan';
-            const grandTotalText = cartTotalValDisplay ? cartTotalValDisplay.innerText : '';
+            const grandTotalText = document.getElementById('cart-total-val').innerText;
 
             const waTargetNumber = "62895614003884"; 
-            const baseTextPrompt = `Halo, saya ingin memesan website dari Ran Studio.\n\nPaket: ${cartState.name}\nTambahan: ${addonsTextRepresentation}\nTotal: ${grandTotalText}\n\nNama: ${clientNameInput}\nNama Usaha: ${clientBusinessInput}\nDeskripsi Website: ${clientDescInput}`;
+            const baseTextPrompt = `Halo, saya ingin memesan website dari Ran Studio.
+
+Paket: ${cartState.name}
+Tambahan: ${addonsTextRepresentation}
+Total: ${grandTotalText}
+
+Nama: ${clientNameInput}
+Nama Usaha: ${clientBusinessInput}
+Deskripsi Website: ${clientDescInput}`;
 
             const processedEncodedUriString = encodeURIComponent(baseTextPrompt);
             const destinationEndpointUrl = `https://wa.me/${waTargetNumber}?text=${processedEncodedUriString}`;
@@ -463,18 +463,16 @@ document.addEventListener('DOMContentLoaded', () => {
         openCaseBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                if(csTitle) csTitle.innerText = btn.getAttribute('data-title') || 'Project Title';
-                if(csType) csType.innerText = btn.getAttribute('data-type') || 'Website';
-                if(csTech) csTech.innerText = btn.getAttribute('data-tech') || 'HTML, CSS, JS';
+                csTitle.innerText = btn.getAttribute('data-title') || 'Project Title';
+                csType.innerText = btn.getAttribute('data-type') || 'Website';
+                csTech.innerText = btn.getAttribute('data-tech') || 'HTML, CSS, JS';
                 
                 const demoLinkBtn = btn.parentElement.querySelector('a.btn-secondary');
                 if(demoLinkBtn && demoLinkBtn.getAttribute('href') !== '#') {
-                    if(csDemoLink) {
-                        csDemoLink.href = demoLinkBtn.getAttribute('href');
-                        csDemoLink.style.display = 'inline-block';
-                    }
+                    csDemoLink.href = demoLinkBtn.getAttribute('href');
+                    csDemoLink.style.display = 'inline-block';
                 } else {
-                    if(csDemoLink) csDemoLink.style.display = 'none';
+                    csDemoLink.style.display = 'none';
                 }
 
                 modalOverlay.classList.remove('hidden');
