@@ -2156,3 +2156,51 @@ input[type=range]::-webkit-slider-thumb:hover {
         font-size: 1.45rem;
     }
 }
+
+/* ==========================================================================
+   CONVERSION / TRUST POLISH
+   ========================================================================== */
+.hero-trust-row{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:12px 22px;
+    margin-top:24px;
+    color:var(--text-muted);
+    font-size:.9rem;
+}
+.hero-trust-row span{display:inline-flex;align-items:center;gap:7px}
+.hero-trust-row i{color:#36d399;font-size:.78rem}
+
+.decision-strip{padding:26px 0 70px}
+.decision-card{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:28px;
+    padding:30px 34px;
+    border:1px solid var(--border-glass);
+    border-radius:18px;
+    background:linear-gradient(135deg,rgba(30,164,255,.08),rgba(111,61,255,.05));
+    box-shadow:var(--shadow-premium);
+}
+.decision-kicker{
+    display:inline-block;
+    margin-bottom:8px;
+    font-size:.75rem;
+    font-weight:700;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--primary-light);
+}
+.decision-card h2{margin:0 0 8px;font-size:clamp(1.45rem,3vw,2.15rem);line-height:1.15}
+.decision-card h2 span{color:var(--primary-light)}
+.decision-card p{margin:0;max-width:720px;color:var(--text-muted);line-height:1.65}
+
+@media (max-width: 760px){
+    .hero-trust-row{justify-content:flex-start;font-size:.82rem;gap:8px 14px}
+    .hero-trust-row span{width:100%}
+    .decision-card{flex-direction:column;align-items:flex-start;padding:26px 22px}
+    .decision-card .btn{width:100%;justify-content:center}
+}
+CSS
