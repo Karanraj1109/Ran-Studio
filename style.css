@@ -2118,3 +2118,41 @@ input[type=range]::-webkit-slider-thumb:hover {
     .timeline-dot { left: -40px; width: 30px; height: 30px; font-size: 0.9rem; }
     .cta-box { padding: 40px 20px; }
 }
+/* Ran Studio copy/UX polish — existing color palette intentionally preserved. */
+.section-header p,
+.why-card p,
+.service-card p,
+.timeline-content p,
+.pricing-note,
+.footer-brand p,
+.contact-section .section-header p {
+    line-height: 1.8;
+}
+
+.section-header h2 {
+    text-wrap: balance;
+}
+
+.btn,
+.nav-link,
+.service-card,
+.why-card,
+.pricing-card,
+.portfolio-card,
+.info-item-card {
+    -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 640px) {
+    .stats-grid {
+        gap: 12px;
+    }
+
+    .stat-card {
+        min-height: 118px;
+    }
+
+    .stat-number-text {
+        font-size: 1.45rem;
+    }
+}
