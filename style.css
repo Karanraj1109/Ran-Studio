@@ -1382,12 +1382,27 @@ input[type=range]::-webkit-slider-thumb:hover {
 .bg-p5 { background: linear-gradient(135deg, #7c2d12, #431407); }
 .bg-p6 { background: linear-gradient(135deg, #0369a1, #0c4a6e); }
 
-.bg-p7 { background: linear-gradient(135deg, #0f172a, #1d4ed8); }
-.bg-p8 { background: linear-gradient(135deg, #312e81, #7c3aed); }
-.bg-p9 { background: linear-gradient(135deg, #166534, #14532d); }
+.bg-topup { background: linear-gradient(135deg, #17114f, #25115c 48%, #0f4c81); }
+.bg-lumora { background: linear-gradient(135deg, #064e3b, #0f766e 48%, #1d4ed8); }
+.bg-wedding { background: linear-gradient(135deg, #3f2b1d, #526b43 50%, #1f3d2c); }
 
 .featured-portfolio-card {
-    border-color: rgba(58, 91, 255, 0.45);
+    border-color: rgba(58, 91, 255, 0.55);
+}
+
+.featured-portfolio-card .concept-label {
+    background: rgba(20, 20, 30, 0.72);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.featured-portfolio-card .p-title {
+    font-size: 1.25rem;
+    color: #fff;
+}
+
+.featured-portfolio-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 14px 35px rgba(30, 164, 255, 0.16), 0 0 28px rgba(111, 61, 255, 0.15);
 }
 .bg-dark-glass { background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01)); }
 
