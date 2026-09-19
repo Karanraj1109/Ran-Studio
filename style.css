@@ -855,15 +855,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .badge {
-    position: absolute;
-    top: 20px;
-    right: -35px;
+    position: static;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    width: fit-content;
+    margin-bottom: 14px;
     background-color: var(--primary);
     color: #fff;
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 6px 35px;
-    transform: rotate(45deg);
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1;
+    padding: 7px 12px;
+    border-radius: 999px;
+    transform: none;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -2221,26 +2227,7 @@ section[id] {
     overflow: hidden;
 }
 
-/* Disable accidental ribbon pseudo-elements if they are introduced by a cached
-   or alternate stylesheet/version. The actual pricing groups remain untouched. */
-body::before,
-body::after,
-#pricing::before,
-#pricing::after {
-    content: none !important;
-    display: none !important;
-}
-
-/* Defensive selectors for common corner-ribbon class names. */
-.ribbon,
-.ribbons,
-.corner-ribbon,
-.pricing-ribbon,
-.service-ribbon,
-.floating-ribbon,
-.corner-badge-ribbon {
-    display: none !important;
-}
+/* Pricing decorations removed: badges are now regular inline pills. */
 
 @media (max-width: 768px) {
     section[id] {
