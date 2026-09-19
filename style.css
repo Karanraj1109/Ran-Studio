@@ -2201,3 +2201,54 @@ input[type=range]::-webkit-slider-thumb:hover {
     opacity: 0.55;
     cursor: not-allowed;
 }
+
+/* ============================================================================
+   PRICING VIEWPORT SAFETY PATCH
+   Prevents accidental corner/ribbon decorations from escaping the pricing area
+   and sitting over the navigation/viewport edge.
+   ============================================================================ */
+html,
+body {
+    overflow-x: hidden;
+}
+
+section[id] {
+    scroll-margin-top: 92px;
+}
+
+#pricing {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Disable accidental ribbon pseudo-elements if they are introduced by a cached
+   or alternate stylesheet/version. The actual pricing groups remain untouched. */
+body::before,
+body::after,
+#pricing::before,
+#pricing::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Defensive selectors for common corner-ribbon class names. */
+.ribbon,
+.ribbons,
+.corner-ribbon,
+.pricing-ribbon,
+.service-ribbon,
+.floating-ribbon,
+.corner-badge-ribbon {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    section[id] {
+        scroll-margin-top: 84px;
+    }
+
+    #pricing {
+        overflow: hidden;
+        padding-top: 86px;
+    }
+}
