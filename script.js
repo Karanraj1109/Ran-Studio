@@ -314,11 +314,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const recalculateCalculatorEstimate = () => {
         if(!calcTypeSelect || !calcPagesRange) return;
         const baseTypeCost = parseInt(calcTypeSelect.value, 10);
-        const inputPagesCount = parseInt(calcPagesRange.value, 10);
-        
+        const selectedTypeText = calcTypeSelect.options[calcTypeSelect.selectedIndex]?.textContent || '';
+        const isLandingPage = selectedTypeText.toLowerCase().includes('landing page');
+        const inputPagesCount = isLandingPage ? 1 : parseInt(calcPagesRange.value, 10);
+
+        if (isLandingPage) {
+            calcPagesRange.value = '1';
+            calcPagesRange.disabled = true;
+        } else {
+            calcPagesRange.disabled = false;
+        }
+
         pagesValLabel.innerText = inputPagesCount;
 
-        const additionalPagesCost = inputPagesCount > 1 ? (inputPagesCount - 1) * 30000 : 0;
+        const additionalPagesCost = isLandingPage || inputPagesCount <= 1
+            ? 0
+            : (inputPagesCount - 1) * 30000;
         const domainCost = calcDomainCB.checked ? parseInt(calcDomainCB.value, 10) : 0;
 
         const calculatedFinalSum = baseTypeCost + additionalPagesCost + domainCost;

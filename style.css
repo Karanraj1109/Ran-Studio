@@ -2166,3 +2166,38 @@ input[type=range]::-webkit-slider-thumb:hover {
         font-size: 1.45rem;
     }
 }
+
+/* Pricing groups: separate landing-page offers from backend/fullstack work. */
+.pricing-group-heading {
+    margin: 46px auto 24px;
+    max-width: 920px;
+    text-align: center;
+}
+
+.pricing-group-heading .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.pricing-group-heading h3 {
+    margin: 0 0 8px;
+    font-size: clamp(1.45rem, 2.5vw, 2rem);
+}
+
+.pricing-group-heading p {
+    margin: 0 auto;
+    max-width: 760px;
+    color: var(--text-muted, #94a3b8);
+    line-height: 1.7;
+}
+
+.pricing-group-heading-secondary {
+    margin-top: 72px;
+}
+
+#calc-pages:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
