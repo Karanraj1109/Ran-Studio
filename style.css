@@ -818,16 +818,19 @@ h1, h2, h3, h4, h5, h6 {
 
 .pricing-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    align-items: center;
-    margin-bottom: 40px; 
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    align-items: stretch;
+    margin: 0 auto 44px;
+    max-width: 1200px;
 }
 
 .pricing-card {
+    min-width: 0;
+    min-height: 470px;
     background-color: var(--bg-card);
     border: 1px solid var(--border-glass);
-    padding: 40px 30px;
+    padding: 28px 24px 24px;
     border-radius: 16px;
     position: relative;
     transition: var(--transition-smooth);
@@ -839,84 +842,119 @@ h1, h2, h3, h4, h5, h6 {
 
 .pricing-card.standard {
     border: 2px solid var(--primary);
-    transform: scale(1.03);
-    background: linear-gradient(180deg, rgba(17, 17, 24, 0.85) 0%, rgba(10, 10, 15, 0.9) 100%);
+    transform: none;
+    background: linear-gradient(180deg, rgba(17, 17, 24, 0.92) 0%, rgba(10, 10, 15, 0.96) 100%);
     box-shadow: 0 15px 35px rgba(30, 164, 255, 0.15);
 }
 
-.pricing-card:hover {
+.pricing-card:hover,
+.pricing-card.standard:hover {
     transform: translateY(-5px);
     border-color: #3A5BFF;
     box-shadow: 0 0 15px rgba(30, 164, 255, 0.2), 0 0 30px rgba(111, 61, 255, 0.2);
 }
 
-.pricing-card.standard:hover {
-    transform: scale(1.03) translateY(-5px);
+/* Dedicated pricing labels. These intentionally never rotate, float, or escape the card. */
+.pricing-section .badge {
+    display: none !important;
 }
 
-.badge {
-    position: static;
+.pricing-label,
+.pricing-tier {
+    position: static !important;
+    inset: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+    rotate: none !important;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    align-self: flex-start;
     width: fit-content;
-    margin-bottom: 14px;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
     background-color: var(--primary);
     color: #fff;
     font-size: 0.72rem;
     font-weight: 700;
-    line-height: 1;
+    line-height: 1.15;
     padding: 7px 12px;
     border-radius: 999px;
-    transform: none;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    box-shadow: none;
 }
 
-.pricing-card.standard .badge {
+.pricing-label {
+    margin-bottom: 12px;
+}
+
+.pricing-label-accent,
+.pricing-tier-accent {
     background-color: var(--secondary);
 }
 
-.pricing-card h3 {
-    font-size: 1.3rem;
-    font-weight: 700;
+.pricing-tier {
+    align-self: flex-start;
     margin-bottom: 16px;
 }
 
+.pricing-card h3 {
+    font-size: 1.28rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 14px;
+    min-height: 3.45rem;
+}
+
 .pricing-card .price {
-    font-size: 1.8rem;
+    font-size: clamp(1.45rem, 1.8vw, 1.8rem);
+    line-height: 1.25;
     font-weight: 800;
     color: var(--text-main);
-    margin-bottom: 30px;
+    margin-bottom: 24px;
     border-bottom: 1px solid var(--border-glass);
-    padding-bottom: 20px;
+    padding-bottom: 18px;
+    min-height: 66px;
+    display: flex;
+    align-items: flex-start;
 }
 
 .pricing-features {
     list-style: none;
-    margin-bottom: 35px;
+    margin-bottom: 24px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 13px;
     flex-grow: 1;
 }
 
 .pricing-features li {
-    font-size: 0.95rem;
+    font-size: 0.94rem;
     color: var(--text-muted);
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
+    line-height: 1.45;
 }
 
 .pricing-features li::before {
     content: '✓';
     color: var(--secondary);
     font-weight: bold;
+    flex: 0 0 auto;
 }
+
 .pricing-features li b {
     color: var(--text-main);
+}
+
+.pricing-card > .btn {
+    width: 100%;
+    margin-top: auto;
 }
 
 /* Comparison Table */
@@ -2079,10 +2117,10 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 @media (max-width: 1024px) {
     .services-grid { grid-template-columns: repeat(2, 1fr); }
-    .pricing-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; max-width: 800px; margin: 0 auto 60px auto; }
+    .pricing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; max-width: 920px; margin: 0 auto 44px; }
     .why-grid { grid-template-columns: repeat(2, 1fr); }
     .blog-grid { grid-template-columns: repeat(2, 1fr); }
-    .pricing-card.standard { transform: scale(1); }
+    .pricing-card.standard { transform: none; }
     .pricing-card.standard:hover { transform: translateY(-5px); }
     .portfolio-grid, .testi-grid { grid-template-columns: repeat(2, 1fr); }
     .calc-wrapper, .contact-wrapper { grid-template-columns: 1fr; }
@@ -2175,21 +2213,19 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 /* Pricing groups: separate landing-page offers from backend/fullstack work. */
 .pricing-group-heading {
-    margin: 46px auto 24px;
+    margin: 48px auto 24px;
     max-width: 920px;
     text-align: center;
 }
 
-.pricing-group-heading .badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+.pricing-group-heading .pricing-label {
     margin-bottom: 12px;
 }
 
 .pricing-group-heading h3 {
     margin: 0 0 8px;
     font-size: clamp(1.45rem, 2.5vw, 2rem);
+    line-height: 1.25;
 }
 
 .pricing-group-heading p {
@@ -2208,11 +2244,6 @@ input[type=range]::-webkit-slider-thumb:hover {
     cursor: not-allowed;
 }
 
-/* ============================================================================
-   PRICING VIEWPORT SAFETY PATCH
-   Prevents accidental corner/ribbon decorations from escaping the pricing area
-   and sitting over the navigation/viewport edge.
-   ============================================================================ */
 html,
 body {
     overflow-x: hidden;
@@ -2224,10 +2255,7 @@ section[id] {
 
 #pricing {
     position: relative;
-    overflow: hidden;
 }
-
-/* Pricing decorations removed: badges are now regular inline pills. */
 
 @media (max-width: 768px) {
     section[id] {
@@ -2235,7 +2263,63 @@ section[id] {
     }
 
     #pricing {
-        overflow: hidden;
         padding-top: 86px;
+    }
+}
+
+
+/* Final pricing stability pass */
+.pricing-section .section-header,
+.pricing-section .pricing-group-heading {
+    overflow: visible;
+}
+
+@media (max-width: 1024px) {
+    .pricing-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .pricing-section {
+        padding: 82px 0;
+    }
+
+    .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        width: 100%;
+    }
+
+    .pricing-card {
+        min-height: 0;
+        padding: 24px 20px 20px;
+    }
+
+    .pricing-card h3 {
+        min-height: 0;
+    }
+
+    .pricing-card .price {
+        min-height: 0;
+        margin-bottom: 22px;
+    }
+
+    .pricing-group-heading {
+        margin-top: 42px;
+    }
+
+    .pricing-group-heading-secondary {
+        margin-top: 54px;
+    }
+}
+
+@media (max-width: 420px) {
+    .pricing-card {
+        padding: 22px 18px 18px;
+    }
+
+    .pricing-card .price {
+        font-size: 1.42rem;
     }
 }
