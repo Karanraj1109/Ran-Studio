@@ -1421,6 +1421,7 @@ input[type=range]::-webkit-slider-thumb:hover {
 .bg-p7 { background: linear-gradient(135deg, #312e81, #581c87 52%, #0f172a); }
 .bg-p8 { background: linear-gradient(135deg, #0b0b0c, #2b2521 52%, #7a6654); }
 .bg-p9 { background: radial-gradient(circle at 22% 18%, rgba(72, 187, 255, .42), transparent 32%), radial-gradient(circle at 78% 24%, rgba(170, 108, 255, .45), transparent 34%), linear-gradient(135deg, #09142a, #12295b 48%, #27134d); }
+.bg-p10 { background: radial-gradient(circle at 18% 18%, rgba(91, 214, 255, .36), transparent 30%), radial-gradient(circle at 78% 26%, rgba(188, 125, 255, .42), transparent 34%), radial-gradient(circle at 50% 85%, rgba(255, 125, 198, .20), transparent 38%), linear-gradient(135deg, #07111f, #132541 48%, #24133f); }
 .bg-dark-glass { background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01)); }
 
 .p-icon {
