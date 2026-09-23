@@ -1,11 +1,16 @@
 # Ran Studio — GitHub → Vercel
 
-This build includes the mobile Services/slider fix.
+This is a static site. Upload the files in this folder to the root of your GitHub repository and push the commit. Vercel can deploy the repository directly with no build command required.
 
-## Deploy
-1. Extract this ZIP.
-2. Replace the files in the GitHub repository with these files (commit/push).
-3. Let Vercel build the latest commit.
-4. If the old page still appears, hard-refresh the browser once after deployment.
+Important fixes in this version:
+- Scroll reveal animation system removed completely.
+- Deferred `content-visibility` rendering removed.
+- Jasa Website / Template no longer uses a 200% horizontal slider.
+- Switching to Template does not call `scrollTo()` or force a page jump.
+- Template and agency panels use a stable single-panel layout on desktop and mobile.
+- Existing pricing, checkout, domain options, WhatsApp flow, portfolio, and theme toggle are preserved.
 
-Do not upload the ZIP itself as a website root. The repository root should contain `index.html`, `style.css`, and `script.js`.
+Recommended Vercel settings for this static repository:
+- Framework Preset: Other
+- Build Command: leave empty
+- Output Directory: leave empty

@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================================================
-       2. SEGMENTED SWITCH & SWIPE LOGIC (STABLE LAYOUT METHOD)
+       2. SEGMENTED SWITCH — direct, predictable panel switching
        ========================================================================== */
     const slider = document.getElementById('app-slider');
     const segmentBtns = document.querySelectorAll('.segment-btn');
@@ -77,112 +77,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const panelAgency = document.getElementById('panel-agency');
     const panelTemplates = document.getElementById('panel-templates');
     const navLinksContainer = document.getElementById('main-nav-links');
-    
+
     let currentMode = 'agency';
 
     function setMode(mode) {
-        if(currentMode === mode) return;
-        currentMode = mode;
-        
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        const nextMode = mode === 'templates' ? 'templates' : 'agency';
+        currentMode = nextMode;
 
-        segmentBtns.forEach(b => b.classList.remove('active'));
-        const activeBtn = document.querySelector(`.segment-btn[data-target="${mode}"]`);
-        activeBtn.classList.add('active');
+        segmentBtns.forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-target') === nextMode);
+        });
 
-        const isMobileLayout = window.matchMedia?.('(max-width: 900px)').matches;
+        const agencyActive = nextMode === 'agency';
+        panelAgency?.classList.toggle('hidden-panel', !agencyActive);
+        panelTemplates?.classList.toggle('hidden-panel', agencyActive);
 
-        // Mobile/tablet: keep a single panel in normal document flow.
-        // This avoids horizontal slider transforms creating clipped/blank regions.
-        if (isMobileLayout) {
-            panelAgency.classList.toggle('hidden-panel', mode !== 'agency');
-            panelTemplates.classList.toggle('hidden-panel', mode !== 'templates');
-            panelAgency.style.opacity = mode === 'agency' ? '1' : '0';
-            panelTemplates.style.opacity = mode === 'templates' ? '1' : '0';
-            slider.style.transform = 'none';
-            segmentBg.style.transform = mode === 'templates' ? 'translateX(100%)' : 'translateX(0)';
-            navLinksContainer.style.opacity = mode === 'templates' ? '0' : '1';
-            navLinksContainer.style.pointerEvents = mode === 'templates' ? 'none' : 'auto';
-            return;
-        }
-
-        // Desktop: preserve the premium horizontal slider behavior.
-        panelAgency.classList.remove('hidden-panel');
-        panelTemplates.classList.remove('hidden-panel');
-        panelAgency.style.opacity = '1';
-        panelTemplates.style.opacity = '1';
-
-        if(mode === 'templates') {
-            segmentBg.style.transform = 'translateX(100%)';
-            slider.style.transform = 'translateX(-50%)'; 
-            navLinksContainer.style.opacity = '0';
-            navLinksContainer.style.pointerEvents = 'none';
-
-            // Hide inactive panel after animation
-            setTimeout(() => {
-                panelAgency.classList.add('hidden-panel');
-            }, 500);
-
-        } else {
-            segmentBg.style.transform = 'translateX(0)';
-            slider.style.transform = 'translateX(0)';
-            navLinksContainer.style.opacity = '1';
-            navLinksContainer.style.pointerEvents = 'auto';
-
-            // Hide inactive panel after animation
-            setTimeout(() => {
-                panelTemplates.classList.add('hidden-panel');
-            }, 500);
+        // Switching views never changes scroll position or creates a horizontal lane.
+        if (slider) slider.style.transform = 'none';
+        if (segmentBg) segmentBg.style.transform = agencyActive ? 'translateX(0)' : 'translateX(100%)';
+        if (navLinksContainer) {
+            navLinksContainer.style.opacity = agencyActive ? '1' : '0';
+            navLinksContainer.style.pointerEvents = agencyActive ? 'auto' : 'none';
         }
     }
 
     segmentBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (event) => {
+            event.preventDefault();
             setMode(btn.getAttribute('data-target'));
         });
     });
 
     window.addEventListener('resize', () => {
-        const isMobileLayout = window.matchMedia?.('(max-width: 900px)').matches;
-        if (isMobileLayout) {
-            panelAgency.classList.toggle('hidden-panel', currentMode !== 'agency');
-            panelTemplates.classList.toggle('hidden-panel', currentMode !== 'templates');
-            slider.style.transform = 'none';
-        } else {
-            panelAgency.classList.remove('hidden-panel');
-            panelTemplates.classList.remove('hidden-panel');
-            slider.style.transform = currentMode === 'templates' ? 'translateX(-50%)' : 'translateX(0)';
-        }
+        // The view switcher is intentionally layout-independent. Resize never
+        // changes the active panel or the visitor's scroll position.
+        if (slider) slider.style.transform = 'none';
     }, { passive: true });
 
-    // Swipe Logic
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    document.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-    }, {passive: true});
-
-    document.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    }, {passive: true});
-
-    function handleSwipe() {
-        const threshold = 120;
-        if (touchStartX - touchEndX > threshold) {
-            // Swiped left
-            if (currentMode === 'agency') {
-                setMode('templates');
-            }
-        }
-        if (touchEndX - touchStartX > threshold) {
-            // Swiped right
-            if (currentMode === 'templates') {
-                setMode('agency');
-            }
-        }
-    }
+    /* Swipe switching intentionally removed: the page is scroll-first on touch
+       devices, so horizontal swipes can never accidentally switch the whole app. */
 
     /* ==========================================================================
        3. HIGH-PERFORMANCE NAV / SCROLL / CURSOR MOTION
@@ -293,31 +226,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================================================
-       5. INTERSECTION REVEAL + RAF STAT COUNTERS
+       5. STAT COUNTERS
        ========================================================================== */
-    const revealElements = document.querySelectorAll('.reveal');
 
-    // Mobile safety: Services should never depend on deferred reveal painting.
-    // This prevents a reserved blank area on small screens while preserving
-    // the premium reveal animation everywhere else.
-    if (window.matchMedia?.('(max-width: 1024px)').matches) {
-        const servicesSection = document.getElementById('services');
-        if (servicesSection) servicesSection.classList.add('active');
-    }
-
-    if (window.IntersectionObserver) {
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { rootMargin: '0px 0px -7% 0px', threshold: 0.08 });
-        revealElements.forEach(el => revealObserver.observe(el));
-    } else {
-        revealElements.forEach(el => el.classList.add('active'));
-    }
 
     const statNumbers = document.querySelectorAll('.stat-number');
     let countersStarted = false;

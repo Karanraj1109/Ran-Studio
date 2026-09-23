@@ -61,47 +61,30 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0 24px;
 }
 
-/* Scroll Reveal */
-.reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s ease-out;
-}
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
 /* ==========================================================================
-   APP SLIDER (SEGMENTED SWITCH LAYOUT) - REVISED (STABLE)
+   VIEW SWITCHER — stable single-panel flow
    ========================================================================== */
 .app-wrapper {
     position: relative;
     width: 100%;
-    overflow: hidden; 
+    overflow: visible;
 }
 
 .app-slider {
-    display: flex;
-    width: 200%; 
-    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-    will-change: transform;
-    align-items: flex-start;
+    display: block;
+    width: 100%;
+    transform: none;
+    transition: none;
+    will-change: auto;
 }
 
 .panel {
-    width: 50%; 
-    flex-shrink: 0;
-    transition: opacity 0.5s ease;
+    width: 100%;
+    flex: none;
 }
 
 .hidden-panel {
-    height: 0 !important;
-    overflow: hidden !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    display: none !important;
 }
 
 /* ==========================================================================
@@ -3496,15 +3479,6 @@ section { scroll-margin-top:95px; }
 .floating-whatsapp:hover { transform:translateY(-6px) scale(1.04); }
 .floating-cta { bottom:24px; left:24px; border-radius:16px; }
 
-.reveal { opacity:0; transform:translateY(34px) scale(.985); transition:opacity .85s var(--rs-ease), transform .85s var(--rs-ease); }
-.reveal.active { opacity:1; transform:none; }
-.reveal .why-card, .reveal .service-card, .reveal .pricing-card, .reveal .portfolio-card, .reveal .tech-badge { opacity:0; transform:translateY(18px); transition:opacity .65s var(--rs-ease), transform .65s var(--rs-ease); }
-.reveal.active .why-card, .reveal.active .service-card, .reveal.active .pricing-card, .reveal.active .portfolio-card, .reveal.active .tech-badge { opacity:1; transform:none; }
-.reveal.active .why-card:nth-child(2), .reveal.active .service-card:nth-child(2), .reveal.active .pricing-card:nth-child(2), .reveal.active .portfolio-card:nth-child(2), .reveal.active .tech-badge:nth-child(2) { transition-delay:.05s; }
-.reveal.active .why-card:nth-child(3), .reveal.active .service-card:nth-child(3), .reveal.active .pricing-card:nth-child(3), .reveal.active .portfolio-card:nth-child(3), .reveal.active .tech-badge:nth-child(3) { transition-delay:.10s; }
-.reveal.active .why-card:nth-child(4), .reveal.active .service-card:nth-child(4), .reveal.active .pricing-card:nth-child(4), .reveal.active .portfolio-card:nth-child(4), .reveal.active .tech-badge:nth-child(4) { transition-delay:.15s; }
-.reveal.active .why-card:nth-child(5), .reveal.active .service-card:nth-child(5), .reveal.active .pricing-card:nth-child(5), .reveal.active .portfolio-card:nth-child(5), .reveal.active .tech-badge:nth-child(5) { transition-delay:.20s; }
-.reveal.active .why-card:nth-child(6), .reveal.active .service-card:nth-child(6), .reveal.active .pricing-card:nth-child(6), .reveal.active .portfolio-card:nth-child(6), .reveal.active .tech-badge:nth-child(6) { transition-delay:.25s; }
 
 html[data-theme="light"] body {
     background:
@@ -3664,13 +3638,6 @@ body { min-width: 0; overflow-x: clip; }
 img, svg, video, canvas { max-width: 100%; }
 button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 
-/* Let the browser skip paint/layout work for distant sections while keeping
-   stable intrinsic space so scroll positions remain predictable. */
-#portfolio, #why-us, #workflow, #services, #pricing, #faq, #contact,
-.tech-stack-section, .bottom-cta-section {
-    content-visibility: auto;
-    contain-intrinsic-size: 720px;
-}
 
 /* Avoid reserving compositor memory for every card. Promote only on interaction. */
 .portfolio-card, .why-card, .service-card, .pricing-card { will-change: auto; }
@@ -3699,141 +3666,4 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 @media (prefers-reduced-motion: reduce) {
     .ambient-orb { animation: none !important; }
     .hero-stage, .hero-browser, .scroll-progress span { will-change: auto; }
-}
-
-
-/* MOBILE SERVICES STABILITY — never allow the service grid to enter a
-   reserved/empty state. Keep the premium visual treatment, but render the
-   section normally on touch/tablet widths instead of relying on deferred
-   content-visibility or JS reveal state. */
-@media (max-width: 1024px) {
-    #services {
-        content-visibility: visible !important;
-        contain-intrinsic-size: none !important;
-        opacity: 1 !important;
-        transform: none !important;
-        visibility: visible !important;
-        height: auto !important;
-        min-height: 0 !important;
-    }
-
-    #services .services-grid {
-        display: grid !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        height: auto !important;
-        min-height: 0 !important;
-    }
-
-    #services .service-card {
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        transform: none !important;
-        height: auto !important;
-        min-height: 0 !important;
-    }
-}
-
-@media (prefers-reduced-motion: no-preference) and (max-width: 1024px) {
-    #services .service-card {
-        animation: servicesCardIn .55s var(--rs-ease) both;
-    }
-
-    #services .service-card:nth-child(2) { animation-delay: .04s; }
-    #services .service-card:nth-child(3) { animation-delay: .08s; }
-    #services .service-card:nth-child(4) { animation-delay: .12s; }
-    #services .service-card:nth-child(5) { animation-delay: .16s; }
-    #services .service-card:nth-child(6) { animation-delay: .20s; }
-    #services .service-card:nth-child(7) { animation-delay: .24s; }
-    #services .service-card:nth-child(8) { animation-delay: .28s; }
-
-    @keyframes servicesCardIn {
-        from { opacity: 0; transform: translateY(14px); }
-        to { opacity: 1; transform: none; }
-    }
-}
-
-
-/* GITHUB MOBILE FINAL SAFETY — keep the agency panel in normal document flow on mobile */
-@media (max-width: 900px) {
-    .app-wrapper {
-        width: 100% !important;
-        overflow: visible !important;
-    }
-
-    .app-slider {
-        display: block !important;
-        width: 100% !important;
-        transform: none !important;
-        transition: none !important;
-        will-change: auto !important;
-    }
-
-    .panel {
-        width: 100% !important;
-        flex: none !important;
-    }
-
-    .panel#panel-agency {
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        height: auto !important;
-    }
-
-    .panel#panel-templates.hidden-panel {
-        display: none !important;
-    }
-
-    /* Services is always part of normal mobile flow. */
-    #services,
-    #services .container,
-    #services .section-header,
-    #services .services-grid,
-    #services .service-card {
-        content-visibility: visible !important;
-        contain: none !important;
-        contain-intrinsic-size: none !important;
-        visibility: visible !important;
-    }
-
-    #services {
-        display: block !important;
-        opacity: 1 !important;
-        transform: none !important;
-        height: auto !important;
-        min-height: 0 !important;
-        overflow: visible !important;
-    }
-
-    #services .services-grid {
-        display: grid !important;
-        grid-template-columns: minmax(0, 1fr) !important;
-        gap: 18px !important;
-        opacity: 1 !important;
-        transform: none !important;
-        height: auto !important;
-        min-height: 0 !important;
-    }
-
-    #services .service-card {
-        display: flex !important;
-        flex-direction: column !important;
-        opacity: 1 !important;
-        transform: none !important;
-        animation: none !important;
-        height: auto !important;
-        min-height: 0 !important;
-        overflow: hidden !important;
-    }
-
-    /* Never let scroll-reveal rules hide the Services content on touch devices. */
-    #services .reveal,
-    #services .reveal > *,
-    #services .service-card {
-        opacity: 1 !important;
-        visibility: visible !important;
-        transform: none !important;
-    }
 }
