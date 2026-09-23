@@ -3700,3 +3700,21 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
     .ambient-orb { animation: none !important; }
     .hero-stage, .hero-browser, .scroll-progress span { will-change: auto; }
 }
+
+/* MOBILE FIX: keep Services content painted and visible on small screens.
+   The performance layer must never leave a reserved-but-empty Services section. */
+@media (max-width: 680px) {
+    #services {
+        content-visibility: visible !important;
+        contain-intrinsic-size: auto !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    #services.reveal .service-card,
+    #services.reveal.active .service-card {
+        opacity: 1 !important;
+        transform: none !important;
+        transition-delay: 0s !important;
+    }
+}

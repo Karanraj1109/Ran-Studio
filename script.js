@@ -267,6 +267,15 @@ document.addEventListener('DOMContentLoaded', () => {
        5. INTERSECTION REVEAL + RAF STAT COUNTERS
        ========================================================================== */
     const revealElements = document.querySelectorAll('.reveal');
+
+    // Mobile safety: Services should never depend on deferred reveal painting.
+    // This prevents a reserved blank area on small screens while preserving
+    // the premium reveal animation everywhere else.
+    if (window.matchMedia?.('(max-width: 680px)').matches) {
+        const servicesSection = document.getElementById('services');
+        if (servicesSection) servicesSection.classList.add('active');
+    }
+
     if (window.IntersectionObserver) {
         const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
