@@ -3753,3 +3753,87 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
         to { opacity: 1; transform: none; }
     }
 }
+
+
+/* GITHUB MOBILE FINAL SAFETY — keep the agency panel in normal document flow on mobile */
+@media (max-width: 900px) {
+    .app-wrapper {
+        width: 100% !important;
+        overflow: visible !important;
+    }
+
+    .app-slider {
+        display: block !important;
+        width: 100% !important;
+        transform: none !important;
+        transition: none !important;
+        will-change: auto !important;
+    }
+
+    .panel {
+        width: 100% !important;
+        flex: none !important;
+    }
+
+    .panel#panel-agency {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        height: auto !important;
+    }
+
+    .panel#panel-templates.hidden-panel {
+        display: none !important;
+    }
+
+    /* Services is always part of normal mobile flow. */
+    #services,
+    #services .container,
+    #services .section-header,
+    #services .services-grid,
+    #services .service-card {
+        content-visibility: visible !important;
+        contain: none !important;
+        contain-intrinsic-size: none !important;
+        visibility: visible !important;
+    }
+
+    #services {
+        display: block !important;
+        opacity: 1 !important;
+        transform: none !important;
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+    }
+
+    #services .services-grid {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 18px !important;
+        opacity: 1 !important;
+        transform: none !important;
+        height: auto !important;
+        min-height: 0 !important;
+    }
+
+    #services .service-card {
+        display: flex !important;
+        flex-direction: column !important;
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: hidden !important;
+    }
+
+    /* Never let scroll-reveal rules hide the Services content on touch devices. */
+    #services .reveal,
+    #services .reveal > *,
+    #services .service-card {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+    }
+}

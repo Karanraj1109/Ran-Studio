@@ -90,7 +90,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const activeBtn = document.querySelector(`.segment-btn[data-target="${mode}"]`);
         activeBtn.classList.add('active');
 
-        // Remove hidden classes to render full height for sliding
+        const isMobileLayout = window.matchMedia?.('(max-width: 900px)').matches;
+
+        // Mobile/tablet: keep a single panel in normal document flow.
+        // This avoids horizontal slider transforms creating clipped/blank regions.
+        if (isMobileLayout) {
+            panelAgency.classList.toggle('hidden-panel', mode !== 'agency');
+            panelTemplates.classList.toggle('hidden-panel', mode !== 'templates');
+            panelAgency.style.opacity = mode === 'agency' ? '1' : '0';
+            panelTemplates.style.opacity = mode === 'templates' ? '1' : '0';
+            slider.style.transform = 'none';
+            segmentBg.style.transform = mode === 'templates' ? 'translateX(100%)' : 'translateX(0)';
+            navLinksContainer.style.opacity = mode === 'templates' ? '0' : '1';
+            navLinksContainer.style.pointerEvents = mode === 'templates' ? 'none' : 'auto';
+            return;
+        }
+
+        // Desktop: preserve the premium horizontal slider behavior.
         panelAgency.classList.remove('hidden-panel');
         panelTemplates.classList.remove('hidden-panel');
         panelAgency.style.opacity = '1';
@@ -125,6 +141,19 @@ document.addEventListener('DOMContentLoaded', () => {
             setMode(btn.getAttribute('data-target'));
         });
     });
+
+    window.addEventListener('resize', () => {
+        const isMobileLayout = window.matchMedia?.('(max-width: 900px)').matches;
+        if (isMobileLayout) {
+            panelAgency.classList.toggle('hidden-panel', currentMode !== 'agency');
+            panelTemplates.classList.toggle('hidden-panel', currentMode !== 'templates');
+            slider.style.transform = 'none';
+        } else {
+            panelAgency.classList.remove('hidden-panel');
+            panelTemplates.classList.remove('hidden-panel');
+            slider.style.transform = currentMode === 'templates' ? 'translateX(-50%)' : 'translateX(0)';
+        }
+    }, { passive: true });
 
     // Swipe Logic
     let touchStartX = 0;
