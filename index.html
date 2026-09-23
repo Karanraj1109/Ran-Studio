@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -67,6 +68,15 @@
       ]
     }
     </script>
+
+    <script>
+        try {
+            const savedTheme = localStorage.getItem('ran-studio-theme');
+            if (savedTheme === 'light' || savedTheme === 'dark') {
+                document.documentElement.dataset.theme = savedTheme;
+            }
+        } catch (_) {}
+    </script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -96,18 +106,24 @@
                     <button class="segment-btn" data-target="templates">Template</button>
                 </div>
 
-                <ul class="nav-links" id="main-nav-links">
-                    <li><a href="#home" class="nav-link active">Home</a></li>
-                    <li><a href="#services" class="nav-link">Services</a></li>
-                    <li><a href="#pricing" class="nav-link">Pricing</a></li>
-                    <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
-                    <li><a href="#faq" class="nav-link">FAQ</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
-                <div class="hamburger" aria-label="Toggle Navigation" role="button" tabindex="0">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
+                <div class="nav-actions">
+                    <ul class="nav-links" id="main-nav-links">
+                        <li><a href="#home" class="nav-link active">Home</a></li>
+                        <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                        <li><a href="#services" class="nav-link">Services</a></li>
+                        <li><a href="#pricing" class="nav-link">Pricing</a></li>
+                        <li><a href="#faq" class="nav-link">FAQ</a></li>
+                        <li><a href="#contact" class="nav-link">Contact</a></li>
+                    </ul>
+                    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Aktifkan mode terang" aria-pressed="false" title="Ubah tema">
+                        <i class="fa-solid fa-moon" aria-hidden="true"></i>
+                        <span class="sr-only">Ubah tema</span>
+                    </button>
+                    <div class="hamburger" aria-label="Toggle Navigation" role="button" tabindex="0">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -150,188 +166,6 @@
                             <div class="stat-card">
                                 <h2 class="stat-number-text">Responsive</h2>
                                 <p class="stat-label">Nyaman di HP, tablet & laptop</p>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section id="why-us" class="why-us-section reveal">
-                        <div class="container">
-                            <div class="section-header">
-                                <h2>Kenapa Memilih <span>Ran Studio?</span></h2>
-                                <p>Bukan sekadar membuat tampilan. Website dibuat supaya mudah dipahami, nyaman digunakan, dan sesuai tujuan bisnis Anda.</p>
-                            </div>
-                            <div class="why-grid">
-                                <div class="why-card">
-                                    <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                                    <h3>Desain yang Profesional</h3>
-                                    <p>Tampilan dibuat rapi, modern, dan disesuaikan dengan karakter bisnis Anda.</p>
-                                </div>
-                                <div class="why-card">
-                                    <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-mobile-screen-button"></i></div>
-                                    <h3>Nyaman di HP</h3>
-                                    <p>Website tetap nyaman digunakan di HP, tablet, maupun laptop.</p>
-                                </div>
-                                <div class="why-card">
-                                    <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-magnifying-glass"></i></div>
-                                    <h3>Mudah Ditemukan Google</h3>
-                                    <p>Struktur website dibuat dengan dasar SEO agar lebih mudah dibaca mesin pencari seperti Google.</p>
-                                </div>
-                                <div class="why-card">
-                                    <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-gauge-high"></i></div>
-                                    <h3>Cepat Dibuka</h3>
-                                    <p>Halaman dibuat seefisien mungkin agar tidak terasa berat saat dibuka.</p>
-                                </div>
-                                <div class="why-card">
-                                    <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-code"></i></div>
-                                    <h3>Clean Code</h3>
-                                    <p>Kode disusun rapi supaya website lebih mudah dirawat dan dikembangkan.</p>
-                                </div>
-                                <div class="why-card">
-                                    <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-layer-group"></i></div>
-                                    <h3>Custom Sesuai Kebutuhan</h3>
-                                    <p>Fitur dan alur website bisa disesuaikan dengan kebutuhan usaha Anda.</p>
-                                </div>
-                                <div class="why-card">
-                                    <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-headset"></i></div>
-                                    <h3>Gratis Konsultasi</h3>
-                                    <p>Ceritakan kebutuhan Anda terlebih dahulu. Konsultasi awal tidak dipungut biaya.</p>
-                                </div>
-                                <div class="why-card">
-                                    <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-shield-halved"></i></div>
-                                    <h3>Penyempurnaan Setelah Rilis</h3>
-                                    <p>Setelah website selesai, Anda tetap bisa berkonsultasi untuk perbaikan atau pengembangan.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section class="tech-stack-section reveal" aria-label="Teknologi yang Digunakan">
-                        <div class="container">
-                            <div class="section-header">
-                                <h2>Teknologi yang <span>Sesuai Kebutuhan</span></h2>
-                                <p>Teknologi dipilih sesuai jenis website dan fitur yang dibutuhkan, bukan sekadar mengikuti tren.</p>
-                            </div>
-                            <div class="tech-badges">
-                                <span class="tech-badge">HTML5</span>
-                                <span class="tech-badge">CSS3</span>
-                                <span class="tech-badge">JavaScript (ES6+)</span>
-                                <span class="tech-badge">PHP</span>
-                                <span class="tech-badge">MySQL</span>
-                                <span class="tech-badge">Firebase</span>
-                                <span class="tech-badge">Git</span>
-                                <span class="tech-badge">Nyaman di HP Design</span>
-                                <span class="tech-badge">SEO Optimization</span>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section id="workflow" class="how-it-works-section reveal">
-                        <div class="container">
-                            <div class="section-header">
-                                <h2>Bagaimana <span>Proses Pengerjaannya?</span></h2>
-                                <p>Anda akan tahu apa yang dikerjakan dari awal sampai website siap digunakan.</p>
-                            </div>
-                            <div class="timeline">
-                                <div class="timeline-item">
-                                    <div class="timeline-dot">1</div>
-                                    <div class="timeline-content">
-                                        <h3>Diskusi</h3>
-                                        <p>Kita bahas tujuan website, jenis bisnis, fitur yang dibutuhkan, dan hal-hal yang perlu disiapkan.</p>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot">2</div>
-                                    <div class="timeline-content">
-                                        <h3>Perencanaan</h3>
-                                        <p>Kita tentukan isi website, jumlah halaman, fitur, serta materi seperti teks, foto, dan logo.</p>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot">3</div>
-                                    <div class="timeline-content">
-                                        <h3>Desain</h3>
-                                        <p>Saya menyusun tampilan website berdasarkan gaya bisnis dan kebutuhan pengunjung.</p>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot">4</div>
-                                    <div class="timeline-content">
-                                        <h3>Pembuatan Website</h3>
-                                        <p>Website mulai dibuat dan setiap bagian disusun agar nyaman digunakan di berbagai perangkat.</p>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot">5</div>
-                                    <div class="timeline-content">
-                                        <h3>Testing</h3>
-                                        <p>Website dicek di berbagai perangkat untuk memastikan fitur, tampilan, dan kecepatan berjalan dengan baik.</p>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot">6</div>
-                                    <div class="timeline-content">
-                                        <h3>Launch</h3>
-                                        <p>Website dipublikasikan secara live ke domain utama Anda.</p>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot">7</div>
-                                    <div class="timeline-content">
-                                        <h3>Penyempurnaan</h3>
-                                        <p>Website dicek kembali sebelum diserahkan dan Anda bisa menyampaikan perbaikan yang diperlukan.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section id="services" class="services-section reveal">
-                        <div class="container">
-                            <div class="section-header">
-                                <h2>Apa yang <span>Bisa Saya Buat?</span></h2>
-                                <p>Pilih jenis website yang paling sesuai. Kalau kebutuhan Anda berbeda, saya juga bisa membuat sistem khusus dari awal.</p>
-                            </div>
-                            <div class="services-grid">
-                                <div class="service-card">
-                                    <div class="service-icon" aria-hidden="true"><i class="fa-solid fa-globe"></i></div>
-                                    <h3>Website UMKM</h3>
-                                    <p>Website untuk memperkenalkan usaha, produk, layanan, lokasi, dan cara menghubungi bisnis Anda.</p>
-                                </div>
-                                <div class="service-card">
-                                    <div class="service-icon" aria-hidden="true"><i class="fa-solid fa-building"></i></div>
-                                    <h3>Company Profile</h3>
-                                    <p>Website resmi perusahaan yang berisi profil usaha, layanan, portofolio, informasi kontak, dan kebutuhan lainnya.</p>
-                                </div>
-                                <div class="service-card">
-                                    <div class="service-icon" aria-hidden="true"><i class="fa-solid fa-display"></i></div>
-                                    <h3>Landing Page</h3>
-                                    <p>Satu halaman yang fokus menjelaskan produk atau jasa dan mengarahkan pengunjung untuk menghubungi atau membeli.</p>
-                                </div>
-                                <div class="service-card">
-                                    <div class="service-icon" aria-hidden="true"><i class="fa-solid fa-cart-shopping"></i></div>
-                                    <h3>Toko Online</h3>
-                                    <p>Toko online untuk menampilkan produk, menerima pesanan, dan mengatur proses belanja sesuai kebutuhan.</p>
-                                </div>
-                                <div class="service-card">
-                                    <div class="service-icon" aria-hidden="true"><i class="fa-solid fa-briefcase"></i></div>
-                                    <h3>Portofolio</h3>
-                                    <p>Website untuk menampilkan karya, pengalaman, layanan, dan informasi tentang Anda atau tim.</p>
-                                </div>
-                                <div class="service-card">
-                                    <div class="service-icon" aria-hidden="true"><i class="fa-solid fa-table-columns"></i></div>
-                                    <h3>Dashboard Admin</h3>
-                                    <p>Halaman khusus untuk mengelola data, pesanan, pengguna, atau informasi bisnis dari satu tempat.</p>
-                                </div>
-                                <div class="service-card">
-                                    <div class="service-icon" aria-hidden="true"><i class="fa-solid fa-heart"></i></div>
-                                    <h3>Undangan Digital</h3>
-                                    <p>Undangan digital yang bisa dibuka dari HP dan mudah dibagikan kepada keluarga atau tamu.</p>
-                                </div>
-                                <div class="service-card">
-                                    <div class="service-icon" aria-hidden="true"><i class="fa-solid fa-code"></i></div>
-                                    <h3>Custom Web App</h3>
-                                    <p>Sistem website khusus dengan fitur yang dibuat mengikuti proses kerja dan kebutuhan bisnis Anda.</p>
-                                </div>
                             </div>
                         </div>
                     </section>
@@ -599,6 +433,190 @@
                             </div>
                         </div>
                     </section>
+
+                    <section id="why-us" class="why-us-section reveal">
+                        <div class="container">
+                            <div class="section-header">
+                                <h2>Kenapa Memilih <span>Ran Studio?</span></h2>
+                                <p>Bukan sekadar membuat tampilan. Website dibuat supaya mudah dipahami, nyaman digunakan, dan sesuai tujuan bisnis Anda.</p>
+                            </div>
+                            <div class="why-grid">
+                                <div class="why-card">
+                                    <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                                    <h3>Desain yang Profesional</h3>
+                                    <p>Tampilan dibuat rapi, modern, dan disesuaikan dengan karakter bisnis Anda.</p>
+                                </div>
+                                <div class="why-card">
+                                    <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                                    <h3>Nyaman di HP</h3>
+                                    <p>Website tetap nyaman digunakan di HP, tablet, maupun laptop.</p>
+                                </div>
+                                <div class="why-card">
+                                    <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-magnifying-glass"></i></div>
+                                    <h3>Mudah Ditemukan Google</h3>
+                                    <p>Struktur website dibuat dengan dasar SEO agar lebih mudah dibaca mesin pencari seperti Google.</p>
+                                </div>
+                                <div class="why-card">
+                                    <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-gauge-high"></i></div>
+                                    <h3>Cepat Dibuka</h3>
+                                    <p>Halaman dibuat seefisien mungkin agar tidak terasa berat saat dibuka.</p>
+                                </div>
+                                <div class="why-card">
+                                    <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-code"></i></div>
+                                    <h3>Clean Code</h3>
+                                    <p>Kode disusun rapi supaya website lebih mudah dirawat dan dikembangkan.</p>
+                                </div>
+                                <div class="why-card">
+                                    <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-layer-group"></i></div>
+                                    <h3>Custom Sesuai Kebutuhan</h3>
+                                    <p>Fitur dan alur website bisa disesuaikan dengan kebutuhan usaha Anda.</p>
+                                </div>
+                                <div class="why-card">
+                                    <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-headset"></i></div>
+                                    <h3>Gratis Konsultasi</h3>
+                                    <p>Ceritakan kebutuhan Anda terlebih dahulu. Konsultasi awal tidak dipungut biaya.</p>
+                                </div>
+                                <div class="why-card">
+                                    <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-shield-halved"></i></div>
+                                    <h3>Penyempurnaan Setelah Rilis</h3>
+                                    <p>Setelah website selesai, Anda tetap bisa berkonsultasi untuk perbaikan atau pengembangan.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="tech-stack-section reveal" aria-label="Teknologi yang Digunakan">
+                        <div class="container">
+                            <div class="section-header">
+                                <h2>Teknologi yang <span>Sesuai Kebutuhan</span></h2>
+                                <p>Teknologi dipilih sesuai jenis website dan fitur yang dibutuhkan, bukan sekadar mengikuti tren.</p>
+                            </div>
+                            <div class="tech-badges">
+                                <span class="tech-badge">HTML5</span>
+                                <span class="tech-badge">CSS3</span>
+                                <span class="tech-badge">JavaScript (ES6+)</span>
+                                <span class="tech-badge">PHP</span>
+                                <span class="tech-badge">MySQL</span>
+                                <span class="tech-badge">Firebase</span>
+                                <span class="tech-badge">Git</span>
+                                <span class="tech-badge">Nyaman di HP Design</span>
+                                <span class="tech-badge">SEO Optimization</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="workflow" class="how-it-works-section reveal">
+                        <div class="container">
+                            <div class="section-header">
+                                <h2>Bagaimana <span>Proses Pengerjaannya?</span></h2>
+                                <p>Anda akan tahu apa yang dikerjakan dari awal sampai website siap digunakan.</p>
+                            </div>
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <div class="timeline-dot">1</div>
+                                    <div class="timeline-content">
+                                        <h3>Diskusi</h3>
+                                        <p>Kita bahas tujuan website, jenis bisnis, fitur yang dibutuhkan, dan hal-hal yang perlu disiapkan.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot">2</div>
+                                    <div class="timeline-content">
+                                        <h3>Perencanaan</h3>
+                                        <p>Kita tentukan isi website, jumlah halaman, fitur, serta materi seperti teks, foto, dan logo.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot">3</div>
+                                    <div class="timeline-content">
+                                        <h3>Desain</h3>
+                                        <p>Saya menyusun tampilan website berdasarkan gaya bisnis dan kebutuhan pengunjung.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot">4</div>
+                                    <div class="timeline-content">
+                                        <h3>Pembuatan Website</h3>
+                                        <p>Website mulai dibuat dan setiap bagian disusun agar nyaman digunakan di berbagai perangkat.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot">5</div>
+                                    <div class="timeline-content">
+                                        <h3>Testing</h3>
+                                        <p>Website dicek di berbagai perangkat untuk memastikan fitur, tampilan, dan kecepatan berjalan dengan baik.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot">6</div>
+                                    <div class="timeline-content">
+                                        <h3>Launch</h3>
+                                        <p>Website dipublikasikan secara live ke domain utama Anda.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot">7</div>
+                                    <div class="timeline-content">
+                                        <h3>Penyempurnaan</h3>
+                                        <p>Website dicek kembali sebelum diserahkan dan Anda bisa menyampaikan perbaikan yang diperlukan.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="services" class="services-section reveal">
+                        <div class="container">
+                            <div class="section-header">
+                                <h2>Apa yang <span>Bisa Saya Buat?</span></h2>
+                                <p>Pilih jenis website yang paling sesuai. Kalau kebutuhan Anda berbeda, saya juga bisa membuat sistem khusus dari awal.</p>
+                            </div>
+                            <div class="services-grid">
+                                <div class="service-card">
+                                    <div class="service-icon" aria-hidden="true"><i class="fa-solid fa-globe"></i></div>
+                                    <h3>Website UMKM</h3>
+                                    <p>Website untuk memperkenalkan usaha, produk, layanan, lokasi, dan cara menghubungi bisnis Anda.</p>
+                                </div>
+                                <div class="service-card">
+                                    <div class="service-icon" aria-hidden="true"><i class="fa-solid fa-building"></i></div>
+                                    <h3>Company Profile</h3>
+                                    <p>Website resmi perusahaan yang berisi profil usaha, layanan, portofolio, informasi kontak, dan kebutuhan lainnya.</p>
+                                </div>
+                                <div class="service-card">
+                                    <div class="service-icon" aria-hidden="true"><i class="fa-solid fa-display"></i></div>
+                                    <h3>Landing Page</h3>
+                                    <p>Satu halaman yang fokus menjelaskan produk atau jasa dan mengarahkan pengunjung untuk menghubungi atau membeli.</p>
+                                </div>
+                                <div class="service-card">
+                                    <div class="service-icon" aria-hidden="true"><i class="fa-solid fa-cart-shopping"></i></div>
+                                    <h3>Toko Online</h3>
+                                    <p>Toko online untuk menampilkan produk, menerima pesanan, dan mengatur proses belanja sesuai kebutuhan.</p>
+                                </div>
+                                <div class="service-card">
+                                    <div class="service-icon" aria-hidden="true"><i class="fa-solid fa-briefcase"></i></div>
+                                    <h3>Portofolio</h3>
+                                    <p>Website untuk menampilkan karya, pengalaman, layanan, dan informasi tentang Anda atau tim.</p>
+                                </div>
+                                <div class="service-card">
+                                    <div class="service-icon" aria-hidden="true"><i class="fa-solid fa-table-columns"></i></div>
+                                    <h3>Dashboard Admin</h3>
+                                    <p>Halaman khusus untuk mengelola data, pesanan, pengguna, atau informasi bisnis dari satu tempat.</p>
+                                </div>
+                                <div class="service-card">
+                                    <div class="service-icon" aria-hidden="true"><i class="fa-solid fa-heart"></i></div>
+                                    <h3>Undangan Digital</h3>
+                                    <p>Undangan digital yang bisa dibuka dari HP dan mudah dibagikan kepada keluarga atau tamu.</p>
+                                </div>
+                                <div class="service-card">
+                                    <div class="service-icon" aria-hidden="true"><i class="fa-solid fa-code"></i></div>
+                                    <h3>Custom Web App</h3>
+                                    <p>Sistem website khusus dengan fitur yang dibuat mengikuti proses kerja dan kebutuhan bisnis Anda.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+
 
 
 

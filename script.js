@@ -1,6 +1,59 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     /* ==========================================================================
+       0. DARK / LIGHT THEME TOGGLE
+       ========================================================================== */
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = themeToggle ? themeToggle.querySelector('i') : null;
+    const root = document.documentElement;
+
+    const getPreferredTheme = () => {
+        try {
+            const storedTheme = localStorage.getItem('ran-studio-theme');
+            if (storedTheme === 'light' || storedTheme === 'dark') return storedTheme;
+        } catch (_) {}
+        return 'dark';
+    };
+
+    const applyTheme = (theme, persist = false) => {
+        const safeTheme = theme === 'light' ? 'light' : 'dark';
+        root.dataset.theme = safeTheme;
+
+        if (themeIcon) {
+            themeIcon.className = safeTheme === 'light'
+                ? 'fa-solid fa-sun'
+                : 'fa-solid fa-moon';
+        }
+
+        if (themeToggle) {
+            const isLight = safeTheme === 'light';
+            themeToggle.setAttribute('aria-pressed', String(isLight));
+            themeToggle.setAttribute('aria-label', isLight ? 'Aktifkan mode gelap' : 'Aktifkan mode terang');
+            themeToggle.setAttribute('title', isLight ? 'Aktifkan mode gelap' : 'Aktifkan mode terang');
+        }
+
+        const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+        if (themeColorMeta) {
+            themeColorMeta.setAttribute('content', safeTheme === 'light' ? '#f7f9fc' : '#050505');
+        }
+
+        if (persist) {
+            try {
+                localStorage.setItem('ran-studio-theme', safeTheme);
+            } catch (_) {}
+        }
+    };
+
+    applyTheme(root.dataset.theme || getPreferredTheme());
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            applyTheme(root.dataset.theme === 'light' ? 'dark' : 'light', true);
+        });
+    }
+
+
+    /* ==========================================================================
        1. LOADING SCREEN DISMISS
        ========================================================================== */
     const loader = document.getElementById('loader');
