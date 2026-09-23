@@ -3701,20 +3701,55 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
     .hero-stage, .hero-browser, .scroll-progress span { will-change: auto; }
 }
 
-/* MOBILE FIX: keep Services content painted and visible on small screens.
-   The performance layer must never leave a reserved-but-empty Services section. */
-@media (max-width: 680px) {
+
+/* MOBILE SERVICES STABILITY — never allow the service grid to enter a
+   reserved/empty state. Keep the premium visual treatment, but render the
+   section normally on touch/tablet widths instead of relying on deferred
+   content-visibility or JS reveal state. */
+@media (max-width: 1024px) {
     #services {
         content-visibility: visible !important;
-        contain-intrinsic-size: auto !important;
+        contain-intrinsic-size: none !important;
         opacity: 1 !important;
         transform: none !important;
+        visibility: visible !important;
+        height: auto !important;
+        min-height: 0 !important;
     }
 
-    #services.reveal .service-card,
-    #services.reveal.active .service-card {
+    #services .services-grid {
+        display: grid !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        height: auto !important;
+        min-height: 0 !important;
+    }
+
+    #services .service-card {
+        display: block !important;
+        visibility: visible !important;
         opacity: 1 !important;
         transform: none !important;
-        transition-delay: 0s !important;
+        height: auto !important;
+        min-height: 0 !important;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) and (max-width: 1024px) {
+    #services .service-card {
+        animation: servicesCardIn .55s var(--rs-ease) both;
+    }
+
+    #services .service-card:nth-child(2) { animation-delay: .04s; }
+    #services .service-card:nth-child(3) { animation-delay: .08s; }
+    #services .service-card:nth-child(4) { animation-delay: .12s; }
+    #services .service-card:nth-child(5) { animation-delay: .16s; }
+    #services .service-card:nth-child(6) { animation-delay: .20s; }
+    #services .service-card:nth-child(7) { animation-delay: .24s; }
+    #services .service-card:nth-child(8) { animation-delay: .28s; }
+
+    @keyframes servicesCardIn {
+        from { opacity: 0; transform: translateY(14px); }
+        to { opacity: 1; transform: none; }
     }
 }

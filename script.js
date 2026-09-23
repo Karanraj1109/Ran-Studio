@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mobile safety: Services should never depend on deferred reveal painting.
     // This prevents a reserved blank area on small screens while preserving
     // the premium reveal animation everywhere else.
-    if (window.matchMedia?.('(max-width: 680px)').matches) {
+    if (window.matchMedia?.('(max-width: 1024px)').matches) {
         const servicesSection = document.getElementById('services');
         if (servicesSection) servicesSection.classList.add('active');
     }
