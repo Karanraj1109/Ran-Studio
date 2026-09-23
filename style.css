@@ -3653,3 +3653,50 @@ html[data-theme="light"] .nav-links.active {
     background: rgba(255,255,255,.96) !important;
     box-shadow: 0 25px 70px rgba(15,23,42,.13) !important;
 }
+
+
+/* ==========================================================================
+   PERFORMANCE LAYER — preserve premium visuals while reducing main-thread work
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+html { overflow-x: clip; }
+body { min-width: 0; overflow-x: clip; }
+img, svg, video, canvas { max-width: 100%; }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+
+/* Let the browser skip paint/layout work for distant sections while keeping
+   stable intrinsic space so scroll positions remain predictable. */
+#portfolio, #why-us, #workflow, #services, #pricing, #faq, #contact,
+.tech-stack-section, .bottom-cta-section {
+    content-visibility: auto;
+    contain-intrinsic-size: 720px;
+}
+
+/* Avoid reserving compositor memory for every card. Promote only on interaction. */
+.portfolio-card, .why-card, .service-card, .pricing-card { will-change: auto; }
+.portfolio-card:hover, .why-card:hover, .service-card:hover, .pricing-card:hover { will-change: transform; }
+.hero-stage, .hero-browser, .ambient-orb, .scroll-progress span { will-change: transform; }
+
+/* Expensive blur is kept visually strong on desktop and made more economical
+   on small screens where fill-rate is the usual bottleneck. */
+@media (max-width: 680px) {
+    .ambient-orb { filter: blur(46px); opacity: .18; }
+    .floating-cta { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    .art-panel, .float-card { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+    .navbar { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    .nav-links.active { backdrop-filter: blur(14px) !important; -webkit-backdrop-filter: blur(14px) !important; }
+    .hero-bg-glow { opacity: .75; }
+}
+
+/* Motion stays rich for capable devices and avoids hover-only work on touch. */
+@media (hover: none), (pointer: coarse) {
+    .portfolio-card:hover, .why-card:hover, .service-card:hover, .pricing-card:hover,
+    .floating-whatsapp:hover, .btn:hover::before { transform: none; }
+    .btn::before { display: none; }
+    .cursor-glow { display: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ambient-orb { animation: none !important; }
+    .hero-stage, .hero-browser, .scroll-progress span { will-change: auto; }
+}

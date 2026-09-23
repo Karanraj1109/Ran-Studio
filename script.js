@@ -156,48 +156,85 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================================================
-       3. STICKY NAVBAR, ACTIVE LINK & FLOATING CTA LOGIC
+       3. HIGH-PERFORMANCE NAV / SCROLL / CURSOR MOTION
        ========================================================================== */
     const navbar = document.querySelector('.navbar');
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.nav-link');
-    const floatingCta = document.getElementById('floating-cta');
     const heroSection = document.getElementById('home');
+    const floatingCta = document.getElementById('floating-cta');
+    const progressBar = document.getElementById('scroll-progress-bar');
+    const agencySections = panelAgency
+        ? Array.from(panelAgency.querySelectorAll('section[id]'))
+        : Array.from(document.querySelectorAll('#home, #portfolio, #why-us, #workflow, #services, #pricing, #faq, #contact'));
+    const navLinks = document.querySelectorAll('.nav-link');
 
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('sticky');
-        } else {
-            navbar.classList.remove('sticky');
-        }
+    let rafScheduled = false;
+    let heroTrigger = 0;
 
-        if (heroSection && floatingCta) {
-            const heroBottom = heroSection.offsetTop + heroSection.clientHeight;
-            if (window.scrollY > heroBottom - 200) {
-                floatingCta.classList.add('visible');
-            } else {
-                floatingCta.classList.remove('visible');
+    const cacheLayout = () => {
+        heroTrigger = heroSection ? heroSection.offsetTop + heroSection.offsetHeight - 200 : 0;
+    };
+
+    const updateScrollUI = () => {
+        rafScheduled = false;
+        const y = window.scrollY || window.pageYOffset || 0;
+        const doc = document.documentElement;
+        const scrollable = Math.max(1, doc.scrollHeight - window.innerHeight);
+
+        navbar?.classList.toggle('sticky', y > 50);
+        floatingCta?.classList.toggle('visible', Boolean(heroSection && y > heroTrigger));
+        if (progressBar) progressBar.style.transform = `scaleX(${Math.min(1, Math.max(0, y / scrollable))})`;
+    };
+
+    const requestScrollUpdate = () => {
+        if (rafScheduled) return;
+        rafScheduled = true;
+        requestAnimationFrame(updateScrollUI);
+    };
+
+    cacheLayout();
+    window.addEventListener('resize', () => {
+        cacheLayout();
+        requestScrollUpdate();
+    }, { passive: true });
+    window.addEventListener('orientationchange', () => {
+        cacheLayout();
+        requestScrollUpdate();
+    }, { passive: true });
+    window.addEventListener('scroll', requestScrollUpdate, { passive: true });
+    requestScrollUpdate();
+
+    if (window.IntersectionObserver && navLinks.length) {
+        const sectionObserver = new IntersectionObserver((entries) => {
+            if (currentMode !== 'agency') return;
+            for (const entry of entries) {
+                if (!entry.isIntersecting) continue;
+                const id = entry.target.id;
+                navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${id}`));
             }
-        }
+        }, { rootMargin: '-28% 0px -58% 0px', threshold: 0 });
+        agencySections.forEach(section => sectionObserver.observe(section));
+    }
 
-        if(currentMode === 'agency') {
-            let currentSectionId = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 100;
-                const sectionHeight = section.clientHeight;
-                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
-                    currentSectionId = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${currentSectionId}`) {
-                    link.classList.add('active');
-                }
-            });
-        }
-    });
+    /* Pointer glow: desktop only, one DOM write per animation frame. */
+    const cursorGlow = document.querySelector('.cursor-glow');
+    const canUsePointerFX = Boolean(cursorGlow && window.matchMedia?.('(hover: hover) and (pointer: fine)').matches);
+    if (canUsePointerFX) {
+        let pointerRaf = 0;
+        let px = 0, py = 0;
+        const paintPointer = () => {
+            pointerRaf = 0;
+            cursorGlow.style.transform = `translate3d(${px}px, ${py}px, 0) translate3d(-50%, -50%, 0)`;
+        };
+        window.addEventListener('pointermove', (event) => {
+            px = event.clientX;
+            py = event.clientY;
+            if (!pointerRaf) pointerRaf = requestAnimationFrame(paintPointer);
+            cursorGlow.classList.remove('is-idle');
+        }, { passive: true });
+        window.addEventListener('pointerleave', () => cursorGlow.classList.add('is-idle'), { passive: true });
+    } else if (cursorGlow) {
+        cursorGlow.style.display = 'none';
+    }
 
     /* ==========================================================================
        4. MOBILE HAMBURGER MENU ACTIONS
@@ -206,12 +243,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinksMobileContainer = document.querySelector('.nav-links');
 
     if (hamburger && navLinksMobileContainer) {
-        hamburger.addEventListener('click', () => {
-            if(currentMode === 'templates') return; 
+        const toggleMenu = () => {
+            if (currentMode === 'templates') return;
             hamburger.classList.toggle('active');
             navLinksMobileContainer.classList.toggle('active');
+        };
+        hamburger.addEventListener('click', toggleMenu);
+        hamburger.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggleMenu();
+            }
         });
-
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
@@ -221,46 +264,49 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================================================
-       5. ANIMATED STATISTICS SCROLL COUNTER & SCROLL REVEAL
+       5. INTERSECTION REVEAL + RAF STAT COUNTERS
        ========================================================================== */
-    
     const revealElements = document.querySelectorAll('.reveal');
-    const revealFunc = () => {
-        const windowHeight = window.innerHeight;
-        revealElements.forEach(el => {
-            const elementTop = el.getBoundingClientRect().top;
-            if (elementTop < windowHeight - 50) {
-                el.classList.add('active');
-            }
-        });
-    };
-    window.addEventListener('scroll', revealFunc);
-    revealFunc();
+    if (window.IntersectionObserver) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { rootMargin: '0px 0px -7% 0px', threshold: 0.08 });
+        revealElements.forEach(el => revealObserver.observe(el));
+    } else {
+        revealElements.forEach(el => el.classList.add('active'));
+    }
 
     const statNumbers = document.querySelectorAll('.stat-number');
     let countersStarted = false;
 
     const startCounters = () => {
-        statNumbers.forEach(counter => {
-            const updateCount = () => {
-                const target = parseInt(counter.getAttribute('data-target'), 10);
-                const current = parseInt(counter.innerText, 10);
-                const increment = Math.ceil(target / 40);
-
-                if (current < target) {
-                    counter.innerText = current + increment > target ? target : current + increment;
-                    setTimeout(updateCount, 30);
-                } else {
-                    counter.innerText = target;
-                }
-            };
-            updateCount();
-        });
+        const counters = Array.from(statNumbers).map(counter => ({
+            node: counter,
+            target: Number.parseInt(counter.getAttribute('data-target'), 10) || 0,
+            start: performance.now()
+        }));
+        const duration = 950;
+        const tick = (now) => {
+            let active = false;
+            counters.forEach(item => {
+                const progress = Math.min(1, (now - item.start) / duration);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const value = Math.round(item.target * eased);
+                item.node.textContent = String(value);
+                if (progress < 1) active = true;
+            });
+            if (active) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
     };
 
     const statsSection = document.querySelector('.stats-section');
     if (statsSection) {
-        const observerOptions = { root: null, threshold: 0.3 };
         if (window.IntersectionObserver) {
             const statsObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
@@ -270,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         observer.unobserve(entry.target);
                     }
                 });
-            }, observerOptions);
+            }, { rootMargin: '0px 0px -10% 0px', threshold: 0.25 });
             statsObserver.observe(statsSection);
         } else {
             startCounters();
