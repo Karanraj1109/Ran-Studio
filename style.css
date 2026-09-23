@@ -1420,6 +1420,7 @@ input[type=range]::-webkit-slider-thumb:hover {
 .bg-p6 { background: linear-gradient(135deg, #0369a1, #0c4a6e); }
 .bg-p7 { background: linear-gradient(135deg, #312e81, #581c87 52%, #0f172a); }
 .bg-p8 { background: linear-gradient(135deg, #0b0b0c, #2b2521 52%, #7a6654); }
+.bg-p9 { background: radial-gradient(circle at 22% 18%, rgba(72, 187, 255, .42), transparent 32%), radial-gradient(circle at 78% 24%, rgba(170, 108, 255, .45), transparent 34%), linear-gradient(135deg, #09142a, #12295b 48%, #27134d); }
 .bg-dark-glass { background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01)); }
 
 .p-icon {
