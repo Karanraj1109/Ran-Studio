@@ -277,83 +277,205 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    /* ==========================================================================
-       6. INTERACTIVE SHOPPING CART MECHANICS
-       ========================================================================== */
-    let cartState = null;
-
+    /* ===========================================================================
+       6. PACKAGE CART + CHECKOUT FLOW
+       =========================================================================== */
     const cartEmptyMsg = document.getElementById('cart-empty-msg');
     const cartContent = document.getElementById('cart-content');
-    const cartItemsTableBody = document.getElementById('cart-items');
+    const cartContainer = document.getElementById('cart-container');
+    const checkoutPackageName = document.getElementById('checkout-package-name');
+    const checkoutPackagePrice = document.getElementById('checkout-package-price');
+    const checkoutDomainLabel = document.getElementById('checkout-domain-label');
     const cartTotalValDisplay = document.getElementById('cart-total-val');
-    
-    const allAddonCheckboxes = document.querySelectorAll('.addon-checkbox');
+    const clearCartBtn = document.getElementById('clear-cart-btn');
+    const checkoutForm = document.getElementById('checkout-form');
+    const checkoutDomainRadios = document.querySelectorAll('.checkout-domain-radio');
+    const checkoutSection = document.getElementById('checkout');
+    const WA_TARGET_NUMBER = '62895614003884';
+
+    let cartState = null;
+
+    const formatRupiah = (value) => `Rp${Number(value || 0).toLocaleString('id-ID')}`;
+
+    const getSelectedDomain = () => {
+        const selected = document.querySelector('.checkout-domain-radio:checked');
+        if (!selected) return { price: 0, label: 'Tanpa domain' };
+        return {
+            price: Number.parseInt(selected.value, 10) || 0,
+            label: selected.dataset.label || 'Tanpa domain'
+        };
+    };
+
+    const persistCart = () => {
+        try {
+            if (!cartState) {
+                localStorage.removeItem('ran-studio-cart');
+                return;
+            }
+            localStorage.setItem('ran-studio-cart', JSON.stringify(cartState));
+        } catch (_) {}
+    };
+
+    const restoreCart = () => {
+        try {
+            const raw = localStorage.getItem('ran-studio-cart');
+            if (!raw) return;
+            const saved = JSON.parse(raw);
+            if (saved && typeof saved.id === 'string' && typeof saved.name === 'string' && Number.isFinite(Number(saved.basePrice))) {
+                cartState = {
+                    id: saved.id,
+                    name: saved.name,
+                    basePrice: Number(saved.basePrice)
+                };
+            }
+        } catch (_) {
+            cartState = null;
+        }
+    };
+
+    const calculateCartTotal = () => {
+        if (!cartState || !cartTotalValDisplay) return 0;
+        const domain = getSelectedDomain();
+        const total = cartState.basePrice + domain.price;
+        if (checkoutPackagePrice) checkoutPackagePrice.textContent = formatRupiah(cartState.basePrice);
+        if (checkoutDomainLabel) {
+            checkoutDomainLabel.textContent = domain.price > 0
+                ? `${domain.label} (+${formatRupiah(domain.price)})`
+                : domain.label;
+        }
+        cartTotalValDisplay.textContent = formatRupiah(total);
+        return total;
+    };
 
     const updateCartDOM = () => {
+        if (!cartEmptyMsg || !cartContent) return;
+
         if (!cartState) {
             cartEmptyMsg.classList.remove('hidden');
             cartContent.classList.add('hidden');
+            if (checkoutPackageName) checkoutPackageName.textContent = '-';
+            if (checkoutPackagePrice) checkoutPackagePrice.textContent = 'Rp0';
+            if (checkoutDomainLabel) checkoutDomainLabel.textContent = 'Tanpa domain';
+            if (cartTotalValDisplay) cartTotalValDisplay.textContent = 'Rp0';
             return;
         }
 
         cartEmptyMsg.classList.add('hidden');
         cartContent.classList.remove('hidden');
-
-        cartItemsTableBody.innerHTML = `
-            <tr>
-                <td><strong>${cartState.name}</strong></td>
-                <td>Rp${cartState.basePrice.toLocaleString('id-ID')}</td>
-                <td><button class="delete-btn" data-action="clear-cart" aria-label="Hapus paket dari keranjang">Hapus</button></td>
-            </tr>
-        `;
-
+        if (checkoutPackageName) checkoutPackageName.textContent = cartState.name;
         calculateCartTotal();
-
-        const deleteBtn = cartItemsTableBody.querySelector('.delete-btn');
-        deleteBtn.addEventListener('click', () => {
-            clearCart();
-        });
     };
 
-    const calculateCartTotal = () => {
-        if (!cartState) return;
-
-        let totalAccumulator = cartState.basePrice;
-        allAddonCheckboxes.forEach(cb => {
-            if (cb.checked) {
-                totalAccumulator += parseInt(cb.getAttribute('data-price'), 10);
-            }
-        });
-
-        cartTotalValDisplay.innerText = `Rp${totalAccumulator.toLocaleString('id-ID')}`;
-    };
-
-    const clearCart = () => {
+    const clearCart = (scrollBack = true) => {
         cartState = null;
-        allAddonCheckboxes.forEach(cb => cb.checked = false);
+        persistCart();
+        const noDomain = document.querySelector('.checkout-domain-radio[value="0"]');
+        if (noDomain) noDomain.checked = true;
         updateCartDOM();
+        if (scrollBack) {
+            const pricingTarget = document.getElementById('pricing');
+            if (pricingTarget) pricingTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     };
 
     const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
     addToCartButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            const btnNode = e.target;
-            const id = btnNode.getAttribute('data-id');
-            const name = btnNode.getAttribute('data-name');
-            const price = parseInt(btnNode.getAttribute('data-price'), 10);
+        button.addEventListener('click', () => {
+            const id = button.getAttribute('data-id') || '';
+            const name = button.getAttribute('data-name') || '';
+            const price = Number.parseInt(button.getAttribute('data-price') || '0', 10);
+            if (!id || !name || !Number.isFinite(price) || price < 0) return;
 
-            cartState = { id: id, name: name, basePrice: price };
+            cartState = { id, name, basePrice: price };
+            persistCart();
             updateCartDOM();
 
-            document.getElementById('cart').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (checkoutSection) {
+                checkoutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         });
     });
 
-    allAddonCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', () => {
+    checkoutDomainRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
             calculateCartTotal();
+            if (cartState) persistCart();
         });
     });
+
+    if (clearCartBtn) {
+        clearCartBtn.addEventListener('click', () => clearCart(true));
+    }
+
+    if (checkoutForm) {
+        checkoutForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            if (!cartState) {
+                alert('Pilih paket terlebih dahulu.');
+                const pricingTarget = document.getElementById('pricing');
+                if (pricingTarget) pricingTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                return;
+            }
+
+            const clientName = document.getElementById('checkout-name')?.value.trim() || '';
+            const clientPhone = document.getElementById('checkout-phone')?.value.trim() || '';
+            const clientBusiness = document.getElementById('checkout-business')?.value.trim() || '';
+            const clientType = document.getElementById('checkout-type')?.value.trim() || '';
+            const clientPages = document.getElementById('checkout-pages')?.value.trim() || '';
+            const clientReference = document.getElementById('checkout-reference')?.value.trim() || '';
+            const clientDesc = document.getElementById('checkout-desc')?.value.trim() || '';
+
+            if (!clientName || !clientPhone || !clientBusiness || !clientType || !clientDesc) {
+                alert('Lengkapi Nama, WhatsApp, Nama Usaha/Brand, Jenis Website, dan kebutuhan website terlebih dahulu.');
+                return;
+            }
+
+            const normalizedPhone = clientPhone.replace(/[^0-9+]/g, '');
+            if (normalizedPhone.length < 9) {
+                alert('Nomor WhatsApp belum terlihat valid. Cek lagi nomor yang kamu masukkan.');
+                return;
+            }
+
+            if (clientReference) {
+                try {
+                    const referenceUrl = new URL(clientReference);
+                    if (!['http:', 'https:'].includes(referenceUrl.protocol)) throw new Error('invalid protocol');
+                } catch (_) {
+                    alert('Link referensi harus berupa URL lengkap, misalnya https://contoh.com');
+                    return;
+                }
+            }
+
+            const domain = getSelectedDomain();
+            const total = calculateCartTotal();
+            const baseTextPrompt = [
+                'Halo Ran Studio, saya mau pesan website.',
+                '',
+                `Paket: ${cartState.name}`,
+                `Harga paket mulai dari: ${formatRupiah(cartState.basePrice)}`,
+                `Domain: ${domain.label}${domain.price > 0 ? ` (+${formatRupiah(domain.price)})` : ''}`,
+                `Estimasi total awal: ${formatRupiah(total)}`,
+                '',
+                `Nama: ${clientName}`,
+                `WhatsApp: ${clientPhone}`,
+                `Nama Usaha / Brand: ${clientBusiness}`,
+                `Jenis Website: ${clientType}`,
+                `Perkiraan Halaman: ${clientPages}`,
+                `Referensi: ${clientReference || '-'}`,
+                '',
+                'Gambaran website / kebutuhan:',
+                clientDesc,
+                '',
+                'Mohon dibantu cek kebutuhan dan konfirmasi harga final sebelum pembayaran.'
+            ].join('\n');
+
+            const whatsappUrl = `https://wa.me/${WA_TARGET_NUMBER}?text=${encodeURIComponent(baseTextPrompt)}`;
+            window.location.href = whatsappUrl;
+        });
+    }
+
+    restoreCart();
+    updateCartDOM();
 
     /* ==========================================================================
        7. REAL-TIME ESTIMATION COST CALCULATOR MATRIX
@@ -396,54 +518,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Memastikan update saat halaman di load
         recalculateCalculatorEstimate();
-    }
-
-    /* ==========================================================================
-       8. AUTOMATED INTEGRATED WHATSAPP PACKAGES CHECKOUT DISPATCHER
-       ========================================================================== */
-    const whatsappCheckoutBtn = document.getElementById('whatsapp-checkout-btn');
-    
-    if (whatsappCheckoutBtn) {
-        whatsappCheckoutBtn.addEventListener('click', () => {
-            if (!cartState) {
-                alert('Keranjang belanja Anda kosong!');
-                return;
-            }
-
-            const clientNameInput = document.getElementById('checkout-name').value.trim();
-            const clientBusinessInput = document.getElementById('checkout-business').value.trim();
-            const clientDescInput = document.getElementById('checkout-desc').value.trim();
-
-            if (!clientNameInput || !clientBusinessInput || !clientDescInput) {
-                alert('Mohon lengkapi semua baris detail informasi pemesanan terlebih dahulu.');
-                return;
-            }
-
-            let selectedAddonsList = [];
-            allAddonCheckboxes.forEach(cb => {
-                if (cb.checked) {
-                    selectedAddonsList.push(cb.getAttribute('data-name'));
-                }
-            });
-            const addonsTextRepresentation = selectedAddonsList.length > 0 ? selectedAddonsList.join(', ') : 'Tidak ada tambahan';
-            const grandTotalText = document.getElementById('cart-total-val').innerText;
-
-            const waTargetNumber = "62895614003884"; 
-            const baseTextPrompt = `Halo, saya ingin memesan website dari Ran Studio.
-
-Paket: ${cartState.name}
-Tambahan: ${addonsTextRepresentation}
-Total: ${grandTotalText}
-
-Nama: ${clientNameInput}
-Nama Usaha: ${clientBusinessInput}
-Deskripsi Website: ${clientDescInput}`;
-
-            const processedEncodedUriString = encodeURIComponent(baseTextPrompt);
-            const destinationEndpointUrl = `https://wa.me/${waTargetNumber}?text=${processedEncodedUriString}`;
-
-            window.open(destinationEndpointUrl, '_blank', 'noopener,noreferrer');
-        });
     }
 
     /* ==========================================================================

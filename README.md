@@ -16,10 +16,13 @@ Lalu buka `http://localhost:5500`.
 
 - `index.html` — struktur halaman dan konten
 - `style.css` — styling dan responsive layout
-- `script.js` — interaksi, kalkulator, FAQ, cart, modal, dan checkout WhatsApp
+- `script.js` — interaksi, kalkulator, FAQ, cart, modal, dan checkout ke WhatsApp
 - `sitemap.xml` — sitemap
 - `robots.txt` — aturan crawler
 
 ## Catatan
 
 Palet warna dan identitas visual asli Ran Studio dipertahankan. Copywriting dirapikan agar lebih mudah dipahami calon pelanggan tanpa menghilangkan informasi teknis yang penting.
+
+
+Checkout flow: pilih paket → keranjang → pilih domain → isi kebutuhan website → lanjut ke WhatsApp.

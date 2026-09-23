@@ -81,6 +81,11 @@
 </head>
 <body>
 
+    <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress-bar"></span></div>
+    <div class="cursor-glow" aria-hidden="true"></div>
+    <div class="ambient-orb ambient-orb-a" aria-hidden="true"></div>
+    <div class="ambient-orb ambient-orb-b" aria-hidden="true"></div>
+
     <div id="loader" class="loader-container" role="status" aria-label="Loading">
         <div class="spinner"></div>
         <p class="loader-text">Loading Ran Studio...</p>
@@ -150,6 +155,52 @@
                                 <a href="#pricing" class="btn btn-primary" aria-label="Lihat Pilihan Paket Website">Lihat Pilihan Paket</a>
                                 <a href="https://wa.me/62895614003884?text=Halo%20Ran%20Studio,%20saya%20ingin%20berkonsultasi%20mengenai%20pembuatan%20website." class="btn btn-secondary" target="_blank" rel="noopener noreferrer" aria-label="Konsultasi Gratis via WhatsApp">Konsultasi Gratis</a>
                             </div>
+
+                            <div class="hero-meta-row" aria-label="Ran Studio highlights">
+                                <span><i class="fa-solid fa-circle-check"></i> Custom sesuai brand</span>
+                                <span><i class="fa-solid fa-bolt"></i> Dibangun untuk performa</span>
+                                <span><i class="fa-solid fa-shield-halved"></i> Struktur rapi & scalable</span>
+                            </div>
+
+                            <div class="hero-stage" aria-label="Preview interface Ran Studio">
+                                <div class="hero-stage-glow"></div>
+                                <div class="hero-browser">
+                                    <div class="browser-bar">
+                                        <div class="browser-dots"><span></span><span></span><span></span></div>
+                                        <div class="browser-url"><i class="fa-solid fa-lock"></i> ranstudio.com</div>
+                                        <div class="browser-top-actions"><i class="fa-solid fa-arrows-up-down-left-right"></i></div>
+                                    </div>
+                                    <div class="browser-content">
+                                        <div class="browser-nav">
+                                            <span class="mini-logo">Ran<span>Studio</span></span>
+                                            <div class="mini-nav"><span>Work</span><span>Services</span><span>Contact</span></div>
+                                            <span class="mini-cta">Start a project</span>
+                                        </div>
+                                        <div class="browser-hero-grid">
+                                            <div class="browser-copy">
+                                                <span class="mini-kicker">DIGITAL STUDIO / 2026</span>
+                                                <strong>Make your brand<br><em>impossible to ignore.</em></strong>
+                                                <p>Design, development, motion, dan experience dalam satu arah visual.</p>
+                                                <div class="mini-actions"><span>Explore work <i class="fa-solid fa-arrow-right"></i></span><small>100% custom build</small></div>
+                                            </div>
+                                            <div class="browser-art">
+                                                <div class="art-core"></div>
+                                                <div class="art-panel art-panel-one"><i class="fa-solid fa-chart-line"></i><span>+42% engagement</span></div>
+                                                <div class="art-panel art-panel-two"><i class="fa-solid fa-bolt"></i><span>Fast interaction</span></div>
+                                                <div class="art-ring"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="float-card float-card-top">
+                                    <span class="float-icon"><i class="fa-solid fa-sparkles"></i></span>
+                                    <div><small>Visual direction</small><strong>Premium by default</strong></div>
+                                </div>
+                                <div class="float-card float-card-bottom">
+                                    <span class="float-icon success"><i class="fa-solid fa-arrow-trend-up"></i></span>
+                                    <div><small>Experience</small><strong>Built to convert</strong></div>
+                                </div>
+                            </div>
                         </div>
                     </section>
 
@@ -172,6 +223,11 @@
 
                     <section id="portfolio" class="portfolio-section reveal">
                         <div class="container">
+                            <div class="section-rail">
+                                <span class="rail-line"></span>
+                                <span>SELECTED WORK</span>
+                                <span class="rail-line rail-line-short"></span>
+                            </div>
                             <div class="section-header">
                                 <h2>Contoh <span>Website</span></h2>
                                 <p>Lihat beberapa contoh website dan sistem yang bisa kami buat sesuai kebutuhan bisnis maupun personal.</p>
@@ -746,6 +802,164 @@
                                 </div>
                             </div>
 
+
+
+                            <section id="checkout" class="checkout-section reveal" aria-labelledby="checkout-title">
+                                <div class="container">
+                                    <div class="section-header">
+                                        <h2 id="checkout-title">Keranjang & <span>Checkout</span></h2>
+                                        <p>Pilih paket yang kamu butuhkan, tentukan domain kalau perlu, lalu jelaskan gambaran website yang kamu mau. Setelah itu detail order akan dikirim ke WhatsApp untuk dikonfirmasi.</p>
+                                    </div>
+
+                                    <div class="cart-container" id="cart-container">
+                                        <div class="cart-empty" id="cart-empty-msg">
+                                            <div class="checkout-empty-icon" aria-hidden="true"><i class="fa-solid fa-cart-shopping"></i></div>
+                                            <h3>Belum ada paket dipilih</h3>
+                                            <p>Pilih salah satu paket di atas. Setelah dipilih, detail paket akan muncul di sini.</p>
+                                            <a href="#pricing" class="btn btn-secondary btn-sm">Pilih Paket</a>
+                                        </div>
+
+                                        <div class="cart-content hidden" id="cart-content">
+                                            <div class="checkout-grid">
+                                                <div class="checkout-summary-panel">
+                                                    <div class="checkout-panel-heading">
+                                                        <div>
+                                                            <span class="checkout-kicker">Pesanan kamu</span>
+                                                            <h3 id="checkout-package-name">-</h3>
+                                                        </div>
+                                                        <button class="delete-btn checkout-clear-btn" id="clear-cart-btn" type="button" aria-label="Ganti paket">Ganti Paket</button>
+                                                    </div>
+
+                                                    <div class="checkout-line-item">
+                                                        <span>Harga paket (mulai dari)</span>
+                                                        <strong id="checkout-package-price">Rp0</strong>
+                                                    </div>
+                                                    <div class="checkout-line-item">
+                                                        <span>Domain</span>
+                                                        <strong id="checkout-domain-label">Tanpa domain</strong>
+                                                    </div>
+
+                                                    <div class="domain-options">
+                                                        <div class="domain-heading">
+                                                            <div>
+                                                                <h4>Pilih Domain</h4>
+                                                                <p>Tambahan domain dihitung di total awal.</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="domain-option-grid" role="radiogroup" aria-label="Pilihan domain">
+                                                            <label class="domain-option">
+                                                                <input type="radio" name="checkout-domain" class="checkout-domain-radio" value="0" data-label="Tanpa domain" checked>
+                                                                <span class="domain-option-card">
+                                                                    <strong>Tanpa domain</strong>
+                                                                    <small>Gunakan domain sendiri</small>
+                                                                    <b>+Rp0</b>
+                                                                </span>
+                                                            </label>
+                                                            <label class="domain-option">
+                                                                <input type="radio" name="checkout-domain" class="checkout-domain-radio" value="150000" data-label=".com">
+                                                                <span class="domain-option-card">
+                                                                    <strong>.com</strong>
+                                                                    <small>Domain populer</small>
+                                                                    <b>+Rp150.000</b>
+                                                                </span>
+                                                            </label>
+                                                            <label class="domain-option">
+                                                                <input type="radio" name="checkout-domain" class="checkout-domain-radio" value="250000" data-label=".id">
+                                                                <span class="domain-option-card">
+                                                                    <strong>.id</strong>
+                                                                    <small>Domain Indonesia</small>
+                                                                    <b>+Rp250.000</b>
+                                                                </span>
+                                                            </label>
+                                                            <label class="domain-option">
+                                                                <input type="radio" name="checkout-domain" class="checkout-domain-radio" value="75000" data-label=".my.id">
+                                                                <span class="domain-option-card">
+                                                                    <strong>.my.id</strong>
+                                                                    <small>Alternatif ekonomis</small>
+                                                                    <b>+Rp75.000</b>
+                                                                </span>
+                                                            </label>
+                                                        </div>
+                                                        <p class="checkout-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Harga domain adalah estimasi tambahan dan akan dikonfirmasi sebelum pembayaran.</p>
+                                                    </div>
+
+                                                    <div class="checkout-total-card">
+                                                        <div>
+                                                            <span>Estimasi total awal</span>
+                                                            <small>Harga final disesuaikan setelah brief dikonfirmasi.</small>
+                                                        </div>
+                                                        <strong id="cart-total-val">Rp0</strong>
+                                                    </div>
+                                                </div>
+
+                                                <div class="checkout-form-panel">
+                                                    <div class="checkout-panel-heading compact">
+                                                        <div>
+                                                            <span class="checkout-kicker">Detail website</span>
+                                                            <h3>Jelasin kebutuhan kamu</h3>
+                                                        </div>
+                                                    </div>
+                                                    <form id="checkout-form" class="checkout-form" novalidate>
+                                                        <div class="form-group-row">
+                                                            <div class="form-group">
+                                                                <label for="checkout-name">Nama</label>
+                                                                <input type="text" id="checkout-name" name="name" autocomplete="name" placeholder="Nama kamu" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="checkout-phone">WhatsApp</label>
+                                                                <input type="tel" id="checkout-phone" name="phone" autocomplete="tel" placeholder="08xxxxxxxxxx" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group-row">
+                                                            <div class="form-group">
+                                                                <label for="checkout-business">Nama usaha / brand</label>
+                                                                <input type="text" id="checkout-business" name="business" autocomplete="organization" placeholder="Nama usaha atau brand" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="checkout-type">Jenis website</label>
+                                                                <select id="checkout-type" name="website_type" required>
+                                                                    <option value="">Pilih jenis website</option>
+                                                                    <option>Landing Page</option>
+                                                                    <option>Company Profile</option>
+                                                                    <option>Website Bisnis / UMKM</option>
+                                                                    <option>Toko Online / E-Commerce</option>
+                                                                    <option>Web App / Dashboard</option>
+                                                                    <option>Custom</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group-row">
+                                                            <div class="form-group">
+                                                                <label for="checkout-pages">Perkiraan halaman</label>
+                                                                <select id="checkout-pages" name="pages">
+                                                                    <option>1 halaman</option>
+                                                                    <option>2–5 halaman</option>
+                                                                    <option>6–10 halaman</option>
+                                                                    <option>Lebih dari 10 halaman</option>
+                                                                    <option>Belum tahu</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="checkout-reference">Referensi website (opsional)</label>
+                                                                <input type="url" id="checkout-reference" name="reference" placeholder="https://contoh.com">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="checkout-desc">Website-nya mau seperti apa?</label>
+                                                            <textarea id="checkout-desc" name="description" rows="5" placeholder="Contoh: saya mau website untuk usaha kuliner, ada menu, galeri, lokasi, tombol WhatsApp, dan tampilannya mirip referensi yang saya kirim." required></textarea>
+                                                        </div>
+                                                        <div class="checkout-form-footer">
+                                                            <p><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Data ini dipakai untuk mempermudah pembahasan kebutuhan dan penawaran.</p>
+                                                            <button type="submit" class="btn-whatsapp-checkout" id="whatsapp-checkout-btn"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Lanjut ke WhatsApp</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
                             <div class="comparison-section reveal">
                                 <div class="section-header" style="margin-top: 60px; margin-bottom: 30px;">
                                     <h2>Bedakan <span>Landing Page vs Fullstack</span></h2>
@@ -913,7 +1127,7 @@
                                 </div>
                                 <div class="faq-item">
                                     <div class="faq-question"><h3>2. Apakah harga yang tertera sudah termasuk domain?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
-                                    <div class="faq-answer"><p>Harga paket belum termasuk domain. Anda bisa menambahkannya di menu tambahan keranjang belanja saat checkout.</p></div>
+                                    <div class="faq-answer"><p>Harga paket belum termasuk domain. Domain bisa dipilih langsung di bagian Keranjang & Checkout setelah memilih paket.</p></div>
                                 </div>
                                 <div class="faq-item">
                                     <div class="faq-question"><h3>3. Apakah website buatan Ran Studio ramah SEO dan responsif?</h3><span class="faq-icon" aria-hidden="true">+</span></div>
