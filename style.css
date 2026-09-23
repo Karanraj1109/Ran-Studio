@@ -1436,6 +1436,7 @@ input[type=range]::-webkit-slider-thumb:hover {
 .bg-p5 { background: linear-gradient(135deg, #7c2d12, #431407); }
 .bg-p6 { background: linear-gradient(135deg, #0369a1, #0c4a6e); }
 .bg-p7 { background: linear-gradient(135deg, #312e81, #581c87 52%, #0f172a); }
+.bg-p8 { background: linear-gradient(135deg, #0b0b0c, #2b2521 52%, #7a6654); }
 .bg-dark-glass { background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01)); }
 
 .p-icon {
