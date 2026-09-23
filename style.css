@@ -2635,3 +2635,69 @@ html[data-theme="light"] .theme-toggle {
         height: 230px;
     }
 }
+
+/* FINAL NAVBAR OVERLAP FIX */
+.nav-container {
+    justify-content: flex-start;
+    gap: 28px;
+}
+
+.segmented-control {
+    position: static;
+    transform: none;
+    flex: 0 0 auto;
+    margin-left: auto;
+}
+
+.nav-actions {
+    margin-left: 0;
+    flex: 0 0 auto;
+}
+
+.nav-links {
+    gap: 28px;
+    white-space: nowrap;
+}
+
+@media (max-width: 1200px) {
+    .nav-container { gap: 18px; }
+    .nav-links { gap: 20px; }
+    .segment-btn { padding-left: 14px; padding-right: 14px; }
+}
+
+@media (max-width: 980px) {
+    .nav-container { gap: 12px; }
+    .segmented-control { margin-left: auto; }
+    .nav-links { gap: 16px; }
+}
+
+@media (max-width: 768px) {
+    .nav-container {
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .segmented-control {
+        position: absolute;
+        left: 50%;
+        margin-left: 0;
+        transform: translateX(-50%) scale(0.88);
+        transform-origin: center;
+    }
+
+    .nav-actions { margin-left: auto; }
+}
+
+@media (max-width: 480px) {
+    .segmented-control {
+        position: static;
+        transform: none;
+        margin-left: 6px;
+        margin-right: 6px;
+    }
+
+    .segment-btn {
+        padding: 6px 9px;
+        font-size: 0.76rem;
+    }
+}
