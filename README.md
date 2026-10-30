@@ -17,6 +17,7 @@ Lalu buka `http://localhost:5500`.
 - `index.html` — struktur halaman dan konten
 - `style.css` — styling dan responsive layout
 - `script.js` — interaksi, kalkulator, FAQ, cart, modal, dan checkout ke WhatsApp
+- `fx.css` + `fx.js` — lapisan animasi "Blueprint → Built" (loader, hero grid, tilt, magnetic, cursor, marquee, efek keranjang, transisi mode). Hapus 2 baris `<link>`/`<script>` di `index.html` untuk menonaktifkan semuanya.
 - `sitemap.xml` — sitemap
 - `robots.txt` — aturan crawler
 

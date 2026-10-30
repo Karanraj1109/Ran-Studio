@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="style.css" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Plus+Jakarta+Sans:wght@400..700&display=swap">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
@@ -79,6 +80,7 @@
         } catch (_) {}
     </script>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fx.css">
 </head>
 <body>
 
@@ -87,9 +89,36 @@
     <div class="ambient-orb ambient-orb-a" aria-hidden="true"></div>
     <div class="ambient-orb ambient-orb-b" aria-hidden="true"></div>
 
-    <div id="loader" class="loader-container" role="status" aria-label="Loading">
-        <div class="spinner"></div>
-        <p class="loader-text">Loading Ran Studio...</p>
+    <div id="loader" class="loader-container" role="status" aria-label="Memuat Ran Studio">
+        <div class="ld-half ld-top"></div>
+        <div class="ld-half ld-bottom"></div>
+        <div class="ld-stage">
+            <svg class="ld-svg" viewBox="0 0 160 112" aria-hidden="true">
+                <defs>
+                    <linearGradient id="ld-grad" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0" stop-color="#1EA4FF"/>
+                        <stop offset=".55" stop-color="#6F3DFF"/>
+                        <stop offset="1" stop-color="#F23FA8"/>
+                    </linearGradient>
+                </defs>
+                <rect class="ld-line" style="--d:0" pathLength="1" x="2" y="2" width="156" height="108" rx="10"/>
+                <path class="ld-line" style="--d:120" pathLength="1" d="M2 22h156"/>
+                <circle class="ld-line" style="--d:200" pathLength="1" cx="14" cy="12" r="2.6"/>
+                <circle class="ld-line" style="--d:240" pathLength="1" cx="24" cy="12" r="2.6"/>
+                <circle class="ld-line" style="--d:280" pathLength="1" cx="34" cy="12" r="2.6"/>
+                <rect class="ld-line" style="--d:300" pathLength="1" x="14" y="34" width="70" height="8" rx="3"/>
+                <rect class="ld-line" style="--d:380" pathLength="1" x="14" y="48" width="48" height="8" rx="3"/>
+                <rect class="ld-line" style="--d:460" pathLength="1" x="14" y="66" width="30" height="10" rx="5"/>
+                <rect class="ld-line" style="--d:540" pathLength="1" x="96" y="34" width="50" height="42" rx="8"/>
+                <rect class="ld-line" style="--d:620" pathLength="1" x="14" y="86" width="40" height="16" rx="5"/>
+                <rect class="ld-line" style="--d:680" pathLength="1" x="60" y="86" width="40" height="16" rx="5"/>
+                <rect class="ld-line" style="--d:740" pathLength="1" x="106" y="86" width="40" height="16" rx="5"/>
+                <rect class="ld-fill" style="--d:0" x="14" y="66" width="30" height="10" rx="5"/>
+                <rect class="ld-fill" style="--d:120" x="96" y="34" width="50" height="42" rx="8"/>
+                <rect class="ld-fill" style="--d:240" x="14" y="34" width="70" height="8" rx="3"/>
+            </svg>
+            <div class="ld-meta"><span class="ld-pct" id="ld-pct">0</span><span class="ld-sign">%</span><span class="ld-text">Menyiapkan halaman</span></div>
+        </div>
     </div>
 
     <a href="https://wa.me/62895614003884?text=Halo%20Ran%20Studio,%20saya%20ingin%20berkonsultasi%20mengenai%20pembuatan%20website." class="floating-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Konsultasi Gratis">
@@ -141,6 +170,7 @@
             <div class="panel" id="panel-agency">
                 <main>
                     <section id="home" class="hero-section">
+                        <canvas id="hero-canvas" aria-hidden="true"></canvas>
                         <div class="hero-bg-glow"></div>
                         <div class="container hero-content">
                             <div class="hero-badges animate-text">
@@ -1458,5 +1488,6 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="fx.js"></script>
 </body>
 </html>
