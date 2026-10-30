@@ -82,6 +82,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="fx.css">
     <link rel="stylesheet" href="builder.css">
+    <link rel="stylesheet" href="signature.css">
 </head>
 <body>
 
@@ -317,15 +318,15 @@
                                                     <div class="bd-art"><i></i><i></i><i></i></div>
                                                 </div>
                                                 <div class="bd-block" data-block="katalog"><div class="bd-inner"><div class="bd-pad">
-                                                    <h4 data-t="cat"></h4>
+                                                    <h4><span data-t="cat"></span></h4>
                                                     <div class="bd-cards"><div class="bd-card"><div class="bd-thumb"></div><b data-t="item1"></b><small data-t="price1"></small></div><div class="bd-card"><div class="bd-thumb"></div><b data-t="item2"></b><small data-t="price2"></small></div><div class="bd-card"><div class="bd-thumb"></div><b data-t="item3"></b><small data-t="price3"></small></div></div>
                                                 </div></div></div>
                                                 <div class="bd-block" data-block="booking"><div class="bd-inner"><div class="bd-pad">
-                                                    <h4 data-t="book"></h4>
+                                                    <h4><span data-t="book"></span></h4>
                                                     <div class="bd-form"><span>Nama lengkap</span><span>Tanggal</span><i class="bd-pill" data-t="cta"></i></div>
                                                 </div></div></div>
                                                 <div class="bd-block" data-block="galeri"><div class="bd-inner"><div class="bd-pad">
-                                                    <h4 data-t="gal"></h4>
+                                                    <h4><span data-t="gal"></span></h4>
                                                     <div class="bd-gallery"><i></i><i></i><i></i><i></i></div>
                                                 </div></div></div>
                                                 <div class="bd-block" data-block="peta"><div class="bd-inner"><div class="bd-pad">
@@ -344,9 +345,13 @@
                                             <strong id="bd-pkg">Landing Page Professional</strong>
                                             <span id="bd-price">mulai Rp1.500.000</span>
                                         </div>
-                                        <button type="button" class="btn btn-primary" id="bd-order">Pesan konsep ini</button>
+                                        <div class="bd-actions">
+                                            <button type="button" class="btn btn-secondary" id="bd-share">Bagikan</button>
+                                            <button type="button" class="btn btn-primary" id="bd-order">Pesan konsep ini</button>
+                                        </div>
                                     </div>
-                                    <p class="bd-note" role="status" aria-live="polite">Harga final dikonfirmasi lewat WhatsApp sebelum pembayaran.</p>
+                                    <p class="bd-note">Tip: tarik pegangan di judul tiap blok untuk mengubah urutannya. Harga final dikonfirmasi lewat WhatsApp sebelum pembayaran.</p>
+                                    <p class="bd-toast" id="bd-toast" role="status" aria-live="polite"></p>
                                 </div>
                             </div>
                         </div>
@@ -1590,5 +1595,6 @@
     <script src="script.js"></script>
     <script src="fx.js"></script>
     <script src="builder.js"></script>
+    <script src="signature.js"></script>
 </body>
 </html>

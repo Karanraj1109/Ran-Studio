@@ -101,6 +101,11 @@
     font-family: var(--fx-body, sans-serif);
     transition: color .5s ease;
 }
+.bd-site { display: flex; flex-direction: column; }
+.bd-site > * { flex: none; }
+.bd-nav { order: -3; }
+.bd-hero { order: -2; }
+.bd-foot { order: 99; }
 .bd-site > * { transition: opacity .6s cubic-bezier(.16, 1, .3, 1), transform .6s cubic-bezier(.16, 1, .3, 1), filter .6s ease; }
 
 /* tiga gaya */
@@ -258,4 +263,38 @@ html[data-theme="light"] .bd-sum-text span { color: #0a84d6; }
 @media (prefers-reduced-motion: reduce) {
     .bd-block, .bd-wa, .bd-art i, .bd-site > * { transition-duration: .001ms !important; transition-delay: 0s !important; }
     .bd-block.is-new .bd-pad { animation: none; }
+}
+
+/* ---------- pegangan geser blok ---------- */
+.bd-block { position: relative; }
+.bd-block.is-drag { z-index: 3; }
+.bd-block.is-drag .bd-pad { background: var(--bg); border-radius: var(--r); box-shadow: 0 18px 40px rgba(0, 0, 0, .28), 0 0 0 2px var(--a); }
+.bd-pad h4 { display: flex; align-items: center; gap: 8px; }
+.bd-grip {
+    display: grid; grid-template-columns: repeat(2, 3px); gap: 2px 3px;
+    padding: 6px 5px; margin-left: -2px;
+    border: 0; border-radius: 6px; background: transparent;
+    cursor: grab; touch-action: none;
+    opacity: .3;
+    transition: opacity .25s ease, background .25s ease;
+}
+.bd-grip i { width: 3px; height: 3px; border-radius: 50%; background: var(--fg); }
+.bd-block:hover .bd-grip, .bd-grip:focus-visible, .bd-block.is-drag .bd-grip { opacity: 1; }
+.bd-grip:hover { background: rgba(128, 128, 128, .18); }
+.bd-grip:active { cursor: grabbing; }
+.bd-grip:focus-visible { outline: 2px solid var(--a); outline-offset: 2px; }
+@media (hover: none) { .bd-grip { opacity: .7; } }
+
+/* ---------- aksi & toast ---------- */
+.bd-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+.bd-toast {
+    margin: 0; min-height: 0; padding: 0 16px; max-height: 0; overflow: hidden;
+    text-align: center; font-size: .82rem; font-weight: 600; color: var(--text-main);
+    opacity: 0; transition: opacity .3s ease, max-height .4s cubic-bezier(.16, 1, .3, 1), padding .3s ease;
+}
+.bd-toast.is-on { opacity: 1; max-height: 60px; padding: 10px 16px; border-radius: 12px; border: 1px solid rgba(68, 216, 255, .3); background: rgba(68, 216, 255, .08); }
+@media (max-width: 900px) {
+    .bd-summary { flex-wrap: wrap; }
+    .bd-actions { width: 100%; }
+    .bd-actions .btn { flex: 1; }
 }

@@ -54,7 +54,8 @@
         style: 'bersih',
         color: '#1EA4FF',
         colorName: 'Biru',
-        feats: new Set(['wa', 'katalog'])
+        feats: new Set(['wa', 'katalog']),
+        order: ['katalog', 'booking', 'galeri', 'peta']
     };
 
     const site = $('#bd-site');
@@ -196,7 +197,9 @@
     $('#bd-order').addEventListener('click', () => {
         const p = currentPackage();
         const feats = [...state.feats].map((k) => FEAT_LABEL[k]).join(', ') || 'belum ada fitur tambahan';
-        const text = `Konsep dari "Rakit Websitemu": usaha ${state.niche === 'jasa' ? 'jasa foto' : state.niche}, gaya ${state.style}, warna ${state.colorName.toLowerCase()}, fitur: ${feats}.`;
+        const seq = state.order.filter((k) => state.feats.has(k)).map((k) => FEAT_LABEL[k]);
+        const text = `Konsep dari "Rakit Websitemu": usaha ${state.niche === 'jasa' ? 'jasa foto' : state.niche}, gaya ${state.style}, warna ${state.colorName.toLowerCase()}, fitur: ${feats}.` +
+            (seq.length > 1 ? ` Urutan bagian di halaman: ${seq.join(' → ')}.` : '');
 
         if (p.btn) p.btn.click(); // memakai handler keranjang yang sudah ada
         else document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
@@ -215,6 +218,171 @@
             }
         }, 60);
     });
+
+
+    /* ---------- urutan blok: CSS order + FLIP ---------- */
+    const blockEl = (k) => $(`[data-block="${k}"]`, pv);
+    const applyOrder = () => state.order.forEach((k, i) => { const el = blockEl(k); if (el) el.style.order = String(i + 1); });
+    const visibleOrder = () => state.order.filter((k) => state.feats.has(k));
+
+    const statusEl = $('#bd-toast');
+    let toastTimer = 0;
+    const toast = (msg) => {
+        if (!statusEl) return;
+        statusEl.textContent = msg;
+        statusEl.classList.add('is-on');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => statusEl.classList.remove('is-on'), 2600);
+    };
+
+    // tukar dua blok yang bersebelahan (di antara yang tampil), animasikan dengan FLIP
+    const swapBlocks = (a, b) => {
+        const ea = blockEl(a), eb = blockEl(b);
+        const before = new Map([[ea, ea.offsetTop], [eb, eb.offsetTop]]);
+        const ia = state.order.indexOf(a), ib = state.order.indexOf(b);
+        state.order[ia] = b; state.order[ib] = a;
+        applyOrder();
+        const deltas = new Map();
+        [ea, eb].forEach((el) => deltas.set(el, el.offsetTop - before.get(el)));
+        return deltas; // posisi natural baru - lama
+    };
+    const flip = (el, from) => {
+        if (reduce || !el.animate || !from) return;
+        el.animate([{ transform: `translateY(${from}px)` }, { transform: 'translateY(0)' }], { duration: 380, easing: 'cubic-bezier(.16,1,.3,1)' });
+    };
+
+    const moveByKey = (key, dir) => {
+        const vis = visibleOrder();
+        const i = vis.indexOf(key), j = i + dir;
+        if (i < 0 || j < 0 || j >= vis.length) return;
+        const other = vis[j];
+        const d = swapBlocks(key, other);
+        flip(blockEl(other), -d.get(blockEl(other)));
+        flip(blockEl(key), -d.get(blockEl(key)));
+        toast(`${FEAT_LABEL[key][0].toUpperCase()}${FEAT_LABEL[key].slice(1)} dipindah ke posisi ${j + 1}`);
+    };
+
+    const setupGrips = () => {
+        state.order.forEach((key) => {
+            const el = blockEl(key);
+            const h4 = el && $('.bd-pad h4', el);
+            if (!h4 || $('.bd-grip', h4)) return;
+            const grip = document.createElement('button');
+            grip.type = 'button';
+            grip.className = 'bd-grip';
+            grip.setAttribute('aria-label', `Ubah urutan ${FEAT_LABEL[key]}: tarik, atau gunakan panah atas dan bawah`);
+            grip.innerHTML = '<i></i><i></i><i></i><i></i><i></i><i></i>';
+            h4.prepend(grip);
+
+            grip.addEventListener('keydown', (e) => {
+                if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') return;
+                e.preventDefault();
+                moveByKey(key, e.key === 'ArrowUp' ? -1 : 1);
+                grip.focus();
+            });
+
+            let startY = 0, dy = 0, dragging = false;
+            grip.addEventListener('pointerdown', (e) => {
+                if (e.button !== undefined && e.button !== 0) return;
+                e.preventDefault();
+                dragging = true;
+                startY = e.clientY;
+                dy = 0;
+                grip.setPointerCapture(e.pointerId);
+                el.classList.add('is-drag');
+            });
+            grip.addEventListener('pointermove', (e) => {
+                if (!dragging) return;
+                dy = e.clientY - startY;
+                el.style.transform = `translateY(${dy}px)`;
+
+                // pakai posisi layout (offsetTop) agar tidak terpengaruh animasi FLIP
+                const vis = visibleOrder();
+                const i = vis.indexOf(key);
+                const center = el.offsetTop + el.offsetHeight / 2 + dy;
+                const prev = vis[i - 1] && blockEl(vis[i - 1]);
+                const next = vis[i + 1] && blockEl(vis[i + 1]);
+                let other = null;
+                if (prev && center < prev.offsetTop + prev.offsetHeight / 2) other = vis[i - 1];
+                else if (next && center > next.offsetTop + next.offsetHeight / 2) other = vis[i + 1];
+                if (other) {
+                    const oldTop = el.offsetTop;
+                    const d = swapBlocks(key, other);
+                    flip(blockEl(other), -d.get(blockEl(other)));
+                    startY += el.offsetTop - oldTop; // jaga posisi visual blok yang diseret tetap di bawah kursor
+                    dy = e.clientY - startY;
+                    el.style.transform = `translateY(${dy}px)`;
+                }
+            });
+            const end = () => {
+                if (!dragging) return;
+                dragging = false;
+                el.classList.remove('is-drag');
+                if (!reduce && el.animate) {
+                    el.animate([{ transform: `translateY(${dy}px)` }, { transform: 'translateY(0)' }], { duration: 260, easing: 'cubic-bezier(.16,1,.3,1)' });
+                }
+                el.style.transform = '';
+            };
+            grip.addEventListener('pointerup', end);
+            grip.addEventListener('pointercancel', end);
+        });
+    };
+
+    /* ---------- bagikan konsep ---------- */
+    const baseUrl = () => window.location.href.split(/[?#]/)[0];
+    const shareUrl = () => {
+        const q = new URLSearchParams({
+            n: state.niche,
+            s: state.style,
+            c: state.color.replace('#', '').toLowerCase(),
+            f: [...state.feats].join('.'),
+            o: state.order.join('.')
+        });
+        return `${baseUrl()}?${q.toString()}#builder`;
+    };
+    $('#bd-share')?.addEventListener('click', async () => {
+        const url = shareUrl();
+        try {
+            await navigator.clipboard.writeText(url);
+            toast('Link konsep disalin. Kirim ke siapa saja untuk membukanya.');
+        } catch (_) {
+            window.prompt('Salin link konsep ini:', url);
+        }
+    });
+
+    /* ---------- muat konsep dari link ---------- */
+    const syncControls = () => {
+        const pick = (name, val) => {
+            const group = $(`[data-group="${name}"]`);
+            const btn = group && $$('[role="radio"]', group).find((b) => b.dataset.value.toLowerCase() === String(val).toLowerCase());
+            if (group && btn) setChecked(group, btn);
+            return btn;
+        };
+        pick('niche', state.niche);
+        pick('style', state.style);
+        const sw = pick('color', state.color);
+        if (sw) state.colorName = sw.dataset.name || state.colorName;
+        $$('.bd-feat').forEach((b) => b.setAttribute('aria-pressed', String(state.feats.has(b.dataset.feat))));
+        pv.dataset.style = state.style;
+        pv.style.setProperty('--a', state.color);
+    };
+    const loadFromQuery = () => {
+        let q;
+        try { q = new URLSearchParams(window.location.search); } catch (_) { return false; }
+        if (!q.has('n') && !q.has('f')) return false;
+        const n = q.get('n'), s = q.get('s'), c = (q.get('c') || '').toLowerCase();
+        if (n && COPY[n]) state.niche = n;
+        if (s && ['bersih', 'tegas', 'ramah'].includes(s)) state.style = s;
+        if (/^[0-9a-f]{6}$/.test(c) && $$('.bd-swatch').some((b) => b.dataset.value.toLowerCase() === '#' + c)) state.color = '#' + c;
+        if (q.has('f')) state.feats = new Set(q.get('f').split('.').filter((k) => FEAT_LABEL[k]));
+        const o = (q.get('o') || '').split('.').filter((k) => state.order.includes(k));
+        if (o.length) state.order = [...new Set([...o, ...state.order])];
+        return true;
+    };
+    const fromLink = loadFromQuery();
+    if (fromLink) syncControls();
+    applyOrder();
+    setupGrips();
 
     /* ---------- init ---------- */
     applyCopy(false);
