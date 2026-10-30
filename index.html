@@ -81,6 +81,7 @@
     </script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="fx.css">
+    <link rel="stylesheet" href="builder.css">
 </head>
 <body>
 
@@ -144,6 +145,7 @@
                 <div class="nav-actions">
                     <ul class="nav-links" id="main-nav-links">
                         <li><a href="#home" class="nav-link active">Home</a></li>
+                        <li><a href="#builder" class="nav-link">Rakit</a></li>
                         <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
                         <li><a href="#services" class="nav-link">Services</a></li>
                         <li><a href="#pricing" class="nav-link">Pricing</a></li>
@@ -248,6 +250,104 @@
                             <div class="stat-card">
                                 <h2 class="stat-number-text">Responsive</h2>
                                 <p class="stat-label">Nyaman di HP, tablet & laptop</p>
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <section id="builder" class="bd-section" aria-labelledby="bd-title">
+                        <div class="container">
+                            <div class="section-header">
+                                <h2 id="bd-title">Rakit websitemu <span>di sini</span></h2>
+                                <p>Pilih jenis usaha, gaya, warna, dan fitur. Pratinjau dibangun langsung di sebelahnya, dan paket yang cocok ikut menyesuaikan.</p>
+                            </div>
+
+                            <div class="bd-grid">
+                                <div class="bd-controls">
+                                    <div class="bd-group" role="group" aria-labelledby="bd-l-niche">
+                                        <p class="bd-label" id="bd-l-niche">Jenis usaha</p>
+                                        <div class="bd-opts" role="radiogroup" aria-labelledby="bd-l-niche" data-group="niche">
+<button type="button" class="bd-opt" role="radio" aria-checked="true" data-value="kuliner" tabindex="0">Kuliner</button>
+<button type="button" class="bd-opt" role="radio" aria-checked="false" data-value="fashion" tabindex="-1">Fashion</button>
+<button type="button" class="bd-opt" role="radio" aria-checked="false" data-value="jasa" tabindex="-1">Jasa foto</button>
+                                        </div>
+                                    </div>
+                                    <div class="bd-group" role="group" aria-labelledby="bd-l-style">
+                                        <p class="bd-label" id="bd-l-style">Gaya tampilan</p>
+                                        <div class="bd-opts" role="radiogroup" aria-labelledby="bd-l-style" data-group="style">
+<button type="button" class="bd-opt" role="radio" aria-checked="true" data-value="bersih" tabindex="0">Bersih</button>
+<button type="button" class="bd-opt" role="radio" aria-checked="false" data-value="tegas" tabindex="-1">Tegas</button>
+<button type="button" class="bd-opt" role="radio" aria-checked="false" data-value="ramah" tabindex="-1">Ramah</button>
+                                        </div>
+                                    </div>
+                                    <div class="bd-group" role="group" aria-labelledby="bd-l-color">
+                                        <p class="bd-label" id="bd-l-color">Warna utama</p>
+                                        <div class="bd-opts" role="radiogroup" aria-labelledby="bd-l-color" data-group="color">
+<button type="button" class="bd-swatch" role="radio" aria-checked="true" aria-label="Biru" title="Biru" data-value="#1EA4FF" data-name="Biru" tabindex="0" style="--sw:#1EA4FF"></button>
+<button type="button" class="bd-swatch" role="radio" aria-checked="false" aria-label="Hijau" title="Hijau" data-value="#22c55e" data-name="Hijau" tabindex="-1" style="--sw:#22c55e"></button>
+<button type="button" class="bd-swatch" role="radio" aria-checked="false" aria-label="Oranye" title="Oranye" data-value="#f97316" data-name="Oranye" tabindex="-1" style="--sw:#f97316"></button>
+<button type="button" class="bd-swatch" role="radio" aria-checked="false" aria-label="Pink" title="Pink" data-value="#F23FA8" data-name="Pink" tabindex="-1" style="--sw:#F23FA8"></button>
+<button type="button" class="bd-swatch" role="radio" aria-checked="false" aria-label="Ungu" title="Ungu" data-value="#6F3DFF" data-name="Ungu" tabindex="-1" style="--sw:#6F3DFF"></button>
+                                        </div>
+                                    </div>
+                                    <div class="bd-group" role="group" aria-labelledby="bd-l-feat">
+                                        <p class="bd-label" id="bd-l-feat">Fitur (boleh pilih lebih dari satu)</p>
+                                        <div class="bd-opts" data-group="feat">
+<button type="button" class="bd-opt bd-feat" aria-pressed="true" data-feat="wa">Tombol WhatsApp</button>
+<button type="button" class="bd-opt bd-feat" aria-pressed="true" data-feat="katalog">Katalog produk</button>
+<button type="button" class="bd-opt bd-feat" aria-pressed="false" data-feat="booking">Form pemesanan</button>
+<button type="button" class="bd-opt bd-feat" aria-pressed="false" data-feat="galeri">Galeri foto</button>
+<button type="button" class="bd-opt bd-feat" aria-pressed="false" data-feat="peta">Peta lokasi</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bd-stage">
+                                    <div class="bd-browser" id="bd-preview" data-style="bersih" data-niche="kuliner" role="img" aria-label="Pratinjau website yang sedang kamu rakit">
+                                        <div class="bd-bar"><span></span><span></span><span></span><em id="bd-url">dapurnusa.com</em></div>
+                                        <div class="bd-viewport">
+                                            <div class="bd-site" id="bd-site">
+                                                <div class="bd-nav"><b data-t="brand"></b><span>Beranda</span><span>Tentang</span><span>Kontak</span><i class="bd-pill" data-t="cta"></i></div>
+                                                <div class="bd-hero">
+                                                    <div class="bd-copy">
+                                                        <h3 data-t="title"></h3>
+                                                        <p data-t="sub"></p>
+                                                        <div class="bd-btns"><i class="bd-pill" data-t="cta"></i><i class="bd-ghost">Lihat selengkapnya</i></div>
+                                                    </div>
+                                                    <div class="bd-art"><i></i><i></i><i></i></div>
+                                                </div>
+                                                <div class="bd-block" data-block="katalog"><div class="bd-inner"><div class="bd-pad">
+                                                    <h4 data-t="cat"></h4>
+                                                    <div class="bd-cards"><div class="bd-card"><div class="bd-thumb"></div><b data-t="item1"></b><small data-t="price1"></small></div><div class="bd-card"><div class="bd-thumb"></div><b data-t="item2"></b><small data-t="price2"></small></div><div class="bd-card"><div class="bd-thumb"></div><b data-t="item3"></b><small data-t="price3"></small></div></div>
+                                                </div></div></div>
+                                                <div class="bd-block" data-block="booking"><div class="bd-inner"><div class="bd-pad">
+                                                    <h4 data-t="book"></h4>
+                                                    <div class="bd-form"><span>Nama lengkap</span><span>Tanggal</span><i class="bd-pill" data-t="cta"></i></div>
+                                                </div></div></div>
+                                                <div class="bd-block" data-block="galeri"><div class="bd-inner"><div class="bd-pad">
+                                                    <h4 data-t="gal"></h4>
+                                                    <div class="bd-gallery"><i></i><i></i><i></i><i></i></div>
+                                                </div></div></div>
+                                                <div class="bd-block" data-block="peta"><div class="bd-inner"><div class="bd-pad">
+                                                    <h4>Lokasi</h4>
+                                                    <div class="bd-map"><i class="bd-pin"></i><span data-t="map"></span></div>
+                                                </div></div></div>
+                                                <div class="bd-foot"><span data-t="brand"></span><span>© 2026</span></div>
+                                            </div>
+                                            <a class="bd-wa" data-block="wa" aria-hidden="true" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/></svg></a>
+                                        </div>
+                                    </div>
+
+                                    <div class="bd-summary">
+                                        <div class="bd-sum-text">
+                                            <small id="bd-count">2 fitur dipilih</small>
+                                            <strong id="bd-pkg">Landing Page Professional</strong>
+                                            <span id="bd-price">mulai Rp1.500.000</span>
+                                        </div>
+                                        <button type="button" class="btn btn-primary" id="bd-order">Pesan konsep ini</button>
+                                    </div>
+                                    <p class="bd-note" role="status" aria-live="polite">Harga final dikonfirmasi lewat WhatsApp sebelum pembayaran.</p>
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -1489,5 +1589,6 @@
 
     <script src="script.js"></script>
     <script src="fx.js"></script>
+    <script src="builder.js"></script>
 </body>
 </html>
